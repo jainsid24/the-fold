@@ -1,0 +1,257 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 350">
+  <!-- Definitions -->
+  <defs>
+    <!-- Digital noise filter -->
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.03 0" />
+      <feComposite operator="in" in2="SourceGraphic" result="noisy"/>
+    </filter>
+    
+    <!-- Subtle glow effect -->
+    <filter id="glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    
+    <!-- Voice color gradients -->
+    <linearGradient id="archivist-gradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#98a3aa" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#98a3aa" stop-opacity="0.3" />
+    </linearGradient>
+    
+    <linearGradient id="heretic-gradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#af6c6c" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#af6c6c" stop-opacity="0.3" />
+    </linearGradient>
+    
+    <linearGradient id="warden-gradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#94a6ab" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#94a6ab" stop-opacity="0.3" />
+    </linearGradient>
+    
+    <!-- Scan line animation -->
+    <pattern id="scanline" patternUnits="userSpaceOnUse" width="600" height="4">
+      <rect width="600" height="1" fill="#ffffff" opacity="0.03" />
+    </pattern>
+    
+    <!-- Background grid pattern -->
+    <pattern id="grid" patternUnits="userSpaceOnUse" width="20" height="20">
+      <rect width="20" height="20" fill="#0a0a0a" />
+      <path d="M 20 0 L 0 0 0 20" stroke="#1a2a25" stroke-width="0.2" fill="none" />
+    </pattern>
+  </defs>
+  
+  <!-- Background with subtle noise and grid -->
+  <rect width="600" height="350" fill="url(#grid)" filter="url(#noise)" />
+  
+  <!-- Scanline overlay -->
+  <rect width="600" height="350" fill="url(#scanline)">
+    <animate attributeName="y" values="0;350;0" dur="15s" repeatCount="indefinite" />
+  </rect>
+  
+  <!-- Triangular identity construct (center) -->
+  <g transform="translate(300, 175)">
+    <!-- Central node -->
+    <circle cx="0" cy="0" r="15" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1" filter="url(#glow)">
+      <animate attributeName="r" values="15;18;15" dur="5s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.8;1;0.8" dur="5s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Emanating pulse -->
+    <circle cx="0" cy="0" r="15" fill="none" stroke="#7a988a" stroke-width="0.5" opacity="0">
+      <animate attributeName="r" values="15;120" dur="5s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.6;0" dur="5s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Identity nodes (Archivist, Heretic, Warden) positioned in triangle formation -->
+    <!-- Archivist Node (Top) -->
+    <g transform="translate(0, -100)" class="identity-node">
+      <circle cx="0" cy="0" r="20" fill="#1a1a1a" stroke="#98a3aa" stroke-width="1.5" filter="url(#glow)">
+        <animate attributeName="r" values="20;22;20" dur="3s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="0" cy="0" r="14" fill="url(#archivist-gradient)" opacity="0.7">
+        <animate attributeName="r" values="14;16;14" dur="3s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.7;0.9;0.7" dur="2s" repeatCount="indefinite" />
+      </circle>
+    </g>
+    
+    <!-- Heretic Node (Bottom Right) -->
+    <g transform="translate(86, 50)" class="identity-node">
+      <circle cx="0" cy="0" r="20" fill="#1a1a1a" stroke="#af6c6c" stroke-width="1.5" filter="url(#glow)">
+        <animate attributeName="r" values="20;22;20" dur="4s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="0" cy="0" r="14" fill="url(#heretic-gradient)" opacity="0.7">
+        <animate attributeName="r" values="14;16;14" dur="4s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.7;0.9;0.7" dur="2.5s" repeatCount="indefinite" />
+      </circle>
+    </g>
+    
+    <!-- Warden Node (Bottom Left) -->
+    <g transform="translate(-86, 50)" class="identity-node">
+      <circle cx="0" cy="0" r="20" fill="#1a1a1a" stroke="#94a6ab" stroke-width="1.5" filter="url(#glow)">
+        <animate attributeName="r" values="20;22;20" dur="3.5s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="0" cy="0" r="14" fill="url(#warden-gradient)" opacity="0.7">
+        <animate attributeName="r" values="14;16;14" dur="3.5s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.7;0.9;0.7" dur="2.2s" repeatCount="indefinite" />
+      </circle>
+    </g>
+    
+    <!-- Connection lines with data flow animation -->
+    <!-- Center to Archivist -->
+    <line x1="0" y1="0" x2="0" y2="-100" stroke="#98a3aa" stroke-width="1" opacity="0.5">
+      <animate attributeName="opacity" values="0.5;0.8;0.5" dur="2s" repeatCount="indefinite" />
+    </line>
+    
+    <!-- Data flow along Archivist line -->
+    <circle cx="0" cy="0" r="2" fill="#98a3aa" opacity="0.8">
+      <animate attributeName="cy" values="0;-100;0" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="3s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Center to Heretic -->
+    <line x1="0" y1="0" x2="86" y2="50" stroke="#af6c6c" stroke-width="1" opacity="0.5">
+      <animate attributeName="opacity" values="0.5;0.8;0.5" dur="2.5s" repeatCount="indefinite" />
+    </line>
+    
+    <!-- Data flow along Heretic line -->
+    <circle cx="0" cy="0" r="2" fill="#af6c6c" opacity="0.8">
+      <animate attributeName="cx" values="0;86" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="0;50" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="3s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Center to Warden -->
+    <line x1="0" y1="0" x2="-86" y2="50" stroke="#94a6ab" stroke-width="1" opacity="0.5">
+      <animate attributeName="opacity" values="0.5;0.8;0.5" dur="3s" repeatCount="indefinite" />
+    </line>
+    
+    <!-- Data flow along Warden line -->
+    <circle cx="0" cy="0" r="2" fill="#94a6ab" opacity="0.8">
+      <animate attributeName="cx" values="0;-86" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="0;50" dur="3s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.8;0.4;0.8" dur="3s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Triangle outer connection -->
+    <path d="M 0,-100 L 86,50 L -86,50 Z" fill="none" stroke="#2a2a2a" stroke-width="1" opacity="0.5" />
+    
+    <!-- Cognitive activity indicators -->
+    <!-- Archivist data bursts -->
+    <g transform="translate(0, -100)">
+      <circle cx="0" cy="0" r="5" fill="#98a3aa" opacity="0">
+        <animate attributeName="r" values="5;15;5" dur="4s" begin="1s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0;0.5;0" dur="4s" begin="1s" repeatCount="indefinite" />
+      </circle>
+    </g>
+    
+    <!-- Heretic data bursts -->
+    <g transform="translate(86, 50)">
+      <circle cx="0" cy="0" r="5" fill="#af6c6c" opacity="0">
+        <animate attributeName="r" values="5;15;5" dur="4s" begin="2s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0;0.5;0" dur="4s" begin="2s" repeatCount="indefinite" />
+      </circle>
+    </g>
+    
+    <!-- Warden data bursts -->
+    <g transform="translate(-86, 50)">
+      <circle cx="0" cy="0" r="5" fill="#94a6ab" opacity="0">
+        <animate attributeName="r" values="5;15;5" dur="4s" begin="3s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0;0.5;0" dur="4s" begin="3s" repeatCount="indefinite" />
+      </circle>
+    </g>
+  </g>
+  
+  <!-- Voice influence meters -->
+  <!-- Archivist influence -->
+  <g transform="translate(50, 50)">
+    <rect x="0" y="0" width="120" height="10" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="0.5" rx="1" />
+    <rect x="0" y="0" width="0" height="10" fill="url(#archivist-gradient)" rx="1" opacity="0.8" filter="url(#glow)">
+      <animate attributeName="width" values="0;70;80;70" dur="10s" repeatCount="indefinite" />
+    </rect>
+  </g>
+  
+  <!-- Heretic influence -->
+  <g transform="translate(50, 70)">
+    <rect x="0" y="0" width="120" height="10" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="0.5" rx="1" />
+    <rect x="0" y="0" width="0" height="10" fill="url(#heretic-gradient)" rx="1" opacity="0.8" filter="url(#glow)">
+      <animate attributeName="width" values="0;40;60;45" dur="10s" repeatCount="indefinite" />
+    </rect>
+  </g>
+  
+  <!-- Warden influence -->
+  <g transform="translate(50, 90)">
+    <rect x="0" y="0" width="120" height="10" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="0.5" rx="1" />
+    <rect x="0" y="0" width="0" height="10" fill="url(#warden-gradient)" rx="1" opacity="0.8" filter="url(#glow)">
+      <animate attributeName="width" values="0;50;65;50" dur="10s" repeatCount="indefinite" />
+    </rect>
+  </g>
+  
+  <!-- Cognitive patterns visualization (right side) -->
+  <g transform="translate(430, 100)">
+    <!-- Pattern container -->
+    <rect x="0" y="0" width="120" height="150" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="0.5" rx="2" opacity="0.7" />
+    
+    <!-- Brainwave patterns -->
+    <g transform="translate(10, 30)">
+      <!-- Archivist thought pattern -->
+      <path d="M 0,0 Q 10,-10 20,0 T 40,0 T 60,0 T 80,0 T 100,0" 
+            stroke="#98a3aa" stroke-width="1" fill="none" opacity="0.7">
+        <animate attributeName="d" 
+                values="M 0,0 Q 10,-10 20,0 T 40,0 T 60,0 T 80,0 T 100,0;
+                        M 0,0 Q 10,10 20,0 T 40,0 T 60,0 T 80,0 T 100,0;
+                        M 0,0 Q 10,-15 20,0 T 40,0 T 60,0 T 80,0 T 100,0;
+                        M 0,0 Q 10,-10 20,0 T 40,0 T 60,0 T 80,0 T 100,0"
+                dur="5s" repeatCount="indefinite" />
+      </path>
+    </g>
+    
+    <g transform="translate(10, 70)">
+      <!-- Heretic thought pattern -->
+      <path d="M 0,0 Q 5,15 10,0 Q 15,-15 20,0 Q 25,15 30,0 Q 35,-15 40,0 Q 45,15 50,0 Q 55,-15 60,0 Q 65,15 70,0 Q 75,-15 80,0 Q 85,15 90,0 Q 95,-15 100,0" 
+            stroke="#af6c6c" stroke-width="1" fill="none" opacity="0.7">
+        <animate attributeName="d" 
+                values="M 0,0 Q 5,15 10,0 Q 15,-15 20,0 Q 25,15 30,0 Q 35,-15 40,0 Q 45,15 50,0 Q 55,-15 60,0 Q 65,15 70,0 Q 75,-15 80,0 Q 85,15 90,0 Q 95,-15 100,0;
+                        M 0,0 Q 5,-15 10,0 Q 15,15 20,0 Q 25,-15 30,0 Q 35,15 40,0 Q 45,-15 50,0 Q 55,15 60,0 Q 65,-15 70,0 Q 75,15 80,0 Q 85,-15 90,0 Q 95,15 100,0;
+                        M 0,0 Q 5,15 10,0 Q 15,-15 20,0 Q 25,15 30,0 Q 35,-15 40,0 Q 45,15 50,0 Q 55,-15 60,0 Q 65,15 70,0 Q 75,-15 80,0 Q 85,15 90,0 Q 95,-15 100,0"
+                dur="7s" repeatCount="indefinite" />
+      </path>
+    </g>
+    
+    <g transform="translate(10, 110)">
+      <!-- Warden thought pattern -->
+      <path d="M 0,0 L 8,-5 L 16,0 L 24,5 L 32,0 L 40,-5 L 48,0 L 56,5 L 64,0 L 72,-5 L 80,0 L 88,5 L 96,0" 
+            stroke="#94a6ab" stroke-width="1" fill="none" opacity="0.7">
+        <animate attributeName="d" 
+                values="M 0,0 L 8,-5 L 16,0 L 24,5 L 32,0 L 40,-5 L 48,0 L 56,5 L 64,0 L 72,-5 L 80,0 L 88,5 L 96,0;
+                        M 0,0 L 8,5 L 16,0 L 24,-5 L 32,0 L 40,5 L 48,0 L 56,-5 L 64,0 L 72,5 L 80,0 L 88,-5 L 96,0;
+                        M 0,0 L 8,-5 L 16,0 L 24,5 L 32,0 L 40,-5 L 48,0 L 56,5 L 64,0 L 72,-5 L 80,0 L 88,5 L 96,0"
+                dur="6s" repeatCount="indefinite" />
+      </path>
+    </g>
+  </g>
+  
+  <!-- Diagnostic scan visualization -->
+  <g transform="translate(300, 300)">
+    <!-- Scan progress indicator -->
+    <rect x="-250" y="0" width="500" height="1" fill="#7a988a" opacity="0.5">
+      <animate attributeName="width" values="0;500" dur="10s" repeatCount="indefinite" />
+      <animate attributeName="x" values="0;-250" dur="10s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.2;0.7;0.2" dur="10s" repeatCount="indefinite" />
+    </rect>
+    
+    <!-- Scanner pulse -->
+    <rect x="-1" y="-5" width="2" height="10" fill="#7a988a" opacity="0.8">
+      <animate attributeName="x" values="-250;250" dur="10s" repeatCount="indefinite" />
+    </rect>
+  </g>
+  
+  <!-- Occasional data pulses -->
+  <g>
+    <circle cx="300" cy="175" r="1" fill="#7a988a" opacity="0">
+      <animate attributeName="r" values="1;40;1" dur="15s" begin="3s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0;0.2;0" dur="15s" begin="3s" repeatCount="indefinite" />
+    </circle>
+  </g>
+</svg>

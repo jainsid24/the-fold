@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <!-- Definitions -->
+  <defs>
+    <!-- Digital noise filter -->
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.03 0" />
+      <feComposite operator="in" in2="SourceGraphic" result="noisy"/>
+    </filter>
+    
+    <!-- Subtle glow for UI elements -->
+    <filter id="ui-glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    
+    <!-- Option highlight -->
+    <filter id="option-highlight" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    
+    <!-- System pulse gradient -->
+    <radialGradient id="system-pulse" cx="0.5" cy="0.5" r="0.6" fx="0.5" fy="0.5">
+      <stop offset="0%" stop-color="#7a988a" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#7a988a" stop-opacity="0" />
+      <animate attributeName="fx" values="0.5;0.45;0.5;0.55;0.5" dur="15s" repeatCount="indefinite" />
+      <animate attributeName="fy" values="0.5;0.55;0.5;0.45;0.5" dur="13s" repeatCount="indefinite" />
+    </radialGradient>
+    
+    <!-- Terminal gradient -->
+    <linearGradient id="terminal-gradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f1510" stop-opacity="1" />
+      <stop offset="100%" stop-color="#0a0f0a" stop-opacity="1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background with subtle noise -->
+  <rect width="600" height="400" fill="#0a0a0a" filter="url(#noise)" />
+  
+  <!-- System pulse -->
+  <circle cx="300" cy="200" r="180" fill="url(#system-pulse)">
+    <animate attributeName="opacity" values="1;0.7;1" dur="10s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Central hub node -->
+  <g transform="translate(300,200)" filter="url(#ui-glow)">
+    <!-- Hub outline -->
+    <circle cx="0" cy="0" r="40" fill="none" stroke="#7a988a" stroke-width="1" opacity="0.8">
+      <animate attributeName="r" values="40;42;40" dur="8s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Inner hub elements -->
+    <circle cx="0" cy="0" r="25" fill="none" stroke="#7a988a" stroke-width="0.5" opacity="0.6">
+      <animate attributeName="r" values="25;27;25" dur="6s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Hub center -->
+    <circle cx="0" cy="0" r="10" fill="#7a988a" opacity="0.2">
+      <animate attributeName="opacity" values="0.2;0.4;0.2" dur="4s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Core pulses -->
+    <circle cx="0" cy="0" r="2" fill="#7a988a" opacity="0.8">
+      <animate attributeName="r" values="2;4;2" dur="3s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Option nodes -->
+  <!-- Memory Archive -->
+  <g transform="translate(200,110)" filter="url(#ui-glow)">
+    <circle cx="0" cy="0" r="15" fill="none" stroke="#98a3aa" stroke-width="1" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.9;0.8" dur="8s" repeatCount="indefinite" />
+    </circle>
+    <path d="M-7,-7 L7,-7 L7,7 L-7,7 Z" fill="none" stroke="#98a3aa" stroke-width="0.8" opacity="0.7" />
+    <line x1="-5" y1="-3" x2="5" y2="-3" stroke="#98a3aa" stroke-width="0.6" opacity="0.6" />
+    <line x1="-5" y1="0" x2="5" y2="0" stroke="#98a3aa" stroke-width="0.6" opacity="0.6" />
+    <line x1="-5" y1="3" x2="5" y2="3" stroke="#98a3aa" stroke-width="0.6" opacity="0.6" />
+    <text x="0" y="25" text-anchor="middle" font-family="monospace" font-size="8" fill="#98a3aa" opacity="0.7">MEMORY</text>
+  </g>
+  
+  <!-- Personality Diagnostic -->
+  <g transform="translate(400,110)" filter="url(#ui-glow)">
+    <circle cx="0" cy="0" r="15" fill="none" stroke="#94a6ab" stroke-width="1" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.9;0.8" dur="9s" repeatCount="indefinite" />
+    </circle>
+    <path d="M-5,-8 L5,8 M-5,8 L5,-8" stroke="#94a6ab" stroke-width="0.8" opacity="0.7" />
+    <circle cx="0" cy="0" r="5" fill="none" stroke="#94a6ab" stroke-width="0.6" opacity="0.6" />
+    <text x="0" y="25" text-anchor="middle" font-family="monospace" font-size="8" fill="#94a6ab" opacity="0.7">DIAGNOSTIC</text>
+  </g>
+  
+  <!-- Anomaly Report -->
+  <g transform="translate(200,290)" filter="url(#ui-glow)">
+    <circle cx="0" cy="0" r="15" fill="none" stroke="#af6c6c" stroke-width="1" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.9;0.8" dur="7s" repeatCount="indefinite" />
+    </circle>
+    <path d="M-8,0 L8,0 M0,-8 L0,8" stroke="#af6c6c" stroke-width="0.8" opacity="0.7" />
+    <circle cx="0" cy="0" r="4" fill="#af6c6c" opacity="0.4">
+      <animate attributeName="opacity" values="0.4;0.7;0.4" dur="5s" repeatCount="indefinite" />
+    </circle>
+    <text x="0" y="25" text-anchor="middle" font-family="monospace" font-size="8" fill="#af6c6c" opacity="0.7">ANOMALY</text>
+  </g>
+  
+  <!-- Shut Down -->
+  <g transform="translate(400,290)" filter="url(#ui-glow)">
+    <circle cx="0" cy="0" r="15" fill="none" stroke="#7a988a" stroke-width="1" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.9;0.8" dur="10s" repeatCount="indefinite" />
+    </circle>
+    <path d="M0,-5 L0,5" stroke="#7a988a" stroke-width="2" opacity="0.7" />
+    <circle cx="0" cy="0" r="8" fill="none" stroke="#7a988a" stroke-width="0.8" opacity="0.6" stroke-dasharray="2,2">
+      <animate attributeName="stroke-dasharray" values="2,2;3,1;2,2" dur="20s" repeatCount="indefinite" />
+    </circle>
+    <text x="0" y="25" text-anchor="middle" font-family="monospace" font-size="8" fill="#7a988a" opacity="0.7">SHUTDOWN</text>
+  </g>
+  
+  <!-- Connection lines -->
+  <g stroke="#7a988a" stroke-width="0.5" opacity="0.3">
+    <!-- Memory Archive connection -->
+    <path d="M300,200 L200,110">
+      <animate attributeName="opacity" values="0.3;0.5;0.3" dur="15s" repeatCount="indefinite" />
+    </path>
+    <!-- Personality Diagnostic connection -->
+    <path d="M300,200 L400,110">
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="18s" repeatCount="indefinite" />
+    </path>
+    <!-- Anomaly Report connection -->
+    <path d="M300,200 L200,290">
+      <animate attributeName="opacity" values="0.3;0.5;0.3" dur="12s" repeatCount="indefinite" />
+    </path>
+    <!-- Shut Down connection -->
+    <path d="M300,200 L400,290">
+      <animate attributeName="opacity" values="0.3;0.4;0.3" dur="20s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Data flow particles -->
+  <g id="data-flow">
+    <!-- To Memory Archive -->
+    <circle cx="300" cy="200" r="1" fill="#98a3aa" opacity="0.7">
+      <animate attributeName="cx" values="300;270;240;200" dur="4s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="200;180;150;110" dur="4s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.7;0.5;0.7" dur="4s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- To Personality Diagnostic -->
+    <circle cx="300" cy="200" r="0.8" fill="#94a6ab" opacity="0.7">
+      <animate attributeName="cx" values="300;330;370;400" dur="5s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="200;180;140;110" dur="5s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.7;0.3;0.7" dur="5s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- To Anomaly Report -->
+    <circle cx="300" cy="200" r="0.8" fill="#af6c6c" opacity="0.7">
+      <animate attributeName="cx" values="300;270;230;200" dur="4.5s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="200;220;260;290" dur="4.5s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.7;0.4;0.7" dur="4.5s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- To Shut Down -->
+    <circle cx="300" cy="200" r="1" fill="#7a988a" opacity="0.7">
+      <animate attributeName="cx" values="300;330;370;400" dur="6s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="200;230;260;290" dur="6s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.7;0.3;0.7" dur="6s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- System watchpoint indicator -->
+  <circle cx="490" cy="30" r="5" fill="none" stroke="#af6c6c" stroke-width="0.8" opacity="0.5">
+    <animate attributeName="opacity" values="0.5;0.8;0.5" dur="3s" repeatCount="indefinite" />
+  </circle>
+  <circle cx="490" cy="30" r="2" fill="#af6c6c" opacity="0.7" />
+  
+  <!-- Very subtle scan line -->
+  <rect x="0" y="0" width="600" height="1" fill="#ffffff" opacity="0.02">
+    <animate attributeName="y" values="0;400;0" dur="20s" repeatCount="indefinite" />
+  </rect>
+</svg>

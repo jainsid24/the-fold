@@ -1,0 +1,293 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <!-- Definitions -->
+  <defs>
+    <!-- Filter for the memory corruption effect -->
+    <filter id="memoryDistortion" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" seed="5" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    
+    <!-- Glitch filter for corrupted elements -->
+    <filter id="glitchEffect" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="1" seed="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    
+    <!-- Glow effect for the memory lines -->
+    <filter id="memoryGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    
+    <!-- Enhanced Gradient for memory line 1 - synchronized with scan line -->
+    <linearGradient id="memoryGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7a988a" stop-opacity="0.1"/>
+      <stop offset="50%" stop-color="#7a988a" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#7a988a" stop-opacity="0.1"/>
+      <animate attributeName="x1" values="0%;20%;0%" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="100%;80%;100%" dur="30s" repeatCount="indefinite"/>
+    </linearGradient>
+    
+    <!-- Enhanced Gradient for memory line 2 - synchronized with scan line -->
+    <linearGradient id="memoryGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#af6c6c" stop-opacity="0.1"/>
+      <stop offset="50%" stop-color="#af6c6c" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#af6c6c" stop-opacity="0.1"/>
+      <animate attributeName="x1" values="100%;80%;100%" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="x2" values="0%;20%;0%" dur="30s" repeatCount="indefinite"/>
+    </linearGradient>
+    
+    <!-- New pulsing gradient -->
+    <radialGradient id="pulseGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" stop-color="#7a988a" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#7a988a" stop-opacity="0"/>
+      <animate attributeName="r" values="50%;70%;50%" dur="15s" repeatCount="indefinite"/>
+    </radialGradient>
+    
+    <!-- Scan line pattern -->
+    <pattern id="scanLines" patternUnits="userSpaceOnUse" width="800" height="4" patternTransform="rotate(0)">
+      <line x1="0" y1="0" x2="800" y2="0" stroke="#7a988a" stroke-width="1" opacity="0.03"/>
+    </pattern>
+  </defs>
+  
+  <!-- Subtle background pattern suggesting file structure -->
+  <g opacity="0.04">
+    <path d="M100,0 v600 M200,0 v600 M300,0 v600 M400,0 v600 M500,0 v600 M600,0 v600 M700,0 v600" stroke="#333" stroke-width="0.5"/>
+    <path d="M0,100 h800 M0,200 h800 M0,300 h800 M0,400 h800 M0,500 h800" stroke="#333" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Scan lines background -->
+  <rect width="800" height="600" fill="url(#scanLines)" opacity="0.3" />
+    
+  <!-- Moving scan line - this is the main timing element that others synchronize with -->
+  <rect x="0" y="0" width="800" height="2" fill="#7a988a" opacity="0.05">
+    <animate attributeName="y" values="0;600;0" dur="30s" repeatCount="indefinite" id="scanAnimation"/>
+    <animate attributeName="opacity" values="0.05;0.15;0.05" dur="30s" repeatCount="indefinite"/>
+    <animate attributeName="height" values="2;3;1;2" dur="30s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Container frame that opens but is empty -->
+  <g>
+    <!-- Empty file container -->
+    <rect x="150" y="100" width="500" height="400" rx="5" ry="5" fill="none" stroke="#ccc" stroke-width="1" opacity="0">
+      <animate attributeName="opacity" values="0;0.7" dur="2s" fill="freeze"/>
+    </rect>
+    
+    <!-- File opening animation -->
+    <rect x="400" y="300" width="0" height="0" rx="5" ry="5" fill="none" stroke="#ccc" stroke-width="1" opacity="0">
+      <animate attributeName="x" values="400;150" dur="1s" fill="freeze"/>
+      <animate attributeName="y" values="300;100" dur="1s" fill="freeze"/>
+      <animate attributeName="width" values="0;500" dur="1s" fill="freeze"/>
+      <animate attributeName="height" values="0;400" dur="1s" fill="freeze"/>
+      <animate attributeName="opacity" values="0.5;0" dur="1s" fill="freeze"/>
+    </rect>
+  </g>
+  
+  <!-- Memory line 1 - green line synchronized with scan line -->
+  <g filter="url(#memoryGlow)" opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="3s" begin="0s" fill="freeze"/>
+    
+    <!-- The main memory line -->
+    <path d="M200,250 H600" stroke="url(#memoryGradient1)" stroke-width="5" fill="none">
+      <!-- Enhanced distortion effect synchronized with scan line -->
+      <animate attributeName="d" 
+               values="M200,250 H600;
+                      M200,245 C300,255 500,240 600,250;
+                      M200,252 C350,247 450,254 600,248;
+                      M200,250 H600" 
+               dur="30s"
+               begin="1s"
+              repeatCount="indefinite"/>
+      
+      <!-- Pulse effect that follows scan line -->
+      <animate attributeName="stroke-width" 
+               values="2;3;4;3;2" 
+               dur="30s"
+               begin="2.9s"
+               repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Corruption artifacts along the line - enhanced and synchronized -->
+    <g opacity="9" filter="url(#glitchEffect)">
+      <path d="M250,250 L270,250" stroke="#7a988a" stroke-width="1" opacity="0">
+        <animate attributeName="opacity" values="0.3;0.8;0.2;0.7;0.3" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="x1" values="250;280;230;260;250" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="x2" values="270;300;250;280;270" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="y1" values="250;248;252;249;250" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="y2" values="250;252;248;251;250" dur="30s" repeatCount="indefinite"/>
+      </path>
+      
+      <path d="M450,250 L480,250" stroke="#7a988a" stroke-width="1" opacity="0">
+        <animate attributeName="opacity" values="0.3;0.9;0.1;0.7;0.3" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="x1" values="450;430;470;440;450" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="x2" values="480;460;500;470;480" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="y1" values="250;252;248;251;250" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="y2" values="250;248;252;249;250" dur="30s" repeatCount="indefinite"/>
+      </path>
+      
+      <path d="M520,250 L550,250" stroke="#7a988a" stroke-width="1" opacity="0">
+        <animate attributeName="opacity" values="0.3;0.6;0.2;0.8;0.3" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="x1" values="520;540;510;530;520" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="x2" values="550;570;540;560;550" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="y1" values="250;248;251;247;250" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="y2" values="250;252;249;253;250" dur="30s" repeatCount="indefinite"/>
+      </path>
+    </g>
+    
+    <!-- New pulsing effect that follows scan line position -->
+    <circle cx="400" cy="250" r="15" fill="url(#pulseGradient)" opacity="0.2">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="15;25;10;20;15" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="cx" values="400;300;500;350;400" dur="30s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Memory line 2 - red line synchronized with scan line -->
+  <g filter="url(#memoryGlow)" opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="3s" begin="2.5s" fill="freeze"/>
+    
+    <!-- The main memory line -->
+    <path d="M200,350 H600" stroke="url(#memoryGradient2)" stroke-width="2" fill="none">
+      <!-- Enhanced distortion pattern synchronized with scan line -->
+      <animate attributeName="d" 
+               values="M200,350 H600;
+                      M200,355 C350,340 450,360 600,350;
+                      M200,348 C300,358 500,343 600,352;
+                      M200,350 H600" 
+               dur="30s" 
+              begin="3.7s"
+              repeatCount="indefinite"/>
+      
+      <!-- Pulse effect that follows scan line -->
+      <animate attributeName="stroke-width" 
+               values="2;4;3;2" 
+               dur="30s" 
+               repeatCount="indefinite"/>
+    </path>
+        
+    <!-- Corruption artifacts along the line - enhanced and synchronized -->
+    <g opacity="0.7" filter="url(#glitchEffect)">
+      <path d="M300,350 L330,350" stroke="#af6c6c" stroke-width="4" opacity="0.3">
+        <animate attributeName="opacity" values="0.3;0.7;0.1;0.6;0.3" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="x1" values="300;280;320;290;300" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="x2" values="330;310;350;320;330" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="y1" values="350;352;348;351;350" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="y2" values="350;348;352;349;350" dur="30s" repeatCount="indefinite"/>
+      </path>
+      
+      <path d="M380,350 L410,350" stroke="#af6c6c" stroke-width="4" opacity="0.3">
+        <animate attributeName="opacity" values="0.3;0.8;0.2;0.7;0.3" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="x1" values="380;400;370;390;380" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="x2" values="410;430;400;420;410" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="y1" values="350;348;351;347;350" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="y2" values="350;352;349;353;350" dur="30s" repeatCount="indefinite"/>
+      </path>
+      
+      <path d="M500,350 L530,350" stroke="#af6c6c" stroke-width="4" opacity="0.3">
+        <animate attributeName="opacity" values="0.3;0.6;0.1;0.8;0.3" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="x1" values="500;480;510;490;500" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="x2" values="530;510;540;520;530" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="y1" values="350;352;349;351;350" dur="30s" repeatCount="indefinite"/>
+        <animate attributeName="y2" values="350;348;351;349;350" dur="30s" repeatCount="indefinite"/>
+      </path>
+    </g>
+    
+    <!-- New pulsing effect that follows scan line position - opposite direction from green line -->
+    <circle cx="400" cy="350" r="15" fill="url(#pulseGradient)" opacity="0.2" style="mix-blend-mode: multiply;">
+      <animate attributeName="opacity" values="0.2;0.6;0.1;0.5;0.2" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="15;20;10;25;15" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="cx" values="400;500;300;450;400" dur="30s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Occasional memory corruption artifacts - synchronized with scan line -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="2s" begin="3s" fill="freeze"/>
+    
+    <!-- Digital artifacts that appear and disappear in sync with scan line -->
+    <rect x="250" y="280" width="20" height="1" fill="#7a988a" opacity="0.4">
+      <animate attributeName="opacity" values="0.4;0.8;0.1;0.7;0.2;0.6;0.4" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="x" values="250;270;220;300;260;240;250" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="width" values="20;30;15;25;10;30;20" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="y" values="280;275;290;270;285;278;280" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="height" values="1;2;1;3;1;2;1" dur="30s" repeatCount="indefinite"/>
+    </rect>
+    
+    <rect x="400" y="320" width="30" height="1" fill="#af6c6c" opacity="0.4">
+      <animate attributeName="opacity" values="0.4;0.1;0.7;0.2;0.6;0.3;0.4" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="x" values="400;380;420;370;410;390;400" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="width" values="30;20;40;25;35;15;30" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="y" values="320;325;315;330;310;322;320" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="height" values="1;2;1;3;1;2;1" dur="30s" repeatCount="indefinite"/>
+    </rect>
+    
+    <rect x="500" y="220" width="15" height="1" fill="#7a988a" opacity="0.4">
+      <animate attributeName="opacity" values="0.4;0.7;0.2;0.8;0.1;0.6;0.4" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="x" values="500;520;480;540;490;510;500" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="width" values="15;25;10;30;20;15;15" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="y" values="220;215;225;210;230;218;220" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="height" values="1;2;1;3;1;2;1" dur="30s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  
+  <!-- Data corruption glitches - enhanced and synchronized with scan line -->
+  <g filter="url(#memoryDistortion)" opacity="0">
+    <animate attributeName="opacity" values="0;0.4" dur="3s" begin="3.5s" fill="freeze"/>
+    
+    <!-- Random blocks of corrupted data with enhanced animations -->
+    <rect x="250" y="200" width="40" height="3" fill="#7a988a" opacity="0.2">
+      <animate attributeName="opacity" values="0.2;0.5;0.1;0.4;0.3;0.2" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="width" values="40;60;30;70;20;50;40" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="x" values="250;230;270;220;260;240;250" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="y" values="200;195;205;190;210;198;200" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="height" values="3;4;2;5;1;3;3" dur="30s" repeatCount="indefinite"/>
+    </rect>
+    
+    <rect x="450" y="400" width="30" height="3" fill="#af6c6c" opacity="0.2">
+      <animate attributeName="opacity" values="0.2;0.1;0.4;0.2;0.5;0.1;0.2" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="width" values="30;50;20;60;10;40;30" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="x" values="450;470;430;480;440;460;450" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="y" values="400;405;395;410;390;402;400" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="height" values="3;2;4;1;5;2;3" dur="30s" repeatCount="indefinite"/>
+    </rect>
+    
+    <rect x="350" y="300" width="20" height="2" fill="#ffffff" opacity="0.1">
+      <animate attributeName="opacity" values="0.1;0.3;0;0.2;0.4;0;0.1" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="width" values="20;10;30;5;40;15;20" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="x" values="350;370;340;380;330;360;350" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="y" values="300;295;305;290;310;298;300" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="height" values="2;3;1;4;2;3;2" dur="30s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  
+  <!-- NEW: Data pulse effect that follows scan line -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0.7" dur="3s" begin="4s" fill="freeze"/>
+    
+    <circle cx="400" cy="300" r="5" fill="none" stroke="#7a988a" stroke-width="1" opacity="0.3">
+      <animate attributeName="cy" values="0;600;0" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="5;15;5;20;5" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.7;0.2;0.6;0.3" dur="30s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle cx="350" cy="300" r="5" fill="none" stroke="#af6c6c" stroke-width="1" opacity="0.3">
+      <animate attributeName="cy" values="600;0;600" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="5;10;5;15;5" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.6;0.1;0.7;0.3" dur="30s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle cx="450" cy="300" r="5" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.1">
+      <animate attributeName="cy" values="300;0;600;300" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="5;8;3;10;5" dur="30s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.1;0.4;0;0.3;0.1" dur="30s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- NEW: Occasional flashing interference effect that syncs with scan line -->
+  <rect x="0" y="0" width="800" height="600" fill="#7a988a" opacity="0">
+    <animate attributeName="opacity" 
+             values="0;0.02;0;0.03;0;0.01;0;0.04;0" 
+             dur="30s" 
+             repeatCount="indefinite"/>
+  </rect>
+</svg>

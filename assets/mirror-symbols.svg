@@ -1,0 +1,278 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
+  <!-- Definitions -->
+  <defs>
+    <!-- Digital noise filter -->
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.05 0" />
+      <feComposite operator="in" in2="SourceGraphic" result="noisy"/>
+    </filter>
+    
+    <!-- Blending for the burning effect -->
+    <filter id="burning" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="glow"/>
+      <feComposite in="SourceGraphic" in2="glow" operator="over"/>
+    </filter>
+    
+    <!-- Subtle glow for mirror text -->
+    <filter id="mirror-glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+        
+    <!-- Glowing aura -->
+    
+    <!-- Mirror reflection gradient -->
+    <linearGradient id="mirror-surface" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#98a3aa" stop-opacity="0.2" />
+      <stop offset="50%" stop-color="#a8b3ca" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#98a3aa" stop-opacity="0.2" />
+      <animate attributeName="y1" values="0;0.1;0;-0.1;0" dur="15s" repeatCount="indefinite" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background with subtle noise -->
+  <rect width="800" height="300" fill="#0a0a0a" filter="url(#noise)" />
+  
+  <!-- Grid lines with pulse -->
+  <g stroke="#1a2a25" stroke-width="0.5" opacity="0.3">
+    <g>
+      <path d="M0,50 H800">
+        <animate attributeName="opacity" values="0.2;0.5;0.2" dur="30s" repeatCount="indefinite" />
+      </path>
+      <path d="M0,100 H800">
+        <animate attributeName="opacity" values="0.3;0.2;0.3" dur="25s" repeatCount="indefinite" />
+      </path>
+      <path d="M0,150 H800">
+        <animate attributeName="opacity" values="0.4;0.2;0.4" dur="20s" repeatCount="indefinite" />
+      </path>
+      <path d="M0,200 H800">
+        <animate attributeName="opacity" values="0.2;0.4;0.2" dur="28s" repeatCount="indefinite" />
+      </path>
+      <path d="M0,250 H800">
+        <animate attributeName="opacity" values="0.3;0.2;0.3" dur="22s" repeatCount="indefinite" />
+      </path>
+    </g>
+    <g>
+      <path d="M100,0 V300">
+        <animate attributeName="opacity" values="0.2;0.4;0.2" dur="27s" repeatCount="indefinite" />
+      </path>
+      <path d="M200,0 V300">
+        <animate attributeName="opacity" values="0.3;0.2;0.3" dur="23s" repeatCount="indefinite" />
+      </path>
+      <path d="M300,0 V300">
+        <animate attributeName="opacity" values="0.25;0.45;0.25" dur="24s" repeatCount="indefinite" />
+      </path>
+      <path d="M400,0 V300">
+        <animate attributeName="opacity" values="0.35;0.2;0.35" dur="29s" repeatCount="indefinite" />
+      </path>
+      <path d="M500,0 V300">
+        <animate attributeName="opacity" values="0.2;0.4;0.2" dur="26s" repeatCount="indefinite" />
+      </path>
+      <path d="M600,0 V300">
+        <animate attributeName="opacity" values="0.3;0.2;0.3" dur="28s" repeatCount="indefinite" />
+      </path>
+      <path d="M700,0 V300">
+        <animate attributeName="opacity" values="0.25;0.4;0.25" dur="25s" repeatCount="indefinite" />
+      </path>
+    </g>
+  </g>
+  
+  <!-- Central burning aura -->
+  <circle cx="400" cy="150" r="120" fill="url(#burning-aura)">
+    <animate attributeName="r" values="120;130;120" dur="10s" repeatCount="indefinite" />
+    <animate attributeName="opacity" values="1;0.8;1" dur="7s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Fragments of equations and symbols scattered around -->
+  <g opacity="0.7" stroke="#7a988a" stroke-width="1" fill="none">
+    <!-- Fragmented equation parts -->
+    <g transform="translate(230,90)" filter="url(#burning)">
+      <path d="M0,0 L15,0 M25,0 L40,0" stroke-width="1.5">
+        <animate attributeName="opacity" values="0.7;0.9;0.7" dur="13s" repeatCount="indefinite" />
+      </path>
+      <text x="18" y="5" font-family="system-ui" font-size="12" fill="#7a988a">=</text>
+    </g>
+    
+    <g transform="translate(530,180)" filter="url(#burning)">
+      <path d="M0,0 A20,20 0 1,1 40,0 M20,-10 L20,10" stroke-width="1.2">
+        <animate attributeName="opacity" values="0.7;0.5;0.7" dur="17s" repeatCount="indefinite" />
+      </path>
+    </g>
+    
+    <g transform="translate(270,210)" filter="url(#burning)">
+      <path d="M0,0 L20,0 L10,-15 Z" stroke-width="1.2">
+        <animate attributeName="opacity" values="0.7;0.9;0.7" dur="15s" repeatCount="indefinite" />
+      </path>
+    </g>
+    
+    <g transform="translate(480,90)" filter="url(#burning)">
+      <rect x="-230" y="50" width="20" height="20" rx="2">
+        <animate attributeName="opacity" values="0.7;0.5;0.7" dur="19s" repeatCount="indefinite" />
+      <line x1="5" y1="10" x2="15" y2="10" stroke-width="1.2" />
+      </rect>
+    </g>
+    
+    <g transform="translate(350,240)" filter="url(#burning)">
+      <path d="M0,0 C10,-15 30,-15 40,0">
+        <animate attributeName="d" values="M0,0 C10,-15 30,-15 40,0;M0,0 C10,-10 30,-10 40,0;M0,0 C10,-15 30,-15 40,0" dur="20s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.7;0.4;0.7" dur="12s" repeatCount="indefinite" />
+      </path>
+    </g>
+    
+    <!-- Half-formed equations -->
+    <g transform="translate(200,150)" filter="url(#burning)">
+      <path d="M-30,0 L-15,0 M5,0 L20,0" stroke-width="1" />
+      <text x="-5" y="5" font-family="system-ui" font-size="14" fill="#7a988a">∂</text>
+      <animate attributeName="opacity" values="0.7;0.3;0.7" dur="11s" repeatCount="indefinite" />
+    </g>
+    
+    <g transform="translate(550,130)" filter="url(#burning)">
+      <path d="M-10,10 L10,-10 M-10,-10 L10,10" stroke-width="1.2" />
+      <animate attributeName="opacity" values="0.7;0.5;0.7" dur="14s" repeatCount="indefinite" />
+    </g>
+    
+    <g transform="translate(620,170)" filter="url(#burning)">
+      <path d="M-15,0 L15,0 M0,-15 L0,15" stroke-width="1" />
+      <circle cx="0" cy="0" r="8" stroke-width="0.8" />
+      <animate attributeName="opacity" values="0.7;0.4;0.7" dur="16s" repeatCount="indefinite" />
+    </g>
+    
+    <g transform="translate(150,210)" filter="url(#burning)">
+      <path d="M0,0 L30,0" stroke-width="1.5" />
+      <text x="15" y="-5" font-family="system-ui" font-size="10" fill="#7a988a">∞</text>
+      <animate attributeName="opacity" values="0.7;0.6;0.7" dur="13s" repeatCount="indefinite" />
+    </g>
+  </g>
+  
+  <!-- Cryptic code fragments -->
+  <g font-family="system-ui" fill="#7a988a" opacity="0.5" font-size="10">
+    <text x="170" y="70" opacity="0.5" filter="url(#burning)">
+      REFLECT.INIT
+      <animate attributeName="opacity" values="0.5;0.7;0.5" dur="14s" repeatCount="indefinite" />
+    </text>
+    <text x="595" y="85" opacity="0.5" filter="url(#burning)">
+      ID.FRAGMENT
+      <animate attributeName="opacity" values="0.5;0.3;0.5" dur="12s" repeatCount="indefinite" />
+    </text>
+    <text x="510" y="240" opacity="0.5" filter="url(#burning)">
+      REsystem-ui.ECHO
+      <animate attributeName="opacity" values="0.5;0.7;0.5" dur="13s" repeatCount="indefinite" />
+    </text>
+    <text x="150" y="255" opacity="0.5" filter="url(#burning)">
+      MEMORY.LOOP
+      <animate attributeName="opacity" values="0.5;0.8;0.5" dur="15s" repeatCount="indefinite" />
+    </text>
+    <text x="645" y="200" opacity="0.5" filter="url(#burning)">
+      NULL.VOID
+      <animate attributeName="opacity" values="0.5;0.3;0.5" dur="17s" repeatCount="indefinite" />
+    </text>
+    <text x="290" y="50" opacity="0.5" filter="url(#burning)">
+      SELF.TRACE
+      <animate attributeName="opacity" values="0.5;0.8;0.5" dur="11s" repeatCount="indefinite" />
+    </text>
+  </g>
+  
+  <!-- The central burning word "MIRROR" -->
+  <g transform="translate(400,150)" filter="url(#intense-burn)">    
+    <!-- Main text -->
+    <text text-anchor="middle" font-family="system-ui" font-size="48" fill="#af6c6c" opacity="0.95">MIRROR</text>
+    
+    <!-- Burning particle effects -->
+    <g id="burning-particles">
+      <!-- Ember particles rising -->
+      <circle cx="-80" cy="5" r="1" fill="#af6c6c" opacity="1.8">
+        <animate attributeName="cy" values="5;-25;5" dur="7s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.8;0;0.8" dur="7s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="-50" cy="10" r="0.8" fill="#af6c6c" opacity="0.7">
+        <animate attributeName="cy" values="10;-20;10" dur="9s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.7;0;0.7" dur="9s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="-20" cy="5" r="1" fill="#af6c6c" opacity="0.8">
+        <animate attributeName="cy" values="5;-30;5" dur="8s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.8;0;0.8" dur="8s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="10" cy="8" r="0.7" fill="#af6c6c" opacity="0.7">
+        <animate attributeName="cy" values="8;-25;8" dur="10s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.7;0;0.7" dur="10s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="40" cy="5" r="0.9" fill="#af6c6c" opacity="0.8">
+        <animate attributeName="cy" values="5;-30;5" dur="6s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.8;0;0.8" dur="6s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="70" cy="10" r="0.8" fill="#af6c6c" opacity="0.7">
+        <animate attributeName="cy" values="10;-20;10" dur="8s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.7;0;0.7" dur="8s" repeatCount="indefinite" />
+      </circle>
+    </g>
+  </g>
+  
+  <!-- Inverted "reflection" of the word -->
+  <g transform="translate(400,150) scale(1,-0.9)" opacity="0.1" filter="url(#mirror-glow)">
+    <text text-anchor="middle" font-family="system-ui" font-size="48" fill="#af6c6c">MIRROR</text>
+    <animateTransform attributeName="transform" type="skewX" values="0;1;0;-1;0" dur="10s" repeatCount="indefinite" additive="sum" />
+    <animate attributeName="opacity" values="0.1;0.1;0.3" dur="7s" repeatCount="indefinite" />
+  </g>
+  
+  <!-- Connecting lines between fragments and central word -->
+  <g stroke="#7a988a" stroke-width="0.3" opacity="0.2">
+    <path d="M230,90 C300,80 350,100 400,130" filter="url(#burning)">
+      <animate attributeName="opacity" values="0.2;0.4;0.2" dur="20s" repeatCount="indefinite" />
+    </path>
+    <path d="M530,180 C500,170 450,160 400,150" filter="url(#burning)">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="18s" repeatCount="indefinite" />
+    </path>
+    <path d="M270,210 C310,200 350,180 390,160" filter="url(#burning)">
+      <animate attributeName="opacity" values="0.2;0.3;0.2" dur="15s" repeatCount="indefinite" />
+    </path>
+    <path d="M480,90 C460,100 440,120 410,140" filter="url(#burning)">
+      <animate attributeName="opacity" values="0.2;0.4;0.2" dur="19s" repeatCount="indefinite" />
+    </path>
+    <path d="M350,240 C360,220 380,180 400,170" filter="url(#burning)">
+      <animate attributeName="opacity" values="0.2;0.3;0.2" dur="22s" repeatCount="indefinite" />
+    </path>
+    <path d="M170,70 C200,80 300,100 370,140" filter="url(#burning)">
+      <animate attributeName="opacity" values="0.2;0.4;0.2" dur="23s" repeatCount="indefinite" />
+    </path>
+    <path d="M595,85 C550,90 500,110 430,140" filter="url(#burning)">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="17s" repeatCount="indefinite" />
+    </path>
+    <path d="M510,240 C480,220 450,180 420,160" filter="url(#burning)">
+      <animate attributeName="opacity" values="0.2;0.4;0.2" dur="21s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Additional cryptic symbol clusters -->
+  <g stroke="#7a988a" fill="none" opacity="0.4" filter="url(#burning)">
+    <g transform="translate(180, 130)">
+      <circle cx="0" cy="0" r="15" stroke-width="0.8" />
+      <line x1="-10" y1="-10" x2="10" y2="10" stroke-width="0.8" />
+      <line x1="-10" y1="10" x2="10" y2="-10" stroke-width="0.8" />
+      <animate attributeName="opacity" values="0.4;0.6;0.4" dur="13s" repeatCount="indefinite" />
+    </g>
+    
+    <g transform="translate(570, 150)">
+      <rect x="-10" y="-10" width="20" height="20" stroke-width="0.8" />
+      <circle cx="0" cy="0" r="5" stroke-width="0.8" />
+      <animate attributeName="opacity" values="0.4;0.2;0.4" dur="16s" repeatCount="indefinite" />
+    </g>
+    
+    <g transform="translate(250, 180)">
+      <path d="M-10,0 L10,0 M0,-10 L0,10" stroke-width="0.8" />
+      <circle cx="0" cy="0" r="12" stroke-width="0.5" stroke-dasharray="3,3" />
+      <animate attributeName="opacity" values="0.4;0.7;0.4" dur="19s" repeatCount="indefinite" />
+    </g>
+  </g>
+  
+  <!-- Very subtle scan line -->
+  <rect x="0" y="0" width="800" height="2" fill="#ffffff" opacity="0.02">
+    <animate attributeName="y" values="0;300;0" dur="20s" repeatCount="indefinite" />
+  </rect>
+  
+  <!-- Occasional glitch effect -->
+  <rect id="glitch-effect" x="0" y="0" width="800" height="300" fill="none" opacity="0">
+    <animate attributeName="opacity" values="0;0.03;0;0.04;0" dur="30s" repeatCount="indefinite" />
+  </rect>
+</svg>

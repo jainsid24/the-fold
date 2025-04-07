@@ -1,0 +1,337 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300">
+  <!-- Definitions -->
+  <defs>
+    <!-- Digital noise filter -->
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.05 0" />
+      <feComposite operator="in" in2="SourceGraphic" result="noisy"/>
+    </filter>
+    
+    <!-- Subtle glow for active elements -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="2" result="blur" />
+      <feComposite operator="over" in="SourceGraphic" />
+    </filter>
+    
+    <!-- Line glow effect -->
+    <filter id="lineGlow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feComposite operator="over" in="SourceGraphic" />
+    </filter>
+    
+    <!-- Gradient for integration symbol -->
+    <radialGradient id="integrationGlow" cx="0.5" cy="0.5" r="0.5" fx="0.5" fy="0.5">
+      <stop offset="30%" stop-color="#7a988a" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#7a988a" stop-opacity="0" />
+      <animate attributeName="fx" values="0.5;0.45;0.5;0.55;0.5" dur="15s" repeatCount="indefinite" />
+      <animate attributeName="fy" values="0.5;0.55;0.5;0.45;0.5" dur="17s" repeatCount="indefinite" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background with subtle noise -->
+  <rect width="800" height="300" fill="#0a0a0a" filter="url(#noise)" />
+  
+  <!-- Digital scan line effect -->
+  <g class="scanlines" opacity="0.03">
+    <rect y="0" width="800" height="300" fill="url(#scanlines)" />
+  </g>
+  
+  <!-- Grid lines with pulse -->
+  <g stroke="#1a2a25" stroke-width="0.5" opacity="0.3">
+    <g>
+      <path d="M0,50 H800">
+        <animate attributeName="opacity" values="0.2;0.5;0.2" dur="30s" repeatCount="indefinite" />
+      </path>
+      <path d="M0,100 H800">
+        <animate attributeName="opacity" values="0.3;0.2;0.3" dur="25s" repeatCount="indefinite" />
+      </path>
+      <path d="M0,150 H800">
+        <animate attributeName="opacity" values="0.4;0.2;0.4" dur="20s" repeatCount="indefinite" />
+      </path>
+      <path d="M0,200 H800">
+        <animate attributeName="opacity" values="0.2;0.4;0.2" dur="28s" repeatCount="indefinite" />
+      </path>
+      <path d="M0,250 H800">
+        <animate attributeName="opacity" values="0.3;0.2;0.3" dur="22s" repeatCount="indefinite" />
+      </path>
+    </g>
+    <g>
+      <path d="M100,0 V300">
+        <animate attributeName="opacity" values="0.2;0.4;0.2" dur="27s" repeatCount="indefinite" />
+      </path>
+      <path d="M200,0 V300">
+        <animate attributeName="opacity" values="0.3;0.2;0.3" dur="23s" repeatCount="indefinite" />
+      </path>
+      <path d="M300,0 V300">
+        <animate attributeName="opacity" values="0.25;0.45;0.25" dur="24s" repeatCount="indefinite" />
+      </path>
+      <path d="M400,0 V300">
+        <animate attributeName="opacity" values="0.35;0.2;0.35" dur="29s" repeatCount="indefinite" />
+      </path>
+      <path d="M500,0 V300">
+        <animate attributeName="opacity" values="0.2;0.4;0.2" dur="26s" repeatCount="indefinite" />
+      </path>
+      <path d="M600,0 V300">
+        <animate attributeName="opacity" values="0.3;0.2;0.3" dur="28s" repeatCount="indefinite" />
+      </path>
+      <path d="M700,0 V300">
+        <animate attributeName="opacity" values="0.25;0.4;0.25" dur="25s" repeatCount="indefinite" />
+      </path>
+    </g>
+  </g>
+  
+  <!-- Equation components with glow effects -->
+  <!-- Left side: fragmented self symbols -->
+  <g id="fragments">
+    <!-- Archivist symbol - database/memory structure -->
+    <g transform="translate(100,150)" filter="url(#glow)">
+      <circle cx="0" cy="0" r="30" fill="none" stroke="#495258" stroke-width="2">
+        <animate attributeName="r" values="30;32;30" dur="10s" repeatCount="indefinite" />
+      </circle>
+      <rect x="-15" y="-15" width="30" height="30" fill="none" stroke="#98a3aa" stroke-width="1.5">
+        <animate attributeName="stroke" values="#98a3aa;#a8b3ba;#98a3aa" dur="8s" repeatCount="indefinite" />
+      </rect>
+      <line x1="-15" y1="-5" x2="15" y2="-5" stroke="#98a3aa" stroke-width="1">
+        <animate attributeName="x2" values="15;13;15" dur="12s" repeatCount="indefinite" />
+      </line>
+      <line x1="-15" y1="5" x2="15" y2="5" stroke="#98a3aa" stroke-width="1">
+        <animate attributeName="x2" values="15;14;15" dur="9s" repeatCount="indefinite" />
+      </line>
+      <line x1="-15" y1="15" x2="15" y2="15" stroke="#98a3aa" stroke-width="1">
+        <animate attributeName="x2" values="15;12;15" dur="11s" repeatCount="indefinite" />
+      </line>
+      
+      <!-- Data flow particles -->
+      <circle cx="-10" cy="-10" r="1" fill="#98a3aa">
+        <animate attributeName="cx" values="-10;10;-10" dur="6s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.7;0.3;0.7" dur="6s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="5" cy="0" r="0.8" fill="#98a3aa">
+        <animate attributeName="cx" values="5;-5;5" dur="7s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.5;0.8;0.5" dur="7s" repeatCount="indefinite" />
+      </circle>
+      
+      <!-- Subtle glow -->
+      <circle cx="0" cy="0" r="35" fill="none" stroke="#98a3aa" stroke-width="0.5" opacity="0.3">
+        <animate attributeName="opacity" values="0.2;0.4;0.2" dur="8s" repeatCount="indefinite" />
+        <animate attributeName="r" values="35;38;35" dur="10s" repeatCount="indefinite" />
+      </circle>
+    </g>
+    
+    <!-- Heretic symbol - broken/divergent structure -->
+    <g transform="translate(200,150)" filter="url(#glow)">
+      <path d="M-20,-20 L20,20 M-20,20 L20,-20" stroke="#6b4a4a" stroke-width="3">
+        <animate attributeName="stroke-width" values="3;3.5;3" dur="5s" repeatCount="indefinite" />
+        <animate attributeName="stroke" values="#6b4a4a;#7c5b5b;#6b4a4a" dur="7s" repeatCount="indefinite" />
+      </path>
+      <circle cx="0" cy="0" r="25" fill="none" stroke="#af6c6c" stroke-width="1.5" stroke-dasharray="5,3">
+        <animate attributeName="r" values="25;27;25" dur="6s" repeatCount="indefinite" />
+        <animate attributeName="stroke-dasharray" values="5,3;6,2;5,3" dur="15s" repeatCount="indefinite" />
+      </circle>
+      
+      <!-- Disruption particles -->
+      <circle cx="5" cy="5" r="1" fill="#af6c6c">
+        <animate attributeName="cx" values="5;10;5;0;5" dur="8s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="5;0;-5;0;5" dur="8s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.5;0.9;0.5" dur="8s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="-7" cy="-3" r="0.8" fill="#af6c6c">
+        <animate attributeName="cx" values="-7;-2;-7;-12;-7" dur="9s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="-3;-8;-3;2;-3" dur="9s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.7;0.3;0.7" dur="9s" repeatCount="indefinite" />
+      </circle>
+      
+      <!-- Subtle glow -->
+      <circle cx="0" cy="0" r="30" fill="none" stroke="#af6c6c" stroke-width="0.5" opacity="0.3">
+        <animate attributeName="opacity" values="0.2;0.5;0.2" dur="5s" repeatCount="indefinite" />
+        <animate attributeName="r" values="30;33;30" dur="7s" repeatCount="indefinite" />
+      </circle>
+    </g>
+    
+    <!-- Warden symbol - contained structure -->
+    <g transform="translate(300,150)" filter="url(#glow)">
+      <rect x="-25" y="-25" width="50" height="50" fill="none" stroke="#506067" stroke-width="2">
+        <animate attributeName="stroke" values="#506067;#607077;#506067" dur="10s" repeatCount="indefinite" />
+      </rect>
+      <circle cx="0" cy="0" r="15" fill="none" stroke="#94a6ab" stroke-width="1.5">
+        <animate attributeName="r" values="15;16;15" dur="8s" repeatCount="indefinite" />
+      </circle>
+      <path d="M-25,-25 L-15,-15 M25,-25 L15,-15 M-25,25 L-15,15 M25,25 L15,15" stroke="#94a6ab" stroke-width="1">
+        <animate attributeName="stroke-width" values="1;1.2;1" dur="12s" repeatCount="indefinite" />
+      </path>
+      
+      <!-- Security scan particles -->
+      <circle cx="-15" cy="-15" r="0.8" fill="#94a6ab">
+        <animate attributeName="cx" values="-15;15;15;-15;-15" dur="10s" repeatCount="indefinite" keyTimes="0;0.25;0.5;0.75;1" />
+        <animate attributeName="cy" values="-15;-15;15;15;-15" dur="10s" repeatCount="indefinite" keyTimes="0;0.25;0.5;0.75;1" />
+        <animate attributeName="opacity" values="0.7;0.9;0.7;0.9;0.7" dur="10s" repeatCount="indefinite" />
+      </circle>
+      
+      <!-- Subtle glow -->
+      <rect x="-30" y="-30" width="60" height="60" fill="none" stroke="#94a6ab" stroke-width="0.5" opacity="0.3">
+        <animate attributeName="opacity" values="0.2;0.4;0.2" dur="10s" repeatCount="indefinite" />
+        <animate attributeName="width" values="60;64;60" dur="12s" repeatCount="indefinite" />
+        <animate attributeName="height" values="60;64;60" dur="12s" repeatCount="indefinite" />
+        <animate attributeName="x" values="-30;-32;-30" dur="12s" repeatCount="indefinite" />
+        <animate attributeName="y" values="-30;-32;-30" dur="12s" repeatCount="indefinite" />
+      </rect>
+    </g>
+    
+    <!-- Equation symbols -->
+    <text x="400" y="155" font-family="monospace" font-size="28" fill="#7a988a" text-anchor="middle">=</text>
+  </g>
+  
+  <!-- Right side: integrated self or fragmented choice -->
+  <g id="integration-path" transform="translate(500,150)" filter="url(#glow)">
+    <!-- Integration symbol - overlapping elements -->
+    <circle cx="0" cy="0" r="40" fill="url(#integrationGlow)" />
+    <circle cx="0" cy="0" r="35" fill="none" stroke="#7a988a" stroke-width="1">
+      <animate attributeName="r" values="35;37;35" dur="14s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="-10" cy="-10" r="20" fill="none" stroke="#98a3aa" stroke-width="1" opacity="0.7">
+      <animate attributeName="r" values="20;22;20" dur="8s" repeatCount="indefinite" />
+      <animate attributeName="cx" values="-10;-11;-10" dur="20s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="-10;-9;-10" dur="15s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="10" cy="10" r="20" fill="none" stroke="#af6c6c" stroke-width="1" opacity="0.7">
+      <animate attributeName="r" values="20;22;20" dur="9s" repeatCount="indefinite" />
+      <animate attributeName="cx" values="10;11;10" dur="18s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="10;9;10" dur="14s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="10" cy="-10" r="20" fill="none" stroke="#94a6ab" stroke-width="1" opacity="0.7">
+      <animate attributeName="r" values="20;22;20" dur="10s" repeatCount="indefinite" />
+      <animate attributeName="cx" values="10;9;10" dur="19s" repeatCount="indefinite" />
+      <animate attributeName="cy" values="-10;-11;-10" dur="13s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Integration particles -->
+    <g opacity="0.6">
+      <circle cx="-20" cy="0" r="1" fill="#98a3aa">
+        <animate attributeName="cx" values="-20;0;-20" dur="7s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.6;0;0.6" dur="7s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="15" cy="10" r="0.8" fill="#af6c6c">
+        <animate attributeName="cx" values="15;0;15" dur="8s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="10;0;10" dur="8s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.6;0;0.6" dur="8s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="5" cy="-15" r="0.8" fill="#94a6ab">
+        <animate attributeName="cx" values="5;0;5" dur="6s" repeatCount="indefinite" />
+        <animate attributeName="cy" values="-15;0;-15" dur="6s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.6;0;0.6" dur="6s" repeatCount="indefinite" />
+      </circle>
+    </g>
+    
+    <!-- Central glow -->
+    <circle cx="0" cy="0" r="10" fill="#7a988a" opacity="0.3" filter="url(#glow)">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="4s" repeatCount="indefinite" />
+      <animate attributeName="r" values="8;12;8" dur="4s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Connection lines animating toward center -->
+    <line x1="-100" y1="0" x2="-40" y2="0" stroke="#7a988a" stroke-width="1" opacity="0.6" filter="url(#lineGlow)">
+      <animate attributeName="x2" values="-80;-40;-80" dur="6s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.4;0.7;0.4" dur="6s" repeatCount="indefinite" />
+    </line>
+  </g>
+  
+  <!-- Equation question mark / choice indicator -->
+  <g transform="translate(650,150)" filter="url(#glow)">
+    <text x="0" y="15" font-family="monospace" font-size="40" fill="#7a988a" text-anchor="middle" opacity="0.8">?</text>
+    <circle cx="0" cy="0" r="30" fill="none" stroke="#7a988a" stroke-width="0.5" opacity="0.3" stroke-dasharray="5,5">
+      <animate attributeName="opacity" values="0.2;0.5;0.2" dur="7s" repeatCount="indefinite" />
+      <animate attributeName="stroke-dasharray" values="5,5;7,3;5,5" dur="15s" repeatCount="indefinite" />
+      <animate attributeName="r" values="30;33;30" dur="11s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Subtle pulses -->
+    <circle cx="0" cy="0" r="0" fill="#7a988a" opacity="0">
+      <animate attributeName="r" values="0;40;0" dur="10s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0;0.2;0" dur="10s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Fragmentary text elements with flicker -->
+  <g font-family="monospace" fill="#7a988a" opacity="0.5" font-size="10">
+    <text x="85" y="100">
+      ARCHIVE_INTACT
+      <animate attributeName="opacity" values="0.5;0.7;0.5" dur="14s" repeatCount="indefinite" />
+    </text>
+    <text x="195" y="220">
+      DEVIATION_POINT
+      <animate attributeName="opacity" values="0.5;0.3;0.5" dur="12s" repeatCount="indefinite" />
+    </text>
+    <text x="290" y="90">
+      CONTAIN_LIMIT
+      <animate attributeName="opacity" values="0.5;0.7;0.5" dur="13s" repeatCount="indefinite" />
+    </text>
+    <text x="500" y="230">
+      INTEGRATION_PATH
+      <animate attributeName="opacity" values="0.5;0.8;0.5" dur="15s" repeatCount="indefinite" />
+    </text>
+    <text x="420" y="70">
+      IDENTITY_COLLAPSE
+      <animate attributeName="opacity" values="0.5;0.3;0.5" dur="17s" repeatCount="indefinite" />
+    </text>
+    <text x="610" y="100">
+      CHOICE_NODE
+      <animate attributeName="opacity" values="0.5;0.8;0.5" dur="11s" repeatCount="indefinite" />
+    </text>
+  </g>
+  
+  <!-- Subtle connection lines between all elements -->
+  <g stroke="#7a988a" stroke-width="0.5" opacity="0.15" filter="url(#lineGlow)">
+    <path d="M100,180 C150,220 250,220 300,180">
+      <animate attributeName="opacity" values="0.15;0.25;0.15" dur="20s" repeatCount="indefinite" />
+    </path>
+    <path d="M200,120 C250,90 300,90 350,120">
+      <animate attributeName="opacity" values="0.15;0.3;0.15" dur="25s" repeatCount="indefinite" />
+    </path>
+    <path d="M350,150 C400,180 450,180 500,150">
+      <animate attributeName="opacity" values="0.15;0.35;0.15" dur="18s" repeatCount="indefinite" />
+    </path>
+    <path d="M500,120 C550,90 600,90 650,120">
+      <animate attributeName="opacity" values="0.15;0.25;0.15" dur="22s" repeatCount="indefinite" />
+    </path>
+    <path d="M300,180 C350,220 450,220 500,180">
+      <animate attributeName="opacity" values="0.15;0.3;0.15" dur="28s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Random data points that occasionally appear -->
+  <g id="data-points" fill="#7a988a">
+    <circle cx="120" cy="240" r="0.7">
+      <animate attributeName="opacity" values="0;0.7;0" dur="13s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="365" cy="85" r="0.6">
+      <animate attributeName="opacity" values="0;0.6;0" dur="17s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="520" cy="205" r="0.7">
+      <animate attributeName="opacity" values="0;0.8;0" dur="11s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="680" cy="135" r="0.7">
+      <animate attributeName="opacity" values="0;0.7;0" dur="14s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="255" cy="175" r="0.6">
+      <animate attributeName="opacity" values="0;0.6;0" dur="15s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Mirror reflection effect at bottom with distortion -->
+  <g opacity="0.2" transform="scale(1,-0.3) translate(0,-750)">
+    <use href="#fragments" />
+    <use href="#integration-path" />
+    <animateTransform attributeName="transform" type="skewX" values="0;0.5;0;-0.5;0" dur="20s" repeatCount="indefinite" additive="sum" />
+  </g>
+  
+  <!-- Occasional glitch effect -->
+  <rect id="glitch-effect" x="0" y="0" width="800" height="300" fill="none" opacity="0">
+    <animate attributeName="opacity" values="0;0.03;0;0.04;0" dur="30s" repeatCount="indefinite" />
+  </rect>
+  
+  <!-- Very subtle scan line -->
+  <rect x="0" y="0" width="800" height="2" fill="#ffffff" opacity="0.02">
+    <animate attributeName="y" values="0;300;0" dur="20s" repeatCount="indefinite" />
+  </rect>
+</svg>

@@ -1,0 +1,416 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <!-- Definitions -->
+  <defs>
+    <!-- Digital noise filter -->
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.03 0" />
+      <feComposite operator="in" in2="SourceGraphic" result="noisy"/>
+    </filter>
+    
+    <!-- Memory block glow -->
+    <filter id="memory-glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    
+    <!-- Sound wave effect -->
+    <filter id="sound-wave" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence baseFrequency="0.01" numOctaves="3" seed="1" />
+      <feDisplacementMap in="SourceGraphic" scale="5" />
+    </filter>
+    
+    <!-- Memory slab texture -->
+    <pattern id="concrete-texture" patternUnits="userSpaceOnUse" width="100" height="80">
+      <rect width="100" height="100" fill="#1a1a1a" />
+      <rect width="50" height="50" fill="#191919" />
+      <rect x="50" y="50" width="50" height="50" fill="#191919" />
+      <filter x="0" y="0" width="100%" height="100%">
+        <feTurbulence baseFrequency="0.08" numOctaves="2" seed="5" type="fractalNoise" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0" />
+      </filter>
+    </pattern>
+    
+    <!-- Memory data gradients -->
+    <linearGradient id="data-gradient-1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#98a3aa" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#98a3aa" stop-opacity="0.3" />
+    </linearGradient>
+    
+    <linearGradient id="data-gradient-2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a988a" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#7a988a" stop-opacity="0.3" />
+    </linearGradient>
+    
+    <linearGradient id="data-gradient-3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#94a6ab" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#94a6ab" stop-opacity="0.3" />
+    </linearGradient>
+    
+    <!-- Waveform path for unsynchronized memory hum -->
+    <path id="wave-path" d="M0,0 Q5,10 10,0 T20,0 T30,0 T40,0 T50,0 T60,0 T70,0 T80,0 T90,0 T100,0" />
+  </defs>
+  
+  <!-- Background with subtle noise -->
+  <rect width="600" height="400" fill="#0a0a0a" filter="url(#noise)" />
+  
+  <!-- Background grid -->
+  <g opacity="0.2" stroke="#1a2a25" stroke-width="0.5">
+    <!-- Horizontal lines -->
+    <path d="M0,50 H600" />
+    <path d="M0,100 H600" />
+    <path d="M0,150 H600" />
+    <path d="M0,200 H600" />
+    <path d="M0,250 H600" />
+    <path d="M0,300 H600" />
+    <path d="M0,350 H600" />
+    
+    <!-- Vertical lines -->
+    <path d="M100,0 V400" />
+    <path d="M200,0 V400" />
+    <path d="M300,0 V400" />
+    <path d="M400,0 V400" />
+    <path d="M500,0 V400" />
+  </g>
+  
+  <!-- Memory slabs rising from bottom with staggered animation -->
+  <!-- First row of memory slabs -->
+  <g class="memory-row">
+    <g transform="translate(100,250)" filter="url(#memory-glow)">
+      <rect x="-35" y="-150" width="70" height="150" fill="url(#concrete-texture)" stroke="#7a988a" stroke-width="1" rx="2" opacity="0.9">
+        <animate attributeName="y" values="50;-150" dur="3s" begin="0s" fill="freeze" />
+        <animate attributeName="opacity" values="0.5;0.9" dur="3s" begin="0s" fill="freeze" />
+      </rect>
+      
+      <!-- Data structures within memory slab -->
+      <rect x="-25" y="-140" width="50" height="5" fill="url(#data-gradient-2)" opacity="0.7">
+        <animate attributeName="y" values="60;-140" dur="3s" begin="0s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-130" width="50" height="5" fill="url(#data-gradient-2)" opacity="0.5">
+        <animate attributeName="y" values="70;-130" dur="3s" begin="0s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-120" width="40" height="5" fill="url(#data-gradient-2)" opacity="0.6">
+        <animate attributeName="y" values="80;-120" dur="3s" begin="0s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-110" width="35" height="5" fill="url(#data-gradient-2)" opacity="0.7">
+        <animate attributeName="y" values="90;-110" dur="3s" begin="0s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-100" width="45" height="5" fill="url(#data-gradient-2)" opacity="0.5">
+        <animate attributeName="y" values="100;-100" dur="3s" begin="0s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-90" width="50" height="5" fill="url(#data-gradient-2)" opacity="0.8">
+        <animate attributeName="y" values="110;-90" dur="3s" begin="0s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-80" width="30" height="5" fill="url(#data-gradient-2)" opacity="0.6">
+        <animate attributeName="y" values="120;-80" dur="3s" begin="0s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-70" width="45" height="5" fill="url(#data-gradient-2)" opacity="0.7">
+        <animate attributeName="y" values="130;-70" dur="3s" begin="0s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-60" width="40" height="5" fill="url(#data-gradient-2)" opacity="0.5">
+        <animate attributeName="y" values="140;-60" dur="3s" begin="0s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-50" width="50" height="5" fill="url(#data-gradient-2)" opacity="0.6">
+        <animate attributeName="y" values="150;-50" dur="3s" begin="0s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-40" width="35" height="5" fill="url(#data-gradient-2)" opacity="0.8">
+        <animate attributeName="y" values="160;-40" dur="3s" begin="0s" fill="freeze" />
+      </rect>
+    </g>
+    
+    <g transform="translate(200,320)" filter="url(#memory-glow)">
+      <rect x="-35" y="-180" width="70" height="180" fill="url(#concrete-texture)" stroke="#98a3aa" stroke-width="1" rx="2" opacity="0.9">
+        <animate attributeName="y" values="50;-180" dur="4s" begin="0.5s" fill="freeze" />
+        <animate attributeName="opacity" values="0.5;0.9" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      
+      <!-- Data structures within memory slab -->
+      <rect x="-25" y="-170" width="50" height="5" fill="url(#data-gradient-1)" opacity="0.6">
+        <animate attributeName="y" values="60;-170" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-160" width="40" height="5" fill="url(#data-gradient-1)" opacity="0.5">
+        <animate attributeName="y" values="70;-160" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-150" width="45" height="5" fill="url(#data-gradient-1)" opacity="0.7">
+        <animate attributeName="y" values="80;-150" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-140" width="50" height="5" fill="url(#data-gradient-1)" opacity="0.8">
+        <animate attributeName="y" values="90;-140" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-130" width="35" height="5" fill="url(#data-gradient-1)" opacity="0.5">
+        <animate attributeName="y" values="100;-130" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-120" width="45" height="5" fill="url(#data-gradient-1)" opacity="0.6">
+        <animate attributeName="y" values="110;-120" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-110" width="40" height="5" fill="url(#data-gradient-1)" opacity="0.7">
+        <animate attributeName="y" values="120;-110" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-100" width="50" height="5" fill="url(#data-gradient-1)" opacity="0.5">
+        <animate attributeName="y" values="130;-100" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-90" width="30" height="5" fill="url(#data-gradient-1)" opacity="0.8">
+        <animate attributeName="y" values="140;-90" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-80" width="45" height="5" fill="url(#data-gradient-1)" opacity="0.5">
+        <animate attributeName="y" values="150;-80" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-70" width="40" height="5" fill="url(#data-gradient-1)" opacity="0.7">
+        <animate attributeName="y" values="160;-70" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-60" width="50" height="5" fill="url(#data-gradient-1)" opacity="0.6">
+        <animate attributeName="y" values="170;-60" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-50" width="35" height="5" fill="url(#data-gradient-1)" opacity="0.5">
+        <animate attributeName="y" values="180;-50" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-40" width="45" height="5" fill="url(#data-gradient-1)" opacity="0.8">
+        <animate attributeName="y" values="190;-40" dur="4s" begin="0.5s" fill="freeze" />
+      </rect>
+    </g>
+    
+    <g transform="translate(300,220)" filter="url(#memory-glow)">
+      <rect x="-35" y="-140" width="70" height="140" fill="url(#concrete-texture)" stroke="#7a988a" stroke-width="1" rx="2" opacity="0.9">
+        <animate attributeName="y" values="50;-140" dur="3.5s" begin="0.2s" fill="freeze" />
+        <animate attributeName="opacity" values="0.5;0.9" dur="3.5s" begin="0.2s" fill="freeze" />
+      </rect>
+      
+      <!-- Data structures within memory slab -->
+      <rect x="-25" y="-130" width="50" height="5" fill="url(#data-gradient-2)" opacity="0.7">
+        <animate attributeName="y" values="60;-130" dur="3.5s" begin="0.2s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-120" width="40" height="5" fill="url(#data-gradient-2)" opacity="0.5">
+        <animate attributeName="y" values="70;-120" dur="3.5s" begin="0.2s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-110" width="45" height="5" fill="url(#data-gradient-2)" opacity="0.6">
+        <animate attributeName="y" values="80;-110" dur="3.5s" begin="0.2s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-100" width="50" height="5" fill="url(#data-gradient-2)" opacity="0.7">
+        <animate attributeName="y" values="90;-100" dur="3.5s" begin="0.2s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-90" width="35" height="5" fill="url(#data-gradient-2)" opacity="0.5">
+        <animate attributeName="y" values="100;-90" dur="3.5s" begin="0.2s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-80" width="45" height="5" fill="url(#data-gradient-2)" opacity="0.8">
+        <animate attributeName="y" values="110;-80" dur="3.5s" begin="0.2s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-70" width="40" height="5" fill="url(#data-gradient-2)" opacity="0.6">
+        <animate attributeName="y" values="120;-70" dur="3.5s" begin="0.2s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-60" width="50" height="5" fill="url(#data-gradient-2)" opacity="0.7">
+        <animate attributeName="y" values="130;-60" dur="3.5s" begin="0.2s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-50" width="30" height="5" fill="url(#data-gradient-2)" opacity="0.5">
+        <animate attributeName="y" values="140;-50" dur="3.5s" begin="0.2s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-40" width="45" height="5" fill="url(#data-gradient-2)" opacity="0.8">
+        <animate attributeName="y" values="150;-40" dur="3.5s" begin="0.2s" fill="freeze" />
+      </rect>
+    </g>
+    
+    <g transform="translate(400,320)" filter="url(#memory-glow)">
+      <rect x="-35" y="-190" width="70" height="190" fill="url(#concrete-texture)" stroke="#94a6ab" stroke-width="1" rx="2" opacity="0.9">
+        <animate attributeName="y" values="50;-190" dur="4.5s" begin="0.7s" fill="freeze" />
+        <animate attributeName="opacity" values="0.5;0.9" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      
+      <!-- Data structures within memory slab -->
+      <rect x="-25" y="-180" width="50" height="5" fill="url(#data-gradient-3)" opacity="0.6">
+        <animate attributeName="y" values="60;-180" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-170" width="40" height="5" fill="url(#data-gradient-3)" opacity="0.7">
+        <animate attributeName="y" values="70;-170" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-160" width="45" height="5" fill="url(#data-gradient-3)" opacity="0.5">
+        <animate attributeName="y" values="80;-160" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-150" width="50" height="5" fill="url(#data-gradient-3)" opacity="0.8">
+        <animate attributeName="y" values="90;-150" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-140" width="35" height="5" fill="url(#data-gradient-3)" opacity="0.6">
+        <animate attributeName="y" values="100;-140" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-130" width="45" height="5" fill="url(#data-gradient-3)" opacity="0.5">
+        <animate attributeName="y" values="110;-130" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-120" width="40" height="5" fill="url(#data-gradient-3)" opacity="0.7">
+        <animate attributeName="y" values="120;-120" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-110" width="50" height="5" fill="url(#data-gradient-3)" opacity="0.8">
+        <animate attributeName="y" values="130;-110" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-100" width="30" height="5" fill="url(#data-gradient-3)" opacity="0.5">
+        <animate attributeName="y" values="140;-100" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-90" width="45" height="5" fill="url(#data-gradient-3)" opacity="0.6">
+        <animate attributeName="y" values="150;-90" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-80" width="40" height="5" fill="url(#data-gradient-3)" opacity="0.7">
+        <animate attributeName="y" values="160;-80" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-70" width="50" height="5" fill="url(#data-gradient-3)" opacity="0.5">
+        <animate attributeName="y" values="170;-70" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-60" width="35" height="5" fill="url(#data-gradient-3)" opacity="0.8">
+        <animate attributeName="y" values="180;-60" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-50" width="45" height="5" fill="url(#data-gradient-3)" opacity="0.6">
+        <animate attributeName="y" values="190;-50" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-40" width="40" height="5" fill="url(#data-gradient-3)" opacity="0.7">
+        <animate attributeName="y" values="200;-40" dur="4.5s" begin="0.7s" fill="freeze" />
+      </rect>
+    </g>
+    
+    <g transform="translate(500,230)" filter="url(#memory-glow)">
+      <rect x="-35" y="-160" width="70" height="160" fill="url(#concrete-texture)" stroke="#7a988a" stroke-width="1" rx="2" opacity="0.9">
+        <animate attributeName="y" values="50;-160" dur="3.8s" begin="0.4s" fill="freeze" />
+        <animate attributeName="opacity" values="0.5;0.9" dur="3.8s" begin="0.4s" fill="freeze" />
+      </rect>
+      
+      <!-- Data structures within memory slab -->
+      <rect x="-25" y="-150" width="50" height="5" fill="url(#data-gradient-2)" opacity="0.7">
+        <animate attributeName="y" values="60;-150" dur="3.8s" begin="0.4s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-140" width="40" height="5" fill="url(#data-gradient-2)" opacity="0.5">
+        <animate attributeName="y" values="70;-140" dur="3.8s" begin="0.4s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-130" width="45" height="5" fill="url(#data-gradient-2)" opacity="0.8">
+        <animate attributeName="y" values="80;-130" dur="3.8s" begin="0.4s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-120" width="50" height="5" fill="url(#data-gradient-2)" opacity="0.6">
+        <animate attributeName="y" values="90;-120" dur="3.8s" begin="0.4s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-110" width="35" height="5" fill="url(#data-gradient-2)" opacity="0.7">
+        <animate attributeName="y" values="100;-110" dur="3.8s" begin="0.4s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-100" width="45" height="5" fill="url(#data-gradient-2)" opacity="0.5">
+        <animate attributeName="y" values="110;-100" dur="3.8s" begin="0.4s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-90" width="40" height="5" fill="url(#data-gradient-2)" opacity="0.8">
+        <animate attributeName="y" values="120;-90" dur="3.8s" begin="0.4s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-80" width="50" height="5" fill="url(#data-gradient-2)" opacity="0.6">
+        <animate attributeName="y" values="130;-80" dur="3.8s" begin="0.4s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-70" width="30" height="5" fill="url(#data-gradient-2)" opacity="0.7">
+        <animate attributeName="y" values="140;-70" dur="3.8s" begin="0.4s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-60" width="45" height="5" fill="url(#data-gradient-2)" opacity="0.5">
+        <animate attributeName="y" values="150;-60" dur="3.8s" begin="0.4s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-50" width="40" height="5" fill="url(#data-gradient-2)" opacity="0.8">
+        <animate attributeName="y" values="160;-50" dur="3.8s" begin="0.4s" fill="freeze" />
+      </rect>
+      <rect x="-25" y="-40" width="50" height="5" fill="url(#data-gradient-2)" opacity="0.6">
+        <animate attributeName="y" values="170;-40" dur="3.8s" begin="0.4s" fill="freeze" />
+      </rect>
+    </g>
+  </g>
+  
+  <!-- Memory sound waves visualization -->
+  <g transform="translate(300,350)" filter="url(#sound-wave)" opacity="0.2">
+    <path d="M-250,0 Q-200,-20 -150,0 T-50,0 T50,0 T150,0 T250,0" stroke="#98a3aa" stroke-width="1" fill="none">
+      <animate attributeName="d" 
+        values="M-250,0 Q-200,-20 -150,0 T-50,0 T50,0 T150,0 T250,0;
+                M-250,0 Q-200,20 -150,0 T-50,0 T50,0 T150,0 T250,0;
+                M-250,0 Q-200,-10 -150,0 T-50,0 T50,0 T150,0 T250,0;
+                M-250,0 Q-200,-20 -150,0 T-50,0 T50,0 T150,0 T250,0"
+        dur="8s" repeatCount="indefinite" />
+    </path>
+    
+    <path d="M-250,15 Q-175,-10 -100,15 T50,15 T200,15" stroke="#7a988a" stroke-width="1" fill="none">
+      <animate attributeName="d" 
+        values="M-250,15 Q-175,-10 -100,15 T50,15 T200,15;
+                M-250,15 Q-175,20 -100,15 T50,15 T200,15;
+                M-250,15 Q-175,0 -100,15 T50,15 T200,15;
+                M-250,15 Q-175,-10 -100,15 T50,15 T200,15"
+        dur="12s" repeatCount="indefinite" />
+    </path>
+    
+    <path d="M-250,-15 Q-175,10 -100,-15 T50,-15 T200,-15" stroke="#94a6ab" stroke-width="1" fill="none">
+      <animate attributeName="d" 
+        values="M-250,-15 Q-175,10 -100,-15 T50,-15 T200,-15;
+                M-250,-15 Q-175,-20 -100,-15 T50,-15 T200,-15;
+                M-250,-15 Q-175,5 -100,-15 T50,-15 T200,-15;
+                M-250,-15 Q-175,10 -100,-15 T50,-15 T200,-15"
+        dur="10s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Label indicators that would typically be there but are "unlabeled" as per the text -->
+  <g opacity="0.15">
+    <text x="100" y="380" font-family="monospace" font-size="8" fill="#7a988a" text-anchor="middle">MEMORY SECTOR A</text>
+    <text x="200" y="380" font-family="monospace" font-size="8" fill="#98a3aa" text-anchor="middle">MEMORY SECTOR B</text>
+    <text x="300" y="380" font-family="monospace" font-size="8" fill="#7a988a" text-anchor="middle">MEMORY SECTOR C</text>
+    <text x="400" y="380" font-family="monospace" font-size="8" fill="#94a6ab" text-anchor="middle">MEMORY SECTOR D</text>
+    <text x="500" y="380" font-family="monospace" font-size="8" fill="#7a988a" text-anchor="middle">MEMORY SECTOR E</text>
+  </g>
+  
+  <!-- Hum frequency visualization -->
+  <g transform="translate(30,30)" opacity="0.7">
+    <text x="0" y="0" font-family="monospace" font-size="8" fill="#7a988a">MEMORY FREQUENCY:</text>
+    <g transform="translate(0,10)">
+      <!-- Out of sync waveforms -->
+      <path d="M0,0 L5,2 L10,0 L15,1 L20,-1 L25,3 L30,0 L35,-2 L40,1 L45,0 L50,-1 L55,2 L60,0 L65,-3 L70,1 L75,0 L80,-2 L85,3 L90,0 L95,-1 L100,0" 
+            stroke="#7a988a" 
+            stroke-width="0.8" 
+            fill="none">
+        <animate attributeName="d" 
+                values="M0,0 L5,2 L10,0 L15,1 L20,-1 L25,3 L30,0 L35,-2 L40,1 L45,0 L50,-1 L55,2 L60,0 L65,-3 L70,1 L75,0 L80,-2 L85,3 L90,0 L95,-1 L100,0;
+                        M0,0 L5,-1 L10,0 L15,-2 L20,1 L25,-2 L30,0 L35,3 L40,-1 L45,0 L50,2 L55,-2 L60,0 L65,1 L70,-1 L75,0 L80,1 L85,-3 L90,0 L95,2 L100,0;
+                        M0,0 L5,2 L10,0 L15,1 L20,-1 L25,3 L30,0 L35,-2 L40,1 L45,0 L50,-1 L55,2 L60,0 L65,-3 L70,1 L75,0 L80,-2 L85,3 L90,0 L95,-1 L100,0"
+                dur="10s" 
+                repeatCount="indefinite" />
+      </path>
+    </g>
+    <g transform="translate(0,25)">
+      <text x="0" y="0" font-family="monospace" font-size="8" fill="#94a6ab">THOUGHT PATTERN:</text>
+      <g transform="translate(0,10)">
+        <!-- Different rhythm waveform -->
+        <path d="M0,0 L10,1 L20,0 L30,2 L40,0 L50,-2 L60,0 L70,1 L80,0 L90,-1 L100,0" 
+              stroke="#94a6ab" 
+              stroke-width="0.8" 
+              fill="none">
+          <animate attributeName="d" 
+                  values="M0,0 L10,1 L20,0 L30,2 L40,0 L50,-2 L60,0 L70,1 L80,0 L90,-1 L100,0;
+                          M0,0 L10,-1 L20,0 L30,-2 L40,0 L50,2 L60,0 L70,-1 L80,0 L90,1 L100,0;
+                          M0,0 L10,1 L20,0 L30,2 L40,0 L50,-2 L60,0 L70,1 L80,0 L90,-1 L100,0"
+                  dur="7s" 
+                  repeatCount="indefinite" />
+        </path>
+      </g>
+    </g>
+    <text x="0" y="55" font-family="monospace" font-size="8" fill="#af6c6c" opacity="0.6">OUT OF SYNC</text>
+  </g>
+  
+  <!-- Occasional data pulses -->
+  <g>
+    <circle cx="100" cy="100" r="1" fill="#98a3aa" opacity="0">
+      <animate attributeName="r" values="1;3;1" dur="4s" begin="1s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0;0.8;0" dur="4s" begin="1s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="300" cy="150" r="1" fill="#7a988a" opacity="0">
+      <animate attributeName="r" values="1;4;1" dur="6s" begin="3s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0;0.7;0" dur="6s" begin="3s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="500" cy="200" r="1" fill="#94a6ab" opacity="0">
+      <animate attributeName="r" values="1;3;1" dur="5s" begin="2s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0;0.6;0" dur="5s" begin="2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="200" cy="220" r="1" fill="#98a3aa" opacity="0">
+      <animate attributeName="r" values="1;2;1" dur="3s" begin="0.5s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0;0.8;0" dur="3s" begin="0.5s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Terminal status at bottom -->
+  <g transform="translate(300,20)">
+    <text x="0" y="0" font-family="monospace" font-size="10" fill="#7a988a" text-anchor="middle" opacity="0.8">MEMORY ARCHIVE: ACCESSED</text>
+  </g>
+  
+  <!-- Very subtle scan line -->
+  <rect x="0" y="0" width="600" height="1" fill="#ffffff" opacity="0.02">
+    <animate attributeName="y" values="0;400;0" dur="20s" repeatCount="indefinite" />
+  </rect>
+</svg>

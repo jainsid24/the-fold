@@ -1,0 +1,240 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
+  <!-- Definitions -->
+  <defs>
+    <!-- Digital noise filter -->
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.03 0" />
+      <feComposite operator="in" in2="SourceGraphic" result="noisy"/>
+    </filter>
+    
+    <!-- Memory fragment glow -->
+    <filter id="memory-glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    
+    <!-- Access beam effect -->
+    <filter id="beam-effect" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence baseFrequency="0.05" numOctaves="2" seed="3" />
+      <feDisplacementMap in="SourceGraphic" scale="3" />
+    </filter>
+    
+    <!-- Fragment texture -->
+    <pattern id="fragment-texture" patternUnits="userSpaceOnUse" width="100" height="80">
+      <rect width="100" height="100" fill="#1a1a1a" />
+      <rect width="50" height="50" fill="#191919" />
+      <rect x="50" y="50" width="50" height="50" fill="#191919" />
+      <filter x="0" y="0" width="100%" height="100%">
+        <feTurbulence baseFrequency="0.08" numOctaves="2" seed="5" type="fractalNoise" />
+        <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0" />
+      </filter>
+    </pattern>
+    
+    <!-- Data gradients -->
+    <linearGradient id="data-gradient-1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#98a3aa" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#98a3aa" stop-opacity="0.3" />
+    </linearGradient>
+    
+    <linearGradient id="data-gradient-2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a988a" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#7a988a" stop-opacity="0.3" />
+    </linearGradient>
+    
+    <linearGradient id="corrupted-gradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#af6c6c" stop-opacity="0.1" />
+      <stop offset="100%" stop-color="#af6c6c" stop-opacity="0.3" />
+    </linearGradient>
+
+    <!-- Scan effect -->
+    <linearGradient id="scan-gradient" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.1" />
+      <stop offset="55%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background with subtle noise -->
+  <rect width="600" height="400" fill="#0a0a0a" filter="url(#noise)" />
+  
+  <!-- Background grid -->
+  <g opacity="0.2" stroke="#1a2a25" stroke-width="0.5">
+    <!-- Horizontal lines -->
+    <path d="M0,50 H600" />
+    <path d="M0,100 H600" />
+    <path d="M0,150 H600" />
+    <path d="M0,200 H600" />
+    <path d="M0,250 H600" />
+    <path d="M0,300 H600" />
+    <path d="M0,350 H600" />
+    
+    <!-- Vertical lines -->
+    <path d="M100,0 V400" />
+    <path d="M200,0 V400" />
+    <path d="M300,0 V400" />
+    <path d="M400,0 V400" />
+    <path d="M500,0 V400" />
+  </g>
+  
+  <!-- Terminal connection pulses -->
+  <g opacity="0.15">
+    <path d="M300,50 L300,150" stroke="#7a988a" stroke-width="1" stroke-dasharray="4,4">
+      <animate attributeName="stroke-dashoffset" from="0" to="16" dur="2s" repeatCount="indefinite" />
+    </path>
+    <circle cx="300" cy="50" r="3" fill="#7a988a" opacity="0.5">
+      <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Main memory fragment in center -->
+  <g transform="translate(300,200)" filter="url(#memory-glow)">
+    <!-- Fragment container - initially small, expands during access -->
+    <rect x="-70" y="-50" width="140" height="100" fill="url(#fragment-texture)" stroke="#7a988a" stroke-width="1" rx="2" opacity="0.7">
+      <animate attributeName="width" values="0;140;140" dur="3s" begin="0.5s" fill="freeze" />
+      <animate attributeName="x" values="0;-70;-70" dur="3s" begin="0.5s" fill="freeze" />
+      <animate attributeName="opacity" values="0.3;0.9;0.8" dur="3s" begin="0.5s" fill="freeze" />
+    </rect>
+    
+    <!-- Access beam -->
+    <rect x="-70" y="-50" width="140" height="100" fill="url(#scan-gradient)" opacity="0.2">
+      <animate attributeName="y" values="-50;50;-50" dur="2s" begin="4s" repeatCount="3" />
+      <animate attributeName="opacity" values="0;0.3;0;0.4;0" dur="2s" begin="4s" repeatCount="3" />
+    </rect>
+    
+    <!-- Fragmentary data structures that appear as the fragment is accessed -->
+    <!-- Intact data segments -->
+    <rect x="-55" y="-40" width="110" height="5" fill="url(#data-gradient-2)" opacity="0">
+      <animate attributeName="opacity" values="0;0.7" dur="0.5s" begin="4s" fill="freeze" />
+    </rect>
+    <rect x="-55" y="-30" width="110" height="5" fill="url(#data-gradient-2)" opacity="0">
+      <animate attributeName="opacity" values="0;0.5" dur="0.5s" begin="4.2s" fill="freeze" />
+    </rect>
+    <rect x="-55" y="-20" width="110" height="5" fill="url(#data-gradient-2)" opacity="0">
+      <animate attributeName="opacity" values="0;0.6" dur="0.5s" begin="4.4s" fill="freeze" />
+    </rect>
+    
+    <!-- Corrupted data segments -->
+    <rect x="-55" y="-10" width="70" height="5" fill="url(#corrupted-gradient)" opacity="0">
+      <animate attributeName="opacity" values="0;0.8" dur="0.5s" begin="4.6s" fill="freeze" />
+    </rect>
+    <rect x="25" y="-10" width="30" height="5" fill="none" stroke="#af6c6c" stroke-width="0.5" stroke-dasharray="2,2" opacity="0">
+      <animate attributeName="opacity" values="0;0.6" dur="0.5s" begin="4.6s" fill="freeze" />
+    </rect>
+    
+    <!-- More data segments -->
+    <rect x="-55" y="0" width="110" height="5" fill="url(#data-gradient-2)" opacity="0">
+      <animate attributeName="opacity" values="0;0.7" dur="0.5s" begin="4.8s" fill="freeze" />
+    </rect>
+    <rect x="-55" y="10" width="110" height="5" fill="url(#data-gradient-1)" opacity="0">
+      <animate attributeName="opacity" values="0;0.6" dur="0.5s" begin="5s" fill="freeze" />
+    </rect>
+    
+    <!-- Missing/corrupted segment -->
+    <rect x="-55" y="20" width="40" height="5" fill="url(#corrupted-gradient)" opacity="0">
+      <animate attributeName="opacity" values="0;0.7" dur="0.5s" begin="5.2s" fill="freeze" />
+    </rect>
+    <rect x="-5" y="20" width="60" height="5" fill="none" stroke="#af6c6c" stroke-width="0.5" stroke-dasharray="2,2" opacity="0">
+      <animate attributeName="opacity" values="0;0.5" dur="0.5s" begin="5.2s" fill="freeze" />
+    </rect>
+    
+    <!-- Final data segments -->
+    <rect x="-55" y="30" width="110" height="5" fill="url(#data-gradient-2)" opacity="0">
+      <animate attributeName="opacity" values="0;0.8" dur="0.5s" begin="5.4s" fill="freeze" />
+    </rect>
+    <rect x="-55" y="40" width="110" height="5" fill="url(#data-gradient-1)" opacity="0">
+      <animate attributeName="opacity" values="0;0.5" dur="0.5s" begin="5.6s" fill="freeze" />
+    </rect>
+  </g>
+  
+  <!-- Access indicators -->
+
+  
+  <!-- Fragment scan pulses -->
+  <g>
+    <circle cx="300" cy="200" r="75" fill="none" stroke="#7a988a" stroke-width="0.5" opacity="0">
+      <animate attributeName="r" values="75;150" dur="4s" begin="4s" repeatCount="3" />
+      <animate attributeName="opacity" values="0;0.2;0" dur="4s" begin="4s" repeatCount="3" />
+    </circle>
+    <circle cx="300" cy="200" r="75" fill="none" stroke="#98a3aa" stroke-width="0.5" opacity="0">
+      <animate attributeName="r" values="75;140" dur="4s" begin="5s" repeatCount="3" />
+      <animate attributeName="opacity" values="0;0.15;0" dur="4s" begin="5s" repeatCount="3" />
+    </circle>
+  </g>
+  
+  <!-- Status indicators -->
+  <g transform="translate(30,30)" opacity="0">
+    <animate attributeName="opacity" values="0;0.8" dur="1s" begin="3.5s" fill="freeze" />
+    
+    <text x="0" y="0" font-family="monospace" font-size="8" fill="#7a988a">ACCESSING FRAGMENT</text>
+    <g transform="translate(0,15)">
+      <path d="M0,0 L100,0" stroke="#7a988a" stroke-width="1" opacity="0.3" />
+      <rect x="0" y="-5" width="0" height="4" fill="#7a988a" opacity="0.6">
+        <animate attributeName="width" values="0;30;55;75;100" dur="10s" begin="4s" fill="freeze" />
+      </rect>
+    </g>
+    
+    <g transform="translate(0,30)">
+      <text x="0" y="0" font-family="monospace" font-size="8" fill="#7a988a">INTEGRITY STATUS:</text>
+      <g transform="translate(60,0)">
+        <text x="25" y="0" font-family="monospace" font-size="8" fill="#af6c6c" opacity="0">PARTIAL
+          <animate attributeName="opacity" values="0;0.8" dur="0.5s" begin="6s" fill="freeze" />
+        </text>
+      </g>
+    </g>
+    
+    <g transform="translate(0,45)">
+      <text x="0" y="0" font-family="monospace" font-size="8" fill="#94a6ab">MEMORY SIGNATURE:</text>
+      <path d="M0,10 L5,8 L10,12 L15,7 L20,13 L25,8 L30,11 L35,7 L40,9 L45,13 L50,8 L55,12 L60,7 L65,11 L70,9" 
+            stroke="#94a6ab" 
+            stroke-width="0.8" 
+            fill="none"
+            opacity="0">
+        <animate attributeName="opacity" values="0;0.8" dur="0.5s" begin="5s" fill="freeze" />
+      </path>
+    </g>
+  </g>
+  
+  <!-- Status display at bottom -->
+  <g transform="translate(300,380)">
+    <text x="0" y="0" font-family="monospace" font-size="10" fill="#7a988a" text-anchor="middle" opacity="0">UNLABELED FRAGMENT: ACCESSED
+      <animate attributeName="opacity" values="0;0.7" dur="1s" begin="6.5s" fill="freeze" />
+    </text>
+  </g>
+  
+  <!-- Corrupted data pulse -->
+  <g>
+    <circle cx="300" cy="200" r="1" fill="#af6c6c" opacity="0">
+      <animate attributeName="r" values="1;25;1" dur="2s" begin="10s" fill="freeze" />
+      <animate attributeName="opacity" values="0;0.3;0" dur="2s" begin="10s" fill="freeze" />
+    </circle>
+  </g>
+  
+  <!-- Very subtle scan lines -->
+  <rect x="0" y="0" width="600" height="1" fill="#ffffff" opacity="0.02">
+    <animate attributeName="y" values="0;400;0" dur="10s" repeatCount="indefinite" />
+  </rect>
+  
+  <!-- Interface connection nodes -->
+  <g opacity="0.4">
+    <circle cx="300" cy="350" r="2" fill="#7a988a">
+      <animate attributeName="opacity" values="0.4;0.8;0.4" dur="4s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="260" cy="320" r="2" fill="#7a988a">
+      <animate attributeName="opacity" values="0.4;0.7;0.4" dur="3s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="340" cy="320" r="2" fill="#7a988a">
+      <animate attributeName="opacity" values="0.4;0.6;0.4" dur="5s" repeatCount="indefinite" />
+    </circle>
+    <path d="M300,350 L260,320" stroke="#7a988a" stroke-width="0.5" opacity="0.3" />
+    <path d="M300,350 L340,320" stroke="#7a988a" stroke-width="0.5" opacity="0.3" />
+    <path d="M260,320 L300,200" stroke="#7a988a" stroke-width="0.5" opacity="0.3" stroke-dasharray="3,3">
+      <animate attributeName="opacity" values="0.1;0.4;0.1" dur="4s" repeatCount="indefinite" />
+    </path>
+    <path d="M340,320 L300,200" stroke="#7a988a" stroke-width="0.5" opacity="0.3" stroke-dasharray="3,3">
+      <animate attributeName="opacity" values="0.1;0.3;0.1" dur="5s" repeatCount="indefinite" />
+    </path>
+  </g>
+</svg>

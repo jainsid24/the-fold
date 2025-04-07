@@ -1,0 +1,172 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300">
+  <!-- Definitions -->
+  <defs>
+    <!-- Digital noise filter -->
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch" result="noise"/>
+      <feColorMatrix type="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.03 0" />
+      <feComposite operator="in" in2="SourceGraphic" result="noisy"/>
+    </filter>
+    
+    <!-- Subtle glow for folder -->
+    <filter id="folder-glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    
+    <!-- Cursor blink effect -->
+    <filter id="cursor-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+    
+    <!-- Grid lines gradient -->
+    <linearGradient id="grid-fade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a2a25" stop-opacity="0.3" />
+      <stop offset="50%" stop-color="#1a2a25" stop-opacity="0.5" />
+      <stop offset="100%" stop-color="#1a2a25" stop-opacity="0.3" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background with subtle noise -->
+  <rect width="600" height="300" fill="#0a0a0a" filter="url(#noise)" />
+  
+  <!-- Grid pattern -->
+  <g opacity="0.4">
+    <!-- Horizontal lines -->
+    <g stroke="url(#grid-fade)" stroke-width="0.5">
+      <path d="M50,50 H550">
+        <animate attributeName="opacity" values="0.3;0.5;0.3" dur="30s" repeatCount="indefinite" />
+      </path>
+      <path d="M50,75 H550">
+        <animate attributeName="opacity" values="0.3;0.4;0.3" dur="25s" repeatCount="indefinite" />
+      </path>
+      <path d="M50,100 H550">
+        <animate attributeName="opacity" values="0.3;0.5;0.3" dur="20s" repeatCount="indefinite" />
+      </path>
+      <path d="M50,125 H550">
+        <animate attributeName="opacity" values="0.3;0.4;0.3" dur="28s" repeatCount="indefinite" />
+      </path>
+      <path d="M50,150 H550">
+        <animate attributeName="opacity" values="0.3;0.6;0.3" dur="22s" repeatCount="indefinite" />
+      </path>
+      <path d="M50,175 H550">
+        <animate attributeName="opacity" values="0.3;0.4;0.3" dur="27s" repeatCount="indefinite" />
+      </path>
+      <path d="M50,200 H550">
+        <animate attributeName="opacity" values="0.3;0.5;0.3" dur="23s" repeatCount="indefinite" />
+      </path>
+      <path d="M50,225 H550">
+        <animate attributeName="opacity" values="0.3;0.4;0.3" dur="26s" repeatCount="indefinite" />
+      </path>
+      <path d="M50,250 H550">
+        <animate attributeName="opacity" values="0.3;0.5;0.3" dur="24s" repeatCount="indefinite" />
+      </path>
+    </g>
+    
+    <!-- Vertical lines -->
+    <g stroke="url(#grid-fade)" stroke-width="0.5">
+      <path d="M100,50 V250">
+        <animate attributeName="opacity" values="0.3;0.5;0.3" dur="27s" repeatCount="indefinite" />
+      </path>
+      <path d="M150,50 V250">
+        <animate attributeName="opacity" values="0.3;0.4;0.3" dur="23s" repeatCount="indefinite" />
+      </path>
+      <path d="M200,50 V250">
+        <animate attributeName="opacity" values="0.3;0.5;0.3" dur="24s" repeatCount="indefinite" />
+      </path>
+      <path d="M250,50 V250">
+        <animate attributeName="opacity" values="0.3;0.4;0.3" dur="29s" repeatCount="indefinite" />
+      </path>
+      <path d="M300,50 V250">
+        <animate attributeName="opacity" values="0.3;0.6;0.3" dur="26s" repeatCount="indefinite" />
+      </path>
+      <path d="M350,50 V250">
+        <animate attributeName="opacity" values="0.3;0.4;0.3" dur="28s" repeatCount="indefinite" />
+      </path>
+      <path d="M400,50 V250">
+        <animate attributeName="opacity" values="0.3;0.5;0.3" dur="25s" repeatCount="indefinite" />
+      </path>
+      <path d="M450,50 V250">
+        <animate attributeName="opacity" values="0.3;0.4;0.3" dur="22s" repeatCount="indefinite" />
+      </path>
+      <path d="M500,50 V250">
+        <animate attributeName="opacity" values="0.3;0.5;0.3" dur="21s" repeatCount="indefinite" />
+      </path>
+    </g>
+  </g>
+  
+  <!-- Central folder - intentionally minimal outline -->
+  <g transform="translate(300,150)" filter="url(#folder-glow)">
+    <!-- Folder back -->
+    <path d="M-60,-40 H-15 L0,-25 H60 V40 H-60 Z" fill="none" stroke="#7a988a" stroke-width="1" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.9;0.8" dur="10s" repeatCount="indefinite" />
+    </path>
+    
+    <!-- Folder tab -->
+    <path d="M-15,-40 V-25 H0 Z" fill="none" stroke="#7a988a" stroke-width="1" opacity="0.8" />
+    
+    <!-- Folder content hint lines -->
+    <g stroke="#7a988a" stroke-width="0.5" opacity="0.4">
+      <line x1="-45" y1="-15" x2="45" y2="-15">
+        <animate attributeName="opacity" values="0.4;0.6;0.4" dur="15s" repeatCount="indefinite" />
+      </line>
+      <line x1="-45" y1="0" x2="45" y2="0">
+        <animate attributeName="opacity" values="0.4;0.5;0.4" dur="12s" repeatCount="indefinite" />
+      </line>
+      <line x1="-45" y1="15" x2="45" y2="15">
+        <animate attributeName="opacity" values="0.4;0.6;0.4" dur="18s" repeatCount="indefinite" />
+      </line>
+      <line x1="-45" y1="30" x2="25" y2="30">
+        <animate attributeName="opacity" values="0.4;0.5;0.4" dur="20s" repeatCount="indefinite" />
+      </line>
+    </g>
+    
+    <!-- Folder glow aura -->
+    <rect x="-65" y="-45" width="130" height="90" rx="3" fill="none" stroke="#7a988a" stroke-width="0.2" opacity="0.2">
+      <animate attributeName="opacity" values="0.2;0.3;0.2" dur="8s" repeatCount="indefinite" />
+    </rect>
+  </g>
+  
+  <!-- System cursor -->
+  <g transform="translate(370,180)" filter="url(#cursor-glow)">
+    <rect x="0" y="0" width="8" height="15" fill="#7a988a" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0;0.8" dur="1s" repeatCount="indefinite" />
+    </rect>
+  </g>
+  
+  <!-- Subtle data points that appear at higher recursion levels -->
+  <g class="recursion-indicators" opacity="0.4">
+    <!-- These could dynamically change based on recursion level -->
+    <circle cx="220" cy="90" r="0.8" fill="#7a988a">
+      <animate attributeName="opacity" values="0;0.4;0" dur="13s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="380" cy="120" r="0.7" fill="#7a988a">
+      <animate attributeName="opacity" values="0;0.5;0" dur="17s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="270" cy="210" r="0.9" fill="#7a988a">
+      <animate attributeName="opacity" values="0;0.4;0" dur="11s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="330" cy="85" r="0.7" fill="#7a988a">
+      <animate attributeName="opacity" values="0;0.5;0" dur="14s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="405" cy="230" r="0.8" fill="#7a988a">
+      <animate attributeName="opacity" values="0;0.4;0" dur="15s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Very subtle scan line -->
+  <rect x="50" y="0" width="500" height="1" fill="#ffffff" opacity="0.02">
+    <animate attributeName="y" values="50;250;50" dur="20s" repeatCount="indefinite" />
+  </rect>
+  
+  <!-- System status text -->
+  <text x="300" y="220" font-family="system-ui" font-size="10" fill="#7a988a" text-anchor="middle" opacity="0.6">
+    CLASSIFICATION: PENDING IDENTITY
+  </text>
+  
+  <!-- Occasional subtle glitch -->
+  <rect id="glitch-effect" x="0" y="0" width="600" height="300" fill="none" opacity="0">
+    <animate attributeName="opacity" values="0;0.02;0;0.01;0" dur="30s" repeatCount="indefinite" />
+  </rect>
+</svg>
