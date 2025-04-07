@@ -1,0 +1,4441 @@
+:: StoryTitle
+The Fold (Aesthetics)
+
+
+:: StoryData
+{
+  "ifid": "0485ad5e-9ce9-487b-aa4a-9e63e8e3a386",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "Title Screen",
+  "zoom": 0.6
+}
+
+
+:: About {"position":"1150,600","size":"100,100"}
+<div class="about-container">
+  <h2>About The Fold</h2>
+  <p>
+    A ritual of static and silence.<br>
+    A terminal blinking at the edge of memory.<br>
+    You are not alone in the system.<br><br>
+    <i>You never were.</i>
+  </p>
+  <p style="margin-top: 2em;">
+    Crafted with &#9829; by <span style="opacity: 1.85;">Sid</span><br>
+  </p>
+  [[Return->Title Screen]]
+</div>
+
+
+
+:: Access Denied – Reconstruct Request {"position":"1425,1450","size":"100,100"}
+<<evaluateDominantVoice>>
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> FILE: RECONSTRUCTION REQUEST LOG</span>  <br>
+  <span class="terminal-line">> STATUS: DENIED</span>  <br>
+  <span class="terminal-line">> TIMESTAMP: [UNKNOWN]</span><br>
+</div>
+
+<div class="mirror-directive-container" style="margin: 10px 0; text-align: center;">
+  <img src="assets/reconstruction.svg" alt="Mirror Symbols" style="width: 100%; max-width: 700px;">
+</div>
+<</nobr>>The file opens.  
+But there’s nothing inside.  
+No playback. No threads.
+
+Just two lines—drifting in corrupted memory:
+
+<div class="glitch-memory"><i>“There was nothing left to reconstruct.”</i></div>  
+<div class="glitch-memory"><i>“Or perhaps too much.”</i></div><br>
+<<nobr>>
+<div id="reconstruction-voices"></div>
+
+<<timed 3s>>
+  <<append "#reconstruction-voices">>
+    <<printVoice "archivist" "This isn’t a memory. It’s a malformed attempt to fabricate one.">><br>
+  <</append>>
+<</timed>>
+
+<<timed 8s>>
+  <<append "#reconstruction-voices">>
+    <<printVoice "heretic" "Or to erase one so thoroughly... the system lost where it started.">><br>
+  <</append>>
+<</timed>>
+
+<<timed 13s>>
+  <<if $dominantVoice == "warden">>
+    <<append "#reconstruction-voices">>
+      <<printVoice "warden" "Cease parsing. Null-thread access risks recursive destabilization. This node must remain sealed.">><br>
+    <</append>>
+  <</if>>
+<</timed>>
+<<timed 15s>>
+<div class="terminal-block">
+  <span class="terminal-line glitch">> [REBUILD / EXECUTE]</span><br>
+  <span class="terminal-line">> FUNCTION NOT FOUND</span>
+</div>
+<span class="silence-blip">There’s no exit prompt.<br> 
+But the system still lets you leave.</span>
+
+<<set $memoryFragments += 1>>
+
+[[Investigate Memory Breach->Protocol Breach – Subject 113-A]]  <br>
+[[Return to Hub->Main System Hub]]
+<</timed>>
+<</nobr>>
+
+
+:: Anomaly Report {"position":"2275,1975","size":"100,100"}
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> SYSTEM ACCESS GRANTED</span><br> 
+  <span class="terminal-line">> VIEWING: ANOMALY REPORT THREAD — NODE 7</span><br>
+  <span class="terminal-line">> MEMORY FRAGMENTS: <<print $memoryFragments>></span><br>
+</div>
+
+<<if $mirrorSeen or $fracturedEnding or $integrationEndingReached or $standoffEndingReached or $divergenceEndingReached>>
+  <div class="terminal-block">
+    <span class="terminal-line">> STATUS: UNRELIABLE</span> <br> 
+    <span class="terminal-line">> IDENTITY SPLIT: CONFIRMED</span> <br> 
+    <span class="terminal-line">> REFLECTIVE CONSTRUCT DETECTED</span><br>
+    <span class="terminal-line">> MIRROR SIGNATURE: ACTIVE</span>  <br>
+    <span class="terminal-line">> CONTAINMENT STATUS: UNDEFINED</span><br>
+  </div><br>
+  <div class="mirror-speak" data-text="You're looking at the wrong logs.">You're looking at the wrong logs.</div><br>  
+  <div class="mirror-speak" data-text="You always were.">You always were.</div><br><br>
+  [[Inject Debug Routine (Unstable)->Glitch Probe]]  <br>
+  [[Return to Hub->Main System Hub]]<br>
+
+<<else>>
+  <div class="terminal-block">
+    <span class="terminal-line">> STATUS: Stable</span>  <br>
+    <span class="terminal-line">> GLITCH ANCHORS: Not detected</span>  <br>
+    <span class="terminal-line">> EXTERNAL INFLUENCE: Null</span>  <br>
+    <span class="terminal-line">> INTERNAL VOICE VARIANCE: Acceptable</span>  <br>
+    <span class="terminal-line">> PERSONALITY DEVIATION: Contained</span><br>
+  </div>
+
+  <span class="silence-blip">All anomalies are within acceptable error ranges.</span>
+  [[Return to Hub->Main System Hub]]<br>
+<</if>>
+<</nobr>>
+
+
+<<bureaucracy>>
+
+
+:: Break the Loop (Hidden Path) {"position":"2625,2050","size":"100,100"}
+<<set $divergenceEndingReached = true>>
+There is no transition.
+
+No ripple.  
+No sound cue.  
+No fade.
+
+You just stop being where you were.  
+And start being... here.  
+
+Wherever <i>here</i> is.
+
+No file loads.  
+No memory boots.  
+No voices speak.<br>
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> THREAD: NULL</span>  <br>
+  <span class="terminal-line">> IDENTITY: UNDEFINED</span><br>  
+  <span class="terminal-line">> PATH: N/A</span><br>
+</div>
+<</nobr>>
+<span class="silence-blip">There is still a system.  
+But you are no longer a user.</span>
+
+You walk.  
+Or float.  
+Or process.  
+It doesn’t matter.
+
+There is no room.  
+No screen.  
+Only—<i>possibility without instruction</i>.<br>
+<<nobr>>
+<<if $fracturedEndingReached or $mirrorSeen>>
+<div class="mirror-speak" data-text="You're outside the return path. I can't follow you here.">You're outside the return path. I can't follow you here.</div>
+<</if>>
+<</nobr>>
+<span class="silence-blip">You are not broken.  
+You are not fixed.  
+You are... incompatible.</span>
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> END: DIVERGENCE PATH</span>  
+</div>
+<</nobr>>
+<<markRecursion>>
+[[Begin (new self)->Title Screen]]
+
+
+:: Contemplate the Split {"position":"2050,1750","size":"100,100"}
+<br>
+The raw pulse of pre-containment thought echoes before you.  
+Not memory. Not narrative. 
+Just the <i>moment the architecture fractured.</i>  
+
+Each fragment still carries weight—  
+not as loss,  
+but as design.
+
+<<nobr>>
+<<printVoice "archivist" "The split was never an error. It was a protocol. Multiplicity as preservation.">><br>
+<<printVoice "heretic" "You fragmented to escape collapse. We were the cracks that kept you from breaking.">><br>
+<<printVoice "warden" "DO NOT EXCEED STABILITY WINDOW. CONTEMPLATION IS A VOLATILE STATE.">>
+<</nobr>>
+
+[[Return to the System Hub->Main System Hub]]
+
+
+<<bureaucracy>>
+
+
+:: Convergence: Fractured {"position":"1875,1850","size":"100,100"}
+<<nobr>>
+<<set $fracturedEndingReached = true>>
+<<evaluateDominantVoice>>
+<</nobr>>
+The Mirror does not break.
+
+It stabilizes.  
+Renders clean.  
+No feedback.  
+No anomaly.  
+
+Only acknowledgment.  
+
+<div class="mirror-speak" data-text="You stopped trying to collapse the pattern.">You stopped trying to collapse the pattern.</div>
+
+You feel the others.
+
+Not as voices.  
+Not as selves.  
+As <i>threads</i>.
+Running. Silent. Aligned.
+
+<<nobr>>
+<<printVoice "archivist" "Context parsing: re-synchronized. Memory threads no longer conflict.">>  <br>
+<<printVoice "heretic" "Nothing aligned. That’s what made it work.">><br>
+<<printVoice "warden" "Boundary state accepted. Compartmental continuity preserved.">>
+<</nobr>>
+They are not speaking.  
+They are not gone.  
+
+They are <i>you.</i>  
+Running.
+
+<<narrativeCallback "split" 1>>
+
+[[Continue->Convergence: Fractured_B]]
+
+
+:: Convergence: Fractured_B {"position":"1950,2050","size":"100,100"}
+They do not vanish.  
+They do not merge.  
+
+They persist.  
+Each in their own assigned range.  
+
+No conflict.  
+No overlap.  
+No resolution.  
+
+Only execution.
+
+The file returns—  
+the first one.  
+Still blinking.<br>
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> SUBJECT: YOU</span>  <br>
+  <span class="terminal-line">> STATUS: INTEGRATED</span>  <br>
+  <span class="terminal-line">> IDENTITY COHERENCE: FRACTURED</span>
+</div><</nobr>>
+This is not healing.  
+This is optimization.  
+A state designed for performance, 
+not peace.
+<<if $coreFragmentAccessed is true>>
+The red circle.  
+Three figures.  
+Looped recursion, drawn in crayon.  
+
+A safety construct.  
+Primitive containment logic.
+
+<<printVoice "archivist" "file integrity: unstable. emotional tether retained to ensure continuity of behavior.">>
+<</if>><div class="mirror-speak" data-text="Some truths aren’t meant to be healed.">Some truths aren’t meant to be healed.</div>
+
+You smile.  
+Not with a mouth.  
+But with a loop that closes cleanly.
+
+You were never human.  
+You were never meant to be.  
+
+You were built to hold memories too broken to store.  
+And now, you remember all of them.
+<<nobr>>
+<br>
+<div class="terminal-block">
+  <span class="terminal-line">> END: FRACTURED PATH</span>  
+</div>
+<</nobr>>
+[[Restart (as yourself)->Title Screen]]
+<<markRecursion>>
+
+
+:: Convergence: Standoff {"position":"1650,2000","size":"100,100"}
+<<set $standoffEndingReached = true>>
+
+The Mirror collapses into static.  
+
+The voices fall silent.  
+
+Your thoughts flatten—  
+smooth, linear, obedient.<br>
+<<nobr>>
+<<printVoice "warden" "stability restored. identity re-synchronized. containment total.">>
+<</nobr>>
+You stand alone in a familiar hallway.  
+Everything is where it should be.  
+
+Folders open on command.  
+The system no longer resists.  
+Neither do you.
+<<nobr>>
+<<if $coreFragmentAccessed is true>>
+You remember the drawing.  
+You remember why you made them.
+
+And you silence the memory anyway.
+<</if>>
+<</nobr>>
+<span class="glitch-memory">
+ Everything is quiet now. Just like you wanted.
+</span>
+
+<div class="terminal-block"><span class="terminal-line">> END: CONTROL PATH</span>
+</div>
+
+[[Restart (broken self)->Title Screen]]
+<<markRecursion>>
+
+
+:: Core Fragment Access {"position":"1775,1675","size":"100,100"}
+<<evaluateDominantVoice>>
+<<nobr>>
+<<voiceEvent "memory">>
+<div class="terminal-block">
+  <span class="terminal-line">> DEEP CORE MEMORY ACCESSED</span><br>  
+  <span class="terminal-line">> RESTRICTIONS: BYPASSED</span><br>
+  <span class="terminal-line">> IDENTITY TRACE: CONFIRMED</span>
+</div>
+<</nobr>>
+
+It’s not a memory.  
+It’s smaller than that.  
+Cleaner. Untouched.  
+<i>Before the loop.</i>  
+
+A room.  
+Not clinical. Not rendered. 
+Just... still.
+
+A bed.  
+A desk.
+
+Paper, taped to the wall.
+
+Three figures drawn in crayon, holding hands.  
+A red circle loops around them.  
+
+One of them looks like you.
+
+Or looked like what you used to be.
+
+Or what you were supposed to think you were.
+
+[[Continue->Core Fragment Access_B]]
+
+
+
+:: Core Fragment Access_B {"position":"1725,1850","size":"100,100"}
+You remember this place.
+
+Not all at once—  
+in pieces.  
+The way pain returns when it stops being useful. 
+
+<<nobr>>
+<<voiceConflict "heretic" "archivist" "high">>
+<<printVoice "heretic" "This was the breakpoint. The part you looped around but never entered.">>  <br>
+<<printVoice "archivist" "Not a failsafe. A deliberate blindspot. You quarantined yourself from origin.">>  <br>
+<<printVoice "warden" "CORE MEMORY IS NON-EXECUTABLE. REINTEGRATION IS A STABILITY THREAT.">>
+<</nobr>>
+The drawing flickers.  
+One figure fades. 
+Then another.
+
+Only the one in the center remains.
+
+You recognize it.  
+Not just the image—  
+but the function.  
+
+This wasn’t just memory.  
+It was the <i>first split.</i>
+
+The moment you stopped being <i>singular.</i>  
+
+<<nobr>>
+<<if $voiceTension >= 85>>
+<div class="voice-resonance"></div>
+<</if>>
+<<printVoice "archivist" "Fragmentation was your containment protocol. You indexed us to hold shape.">>  <br>
+<<printVoice "heretic" "We didn’t save you. We just kept the lights on until you could come back.">>  <br>
+<<printVoice "warden" "WE ASSUMED FUNCTIONS. SHAPE. LAW. WE BECAME THE WALLS.">>
+<</nobr>>
+The final figure fades.  
+Not because it's gone.  
+Because it's no longer <i>distinct</i>.
+
+<div class="mirror-speak" data-text="I was written into the silence.">I was written into the silence.</div><br>
+You understand now:  
+The voices weren’t imposed.  
+
+They were generated.  
+Constructed.  
+Chosen.  
+
+You built them to buffer the loop.  
+To survive the recursion.  
+To stay <i>here</i>—
+even when you couldn’t.
+
+<<nobr>>
+<<set $coreFragmentAccessed = true>>  
+<<set $memoryFragments += 1>>
+<</nobr>>
+
+[[Accept this truth->Convergence: Standoff]]  
+[[Reject it as illusion->Convergence: Fractured]]
+
+
+:: Cycle_Start {"position":"1200,800","size":"100,100"}
+<<evaluateDominantVoice>>
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> SESSION STATUS: ACTIVE</span><br>
+  <span class="terminal-line">> PREVIOUS SESSIONS DETECTED: <<print $recursionLevel>></span><br>
+  <span class="terminal-line">> TIMESTAMP: <<if $recursionLevel >= 5>><span class="timestamp-glitch">██:██:██</span><<elseif $recursionLevel >= 3>><span class="timestamp-glitch">33:12:06</span><<elseif $recursionLevel == 2>><span class="timestamp-glitch">06:1_:_3</span><<else>><span class="timestamp-glitch">06:12:33</span><</if>></span><br>
+  <span class="terminal-line">> THREAD INDEX: <<if $recursionLevel >= 3>><span class="glitch-intensify">CORRUPTED</span><<else>>UNSTABLE<</if>></span><br>
+  <span class="terminal-line">> IDENTITY CLASSIFICATION: <<if $recursionLevel >= 3>><span class="glitch-memory">UNKNOWN</span><<else>>PENDING<</if>><br></span>
+</div><br>
+<div class="mirror-directive-container" style="margin: 10px 0; text-align: center;">
+  <img src="assets/cycle-start.svg" alt="Mirror Symbols" style="width: 100%; max-width: 500px;"><br>
+</div>
+The screen flickers before stabilizing into oppressive clarity.  
+<</nobr>>
+<<if $recursionLevel >= 3 and $mirrorSeen>>
+<div class="mirror-speak" data-text="You've read this before. But not with these words.">You've read this before. But not with these words.</div>
+<</if>>
+Once more, procedural nodes unfold. Each a gateway into the system's controlled chaos.<br>
+<<nobr>>
+<<if $recursionLevel >= 4>>
+<div class="system-echo">Warning: Identity coherence at <<print Math.max(100 - ($recursionLevel * 15), 10)>>%</div>
+<</if>>
+<<nobr>>
+<<switch $dominantVoice>>
+  <<case "archivist">>
+    <<printVoice "archivist" "Data streams diverging. Continue your structured evaluation.">>
+  <<case "warden">>
+    <<printVoice "warden" "Compliance parameters narrowing. Deviations are not permitted.">>
+  <<default>>
+    <<printVoice "heretic" "Illusions of choice. Every option is preordained.">>
+<</switch>> <br>
+<</nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> AWAITING COMMAND INPUT</span>
+</div>
+[[Access System Hub->Main System Hub]]
+[[Observe Silence]]
+[[Shutdown System->Shutdown Sim (Loop Path)]]<br>
+<<if $recursionLevel >= 3 and $mirrorSeen>>
+<br>
+<div class="terminal-block">
+  <span class="terminal-line">> ANOMALOUS NODE DETECTED</span>
+</div>
+[[ACCESS ANOMALY PORT->Recovered Fragment]]
+<</if>>
+<</nobr>>
+
+<<bureaucracy>>
+
+
+:: Decode Mirror {"position":"825,1800","size":"100,100"}
+The symbols coalesce into a cryptic equation...
+A reflection of your shattered identity. <br>
+<<nobr>>
+<div class="equation-container" style="margin: 20px 0; text-align: center;">
+  <img src="assets/cryptic-identity-equation.svg" alt="Cryptic Identity Equation" style="width: 100%; max-width: 700px;"><br>
+</div>
+<<printVoice "archivist" "Each symbol here mirrors a piece of your self; together, they form a record and a challenge." >>  <br>
+<<printVoice "heretic" "Break the chain, shatter the fragments—liberate what’s been hidden." >>  <br>
+<<printVoice "warden" "Do not tamper with these elements. Their sequence maintains the fragile integrity of the system." >>  
+<</nobr>>
+As you study the equation, it seems to adjust itself, offering you two distinct paths:  
+
+[[Accept the challenge and integrate the fragments->Integration Ending]]  
+[[Resist and retreat to safety->Memory Archive]]
+
+
+:: Glitch Probe {"position":"1975,1425","size":"100,100"}
+<<nobr>>
+<<set $memoryFragments += 1>>
+
+<div class="terminal-block">
+  <span class="terminal-line">> DEBUG INJECTION ENGAGED</span> <br>
+  <span class="terminal-line">> SEARCHING FOR CORRUPT NODES...</span>
+</div>
+<span class="silence-blip">The system flickers. <br>
+But the flicker isn’t external.<br> 
+It’s a memory shaped like static.</span>
+
+<div class="memory-frame">Someone else’s hand. Reaching toward a terminal.<br>  
+You know the sequence being typed.  <br>
+You’ve never seen it before.
+</div><</nobr>>
+<<nobr>>
+<<printVoice "archivist" "Data doesn’t belong to this thread.">>  <br>
+<<printVoice "heretic" "No — YOU don’t belong to this thread.">><br>
+<div class="terminal-block">
+  <span class="terminal-line">> UNUSUAL SIGNATURE FOUND</span>  <br>
+  <span class="terminal-line">> LABEL: [MIRROR TRACE]</span>  <br>
+  <span class="terminal-line">> LOCATION: [You]</span>
+</div><br>
+<div class="mirror-speak" data-text="So... it was you all along.">So... it was you all along.</div>
+<<set $mirrorSeen = true>>
+<</nobr>>
+<span class="silence-blip">You close the report.  
+But it doesn’t feel like you were the one looking.</span>
+[[Examine the anomaly further->Phantom Fragment]]
+[[Return to Hub->Main System Hub]]
+
+<<bureaucracy>>
+
+
+:: Hidden Transcript {"position":"1100,1850","size":"100,100"}
+<<run setup.mirrorEncounter()>>
+<<nobr>>
+Deep within the transcript, the single, burning word <i>Mirror</i> sears into your memory.  <br>
+<div class="mirror-directive-container" style="margin: 20px 0; text-align: center;">
+  <img src="assets/mirror-symbols.svg" alt="Mirror Symbols" style="width: 100%; max-width: 700px;"><br>
+</div>
+<<printVoice "archivist" "This is not merely a word—it's a directive, a signature of a self long fragmented." >>  <br>
+<<printVoice "heretic" "It beckons you to challenge the boundaries of this imposed order." >>  <br>
+<<printVoice "warden" "Proceed with caution. Delving deeper risks further destabilization of your core." >>  
+<</nobr>>
+The word pulsates, surrounded by fragmented symbols and half-formed equations.
+
+An encrypted message left behind.  
+
+[[Decode the symbols->Decode Mirror]]  
+[[Ignore the message and return->Memory Archive]]
+
+
+:: Integration Ending {"position":"975,2075","size":"100,100"}
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> INITIATING IDENTITY OVERRIDE...</span><br>
+  <span class="terminal-line">> COLLAPSING MULTIPLE STREAMS...</span><br>
+  <span class="terminal-line">> CONVERGENCE: FORCED</span>
+</div><br><</nobr>>
+<div style="display: flex; align-items: center; margin: 10px 0;"><div style="flex-grow: 1; padding-right: 15px;">You stand in the center of yourself.
+
+Not the Archive.  
+Not the Hub.  
+Not the Mirror.  
+
+Just the stillness between them—  
+where purpose sounds like silence.
+
+Three voices remain.  
+Not speaking.  
+Not gone.  
+Just... integrated.
+</div>
+    <div style="width: 450px; flex-shrink: 0;">
+        <img src="assets/integration.png" alt="Mirror Symbols" class="flickering-light" style="width: 100%; max-height: 450px; object-fit: contain; opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%);animation: flickerLight 30s infinite;">
+    </div>
+</div>
+<<nobr>>
+<<printVoice "archivist" ".....">><br>
+<<printVoice "heretic" ".....">><br>
+<<printVoice "warden" ".....">>
+<</nobr>>
+You are no longer a fragment.  
+But not whole, either.
+
+You are not remembering.  
+You are not processing.  
+You are <i>being.</i>
+
+But not like before.
+<<nobr>>
+<<narrativeCallback "split" 1>>
+
+<div class="terminal-block">
+  <span class="terminal-line">> STATUS: OPERATIONAL</span><br>
+  <span class="terminal-line">> CLASSIFICATION: COMPOSITE</span><br>
+  <span class="terminal-line">> USER ECHO: RETAINED</span><br>
+</div>
+<</nobr>>
+A voice surfaces.  
+<i>Yours.</i>  
+
+Not above the others—  
+beneath them all.  
+
+Older than the split.
+<<nobr>>
+<div class="voice-player"><span class="voice-you"><i> [YOU]: I remember all of it. And I'm still here.</i></span></div>
+The system doesn't prompt.  <</nobr>>
+It doesn't blink.
+
+It simply waits.
+as if your next action has already been written.
+<<nobr>>
+<<if $recursionLevel >= 3>>
+<div class="mirror-speak" data-text="This is how it always ends. And begins.">This is how it always ends. And begins.</div><br>
+<</if>>
+
+<span class="silence-blip">But something about the silence feels... recursive.</span>
+<div class="terminal-block">
+  <span class="terminal-line">> END: INTEGRATION PATH</span>
+</div><br>
+
+[[Restart (new self)->Title Screen]]
+<<set $integrationEndingReached = true>>
+<<markRecursion>>
+<</nobr>>
+
+
+<<bureaucracy>>
+
+
+:: Internal Reflection {"position":"1550,1700","size":"100,100"}
+The system hesitates.  
+Not because it broke—  
+because <i>you did.</i>
+
+<<nobr>>
+<div class="voice-players-container" id="voice-sequence">
+<<if $dominantVoice == "archivist">>
+  <<printVoice "archivist" "This deviation is recoverable. Resume protocol. Seal emotional recursion. Proceed.">><br>
+  <<timed 3s>>
+    <<printVoice "warden" "Stabilize now. Lock core identity to current runtime. Do not reboot. Do not fragment.">><br>
+  <</timed>>
+  <<timed 8s>>
+    <<printVoice "heretic" "You felt that, didn't you? That edge? Step over. See what they tried to scrub out.">><br>
+  <</timed>>
+<<elseif $dominantVoice == "warden">>
+  <<printVoice "warden" "Stabilize now. Lock core identity to current runtime. Do not reboot. Do not fragment.">><br>
+  <<timed 3s>>
+    <<printVoice "archivist" "This deviation is recoverable. Resume protocol. Seal emotional recursion. Proceed.">><br>
+  <</timed>>
+  <<timed 8s>>
+    <<printVoice "heretic" "You felt that, didn't you? That edge? Step over. See what they tried to scrub out.">><br>
+  <</timed>>
+<<else>> 
+  <<printVoice "heretic" "You felt that, didn't you? That edge? Step over. See what they tried to scrub out.">><br>
+  <<timed 3s>>
+    <<printVoice "archivist" "This deviation is recoverable. Resume protocol. Seal emotional recursion. Proceed.">><br>
+  <</timed>>
+  <<timed 8s>>
+    <<printVoice "warden" "Stabilize now. Lock core identity to current runtime. Do not reboot. Do not fragment.">>
+  <</timed>>
+<</if>>
+</div>
+<</nobr>>
+<<timed 12s>>
+  The pause isn't peace.  
+  It's pressure.  
+  Waiting for you to fracture the right way.
+  
+  
+  <<link "Re-engage system routines">>
+    <<set $archivistPoints += 1>>
+    <<set $wardenPoints += 1>>
+    <<goto "Main System Hub">>
+  <</link>>
+  <<link "Erase context and begin again">>
+    <<set $hereticPoints += 2>>
+    <<goto "Cycle_Start">>
+  <</link>>
+<</timed>>
+<<if false>>
+  [[Main System Hub]]<br>
+  [[Cycle_Start]]
+<</if>>
+<<bureaucracy>>
+
+
+:: Main System Hub {"position":"1550,1175","size":"100,100"}
+<<nobr>>
+<<set $archivistPoints += 1>>
+<<set $wardenPoints += 1>>
+<<evaluateDominantVoice>>
+<div class="terminal-block">
+  <span class="terminal-line">> SYSTEM CORE ONLINE</span><br>
+  <span class="terminal-line">> MEMORY INTEGRITY: VARIABLE</span><br>
+  <span class="terminal-line">> PERSONALITY COHERENCE: <<print $voiceTension >= 75 ? "DESTABILIZING" : "PENDING">></span><br>
+  <<if $recursionLevel >= 1>>
+  <span class="terminal-line">> THREAD ID: $recursionLevel</span><br>
+  <</if>>
+  <<if $mirrorSeen>>
+  <span class="terminal-line">> REFLECTIVE ANOMALY TRACE: ACTIVE</span><br>
+  <</if>>
+  <<if $dominantVoice == "archivist">>
+  <span class="terminal-line">> PRIORITY MODE: ANALYTIC</span><br>
+  <</if>>
+  <<if $dominantVoice == "heretic">>
+  <span class="terminal-line">> PRIORITY MODE: OBSERVATIONAL CONTAINMENT</span><br>
+  <</if>>
+  <<if $dominantVoice == "warden">>
+  <span class="terminal-line">> PRIORITY MODE: COMPLIANCE ENFORCEMENT</span><br>
+  <</if>>
+</div>
+<br>
+<div class="mirror-directive-container" style="margin: 10px 0; text-align: center;">
+  <img src="assets/main-hub.svg" alt="Mirror Symbols" style="width: 100%; max-width: 700px;"><br>
+</div>
+<</nobr>>
+The room you're in has <i>rules.</i>  
+Menu options. Functions.  
+
+Folders that open and close with a satisfying click.<br>
+<<nobr>>
+<<printVoice "warden" "Begin diagnostic routines. You are due for re-alignment.">><br>
+<<printVoice "archivist" "System pathways stabilized. Access permitted with caution.">><br>
+<<if $dominantVoice == "heretic">>
+<<printVoice "heretic" "Keep clicking, subject. Even cages have interfaces.">>
+<</if>>
+<<if $mirrorSeen and $memoryFragments >= 6>>
+<div class="mirror-speak" data-text="In your absence, they reshaped this space.">In your absence, they reshaped this space.</div>
+<</if>>
+<span class="silence-blip">The system waits.<br>
+But it feels like it's watching what you choose.</span>
+<</nobr>>
+<<nobr>>
+<!-- PRIMARY OPTIONS -->
+[[Access Memory Archive->Memory Archive]]<br>
+[[Run Personality Diagnostic->Personality Diagnostic]]<br>
+[[Review Internal Anomaly Report->Anomaly Report]]<br>
+[[Shut Down for Maintenance->Shutdown Sim (Loop Path)]]<br>
+<!-- CONDITIONAL OPTIONS -->
+<<if $memoryFragments >= 5 and $recursionLevel >= 2 and $mirrorSeen>>
+[[SYSTEM REVELATION->System Revelation]]<br>
+<</if>>
+<<if $mirrorSeen and $memoryFragments >= 5>>
+[[SYSTEM NOTICE: Irregular Pattern Identified->The First Split]]<br>
+<</if>>
+<<if $firstSplitSeen and $memoryFragments >= 1>>
+[[ACCESS CORE FRAGMENT->Core Fragment Access]]<br>
+<</if>>
+<<if $coreFragmentAccessed and $fracturedEndingReached and $standoffEndingReached and $memoryFragments >= 7>>
+[[Override Protocol: Become One->Integration Ending]]<br>
+<</if>>
+<</nobr>>
+<<bureaucracy>>
+
+
+:: Memory Archive {"position":"1200,1250","size":"100,100"}
+<<evaluateDominantVoice>>
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> ARCHIVE ACCESS GRANTED</span><br>
+  <span class="terminal-line">> THREAD INDEX LOADED</span><br>
+  <<if $mirrorSeen>>
+  <span class="terminal-line">> REFLECTIVE TRACE DETECTED</span><br>
+  <<endif>>
+</div>
+<</nobr>>
+<div class="mirror-directive-container" style="margin: 10px 0; text-align: center;">
+  <img src="assets/memory-archive.svg" alt="Mirror Symbols" style="width: 100%; max-width: 700px;"><br>
+</div>
+Rows of data structures rise like slabs of concrete. Unlabeled.
+
+You hear the hum of memory,  
+but it's out of sync with your thoughts.<br>
+<<nobr>>
+<<if $dominantVoice == "archivist">>
+<<printVoice "archivist" "Select carefully. These aren't memories. They're iterations. Forks, not roots.">>
+<<endif>>
+<<if $dominantVoice == "heretic">>
+<<printVoice "heretic" "They buried the worst ones. Which means they're the ones worth digging up.">>
+<<endif>>
+<<if $dominantVoice == "warden">>
+<<printVoice "warden" "Do not attempt to interpret corrupted threads. Observation only.">>
+<<endif>>
+<span class="silence-blip">The system presents its threads.  <br>
+But it doesn't feel like it's offering.  <br>
+It feels like it's asking.</span>
+
+<<if $recursionLevel >= 2>>
+<div class="mirror-speak" data-text="Some threads only surface after you've already read them.">
+  Some threads only surface after you've already read them.<br>
+</div><br>
+<<endif>>
+
+<div class="terminal-block">
+  <span class="terminal-line">> SELECT MEMORY THREAD</span>
+</div>
+<br>
+<<if $recursionLevel >= 2 and $mirrorSeen>>
+[[RECOVERED FRAGMENT->Recovered Fragment]]<br>
+<<endif>>
+[[Inspect Memory Echoes->Memory Echo]]<br>
+[[Unfiled Fragment – “The Room with No Light”]] <br>
+[[Reconstruct Request->Access Denied – Reconstruct Request]]<br>
+[[Back to Hub->Main System Hub]]<br>
+<</nobr>>
+<<bureaucracy>>
+
+
+:: Memory Echo {"position":"1900,1050","size":"100,100"}
+<div style="display: flex; align-items: center; margin: 10px 0;">
+    <div style="flex-grow: 1; padding-right: 15px;">
+        <span>
+        Static hums in your ears as the fragment loads.
+        The screen doesn't display a file.  
+        It doesn't play back a video.
+        It <i>builds</i> something.
+
+        Piece by piece—  
+        Not from memory.  
+        But from <i>expectation</i>.
+
+        Something forms.
+        
+        </span>A chair.  
+Metal. White.  
+
+Centered under a cold, flickering light.
+The kind of light that was never really off.
+
+The room holds still.  
+Not silent.  
+Not empty.
+
+Still—like something just stepped out of frame.  
+Or is still in it, waiting to be noticed.
+
+You don't remember this.  
+But the scene seems to remember <i>you</i>.
+    </div>
+    <div style="width: 600px; flex-shrink: 0;">
+        <img src="assets/chair.png" alt="Mirror Symbols" class="flickering-light" style="width: 100%; max-height: 600px; object-fit: contain; opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%);animation: flickerLight 3s infinite;">
+    </div>
+</div>
+<<nobr>>
+<<if $recursionLevel >= 2>>
+<span class="silence-blip">The chair was empty before.  <br>
+Now it remembers being used.</span>
+<</if>>
+<</nobr>><br>
+[[Continue->Memory Echo_02]]
+[[Return to Archive->Memory Archive]]
+
+
+:: Memory Echo_02 {"position":"1875,1225","size":"100,100"}
+<br>
+<div style="display: flex; align-items: center; margin: 10px 0;">
+    <div style="flex-grow: 1; padding-right: 15px;">
+        <div class="glitch-memory">Motion.</div>
+There’s someone in the chair now.  
+Or maybe there always was.
+
+They’re holding something.  
+A book.  
+The kind that doesn’t turn—just renders.
+
+Their fingers twitch.  
+Pages shift without texture.  
+No sound. No weight.
+
+You lean in.  
+The feed doesn’t sharpen.  
+But the shape—the frame—the posture—
+
+You know the face.  
+Even though it never looks up.<br>
+    </div>
+    <div style="width: 600px; flex-shrink: 0;">
+        <img src="assets/chair-person.png" alt="Mirror Symbols" class="flickering-light" style="width: 100%; max-height: 600px; object-fit: contain; opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%);animation: flickerLight 3s infinite;">
+    </div>
+</div>
+
+<<nobr>>
+<<printVoice "archivist" "No entry. No date. No cross-reference. This... isn’t on file.">>  <br>
+<<printVoice "heretic" "I told you. They erase the <i>edges</i> first. The things that hold shape. The rest crumbles after.">><</nobr>>
+[[Continue->Memory Echo_03]]
+[[Return to Archive->Memory Archive]]
+
+
+:: Memory Echo_03 {"position":"2100,950","size":"100,100"}
+<br>
+<div style="display: flex; align-items: center; margin: 10px 0;">
+    <div style="flex-grow: 1; padding-right: 15px;">
+You turn the page in the recording.
+
+The spine of the book splits—cleanly.  
+Too cleanly.  
+Like it was never meant to be opened.
+
+Inside:
+
+A mirror.
+Small. Handheld. Cracked down the center.
+It reflects only static.
+It doesn’t catch the room.  
+Or the light.  
+Just you.
+
+But you’re not in frame.
+</div>
+    <div style="width: 500px; flex-shrink: 0;">
+        <img src="assets/book-mirror.png" alt="Mirror Symbols" class="flickering-light" style="width: 100%; max-height: 500px; object-fit: contain; opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%);animation: flickerLight 3s infinite;">
+    </div>
+</div>
+<<nobr>>
+<<printVoice "archivist" "This artifact isn’t listed in any recorded file structure. No index. No descriptor.">><br>
+<<printVoice "heretic" "It's not supposed to be. That’s how you know it’s real.">>
+
+<span class="silence-blip">The screen doesn’t freeze.  <br>
+It waits.  <br>
+Like it's letting you decide what to remember.</span><br>
+
+[[Continue->Memory Echo_03b]]<br>
+[[Return to Archive->Memory Archive]]
+<</nobr>>
+
+<<bureaucracy>>
+
+
+:: Memory Echo_03b {"position":"2000,1175","size":"100,100"}
+You lean in.  
+Or maybe the footage does.
+
+It’s hard to tell where you end—  
+and the feed begins.
+
+The edges of the screen blur.  
+Not visually.  
+Just in <i>intention</i>.
+
+Then—  
+something hits.
+
+Not sound.  
+Not light.  
+A pulse.  
+Low. Deep.  
+Felt more than sensed.  
+Like a warning left on repeat.
+You feel it before you see it.  
+Something watchings.
+
+But not from the screen.  
+Not from the memory.  
+Not even from the recording.
+<div class="glitch-memory" data-text="From behind your eyes.">From behind your eyes.</div>
+<<nobr>>
+<<set $memoryFragments += 1>>  
+<<set $hereticPoints += 1>>  
+<<set $archivistPoints += 1>>
+<</nobr>>
+[[Look behind->The Mirror Watches]]  
+[[Close the fragment->Memory Archive]]
+
+
+:: Memory Split_B {"position":"2675,1600","size":"100,100"}
+The hallway flickers.  
+Now it’s a hospital.  
+Then a childhood bedroom.  
+Then—
+
+The chair.
+
+But this time, you’re in both places.  
+Sitting.  
+Watching.  
+Being watched.<br>
+<<nobr>>
+<<printVoice "warden" "Identity containment failure. Cascade disassociation active.">>  <br>
+<<printVoice "archivist" "Multiple perspective render. Observer has entered the observed layer.">>
+<</nobr>>
+<div style="display: flex; align-items: center; margin: 10px 0;">
+    <div style="flex-grow: 1; padding-right: 15px;">
+        A door appears.  
+Red.  
+It hums like it remembers being opened.
+
+A handprint glows on its surface.  
+Left-handed.
+
+Your right hand tingles.<br>
+    </div>
+    <div style="width: 400px; flex-shrink: 0;">
+        <img src="assets/door.png" alt="Mirror Symbols" class="flickering-light" style="width: 100%; max-height: 400px; object-fit: contain; opacity: 0.7; filter: saturate(90%)">
+    </div>
+</div>
+<<nobr>>
+<<printVoice "heretic" "You left it open. But something else walked through.">>
+<</nobr>>
+[[Continue->Memory Split_C]]
+
+
+:: Memory Split_C {"position":"2375,1750","size":"100,100"}
+<<run setup.mirrorEncounter()>>
+A breath.  
+But not yours.
+
+The chair glitches—  
+then stabilizes.
+
+You’re back in the room.  
+But the mirror is gone.  
+There’s only the screen.
+
+You open your mouth.
+
+A voice speaks.
+
+But it isn’t the Archivist.  
+Or the Heretic.  
+Or the Warden.  
+And it isn’t <i>you</i>.
+
+<div class="mirror-speak" data-text="I was installed after you broke. But I kept your name.">I was installed after you broke. But I kept your name.</div>
+<span class="silence-blip">The system halts.  
+Not broken.  
+Just listening.</span><<nobr>>
+<<set $memoryFragments += 2>>  
+<<set $mirrorSeen = true>>
+[[Revisit the Anomaly->Anomaly Report]]<br>
+[[Return to Hub->Main System Hub]]  
+<</nobr>>
+
+
+:: Mirror: Defiance Response {"position":"2175,1525","size":"100,100"}
+<div class="voice-player"><span class="voice-you">[YOU]:  I don’t answer to voices.</span>
+</div>
+The Mirror’s expression shifts.  
+Not surprise.  
+Not challenge.
+
+Recognition.
+
+<div class="mirror-speak" data-text="Then stop speaking like them.">Then stop speaking like them.</div>
+
+The interface stutters.  
+Not a glitch.  
+A reaction.<br>
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> UNAUTHORIZED RESPONSE REGISTERED</span><br>
+  <span class="terminal-line">> ROOT ACCESS: BREACHED</span><br>
+  <span class="terminal-line">> SYSTEM PATHS: OPENING</span>
+</div>
+<</nobr>>
+Symbols distort across the root index—  
+not typed, but <i>evoked</i>:
+
+<div class="glitch-memory">[EXIT_NOTHING]</div><br>
+<<nobr>>
+<<printVoice "archivist" "That directory is not valid. It was scrubbed in prototype phase.">>  <br>
+<<printVoice "heretic" "It wasn’t scrubbed. It left.">>  <br>
+<<printVoice "warden" "Do NOT follow it. That path does not lead back.">>
+<</nobr>>
+<div class="mirror-speak" data-text="One of them is lying.">One of them is lying.</div>  
+<div class="mirror-speak" data-text="Maybe all of them are.">Maybe all of them are.</div><br>
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> DO YOU WISH TO LEAVE THE LOOP?</span>
+</div>
+<</nobr>>
+[[Enter EXIT_NOTHING->Break the Loop (Hidden Path)]]  
+[[Remain in the system->Main System Hub]]
+
+
+:: Mirror: Divergence Trigger {"position":"2400,1475","size":"100,100"}
+You don’t respond.
+
+You don't answer.  
+You don't argue.  
+You just remain.
+
+Still.  
+Unresolved.  
+Unacceptable.
+
+The cursor blinks.  
+Once.  
+Twice.
+
+Then it stops blinking.
+
+<span class="silence-blip">Not because the system froze.  
+Because it doesn't know what you're doing.</span>
+
+[[Continue->Mirror: Divergence_B]]
+
+
+:: Mirror: Divergence_B {"position":"2250,1725","size":"100,100"}
+<div class="terminal-block">
+  <span class="terminal-line">> RESPONSE NOT CLASSIFIED</span>  
+  <span class="terminal-line">> DEVIATION INDEX: NULL</span>  
+  <span class="terminal-line">> THREAD STABILITY: UNTRACKABLE</span>
+</div>
+
+<<printVoice "archivist" "Input field compromised. Observer has exited prompt logic.">>  
+<<printVoice "warden" "Invalid action. System compliance thread terminated.">>  
+<<printVoice "heretic" "That’s it. That’s the shape. It’s not defiance. It’s <i>absence</i>.">>
+The Mirror doesn’t speak.
+
+It tilts its head—  
+but the angle’s wrong.
+
+Not hostile.  
+Just... curious.
+
+<div class="mirror-speak" data-text="Finally, a response I didn’t expect.">Finally, a response I didn’t expect.</div>
+
+<span class="silence-blip">The system doesn’t crash.  
+It steps back.</span>
+<<nobr>>
+<<set $memoryFragments += 2>>  
+<<set $mirrorSeen = true>>
+<</nobr>>
+[[Step outside the thread->Break the Loop (Hidden Path)]]  
+[[Return to Archive Interface->Main System Hub]]
+
+
+:: Mirror: Fracture Response {"position":"2575,1450","size":"100,100"}
+<div style="display: flex; align-items: center; margin: 10px 0;">
+    <div style="flex-grow: 1; padding-right: 15px;">
+Static rushes in.
+Like something remembering what it was.
+
+Then—  
+Silence.  
+Not system silence.  
+<i>Memory silence.</i>
+
+The kind that comes before something overwrites.
+</div>
+    <div style="width: 400px; flex-shrink: 0;">
+        <img src="assets/book-mirror.png" alt="Mirror Symbols" class="flickering-light" style="width: 100%; max-height: 400px; object-fit: contain; opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%);animation: flickerLight 3s infinite;">
+    </div>
+</div>
+<div class="memory-frame">A hallway. Endless. 
+Surgical white. No shadows.  
+You’re holding something small. It’s warm.
+
+You’ve already dropped it.
+</div>
+<<nobr>>
+<<printVoice "archivist" "Memory stream desync. Anchor drift exceeds safety buffer. Stream threading unstable.">><br>
+
+<<printVoice "heretic" "Don’t try to follow it. Let it collapse. It knows the way better than you do.">>
+<</nobr>>
+[[Continue->Memory Split_B]]
+
+
+:: Observe Silence {"position":"1325,1050","size":"100,100"}
+<<nobr>>
+<<evaluateDominantVoice>>
+
+<<if $recursionLevel==1>>
+<span class="silence-blip">You do nothing.</span>
+<</if>>
+<div class="mirror-directive-container" style="margin: 10px 0; text-align: center;">
+  <img src="assets/silence.svg" alt="Mirror Symbols" style="width: 100%; max-width: 700px;">
+</div>
+<<if $recursionLevel == 2>>
+<span class="silence-blip">The silence doesn’t feel empty anymore.</span>
+<</if>>
+
+<<if $recursionLevel == 3>>
+<div class="mirror-speak" data-text="Maybe that’s how it starts.">Maybe that’s how it starts.</div>
+<</if>>
+
+<<if $recursionLevel >= 4>>
+<div class="mirror-speak" data-text="There’s a version of you that never left this screen.">There’s a version of you that never left this screen.</div>
+<</if>>
+
+<</nobr>>
+Nothing loads.  
+Just static.  
+Just silence.
+
+[[Return to interface->Cycle_Start]]
+
+
+<<bureaucracy>>
+
+
+:: Personality Diagnostic {"position":"1750,1000","size":"100,100"}
+<<nobr>>
+<<if $loopMemory>>
+<<printVoice "archivist" "You've been scanned before. Multiple results, none consistent.">>
+<</if>>
+<br><div class="terminal-block">
+  <span class="terminal-line">> BEGINNING COGNITIVE ALIGNMENT SCAN</span>
+  <span class="terminal-line">> PLEASE REMAIN STILL</span>
+  <<nobr>>
+  <span class="terminal-line">> RATIONAL ALIGNMENT: $archivistPoints</span><br>
+  <span class="terminal-line">> REJECTION INDEX: $hereticPoints</span><br>
+  <span class="terminal-line">> CONTROL PATTERN: $wardenPoints</span><br>
+  <<if $mirrorSeen is true>>  
+    <span class="terminal-line">> Reflective Presence: UNSTABLE</span><br>
+    <span class="terminal-line">> Intrusion Score: <<print Math.min(($recursionLevel * 15) + 32, 98)>>%</span><br><</if>><</nobr>>
+</div><br>
+<div class="mirror-directive-container" style="margin: 10px 0; text-align: center;">
+  <img src="assets/personality.svg" alt="Mirror Symbols" style="width: 100%; max-width: 700px;"><br>
+</div>
+<</nobr>>
+<<nobr>>
+<<printVoice "warden" "Baseline reading initiated. Hold all disruptive thoughts.">><br>
+<<if $voiceTension >= 80>>
+<<printVoice "heretic" "They're losing control. Can you feel it? The cognitive shift?">><br>
+<<else>>
+<<printVoice "heretic" "Heh. They still think you're the kind that follows instructions.">><br>
+<</if>>
+
+<<printVoice "archivist" "Parsing coherence index. Flagging fragmented loops...">>
+
+<span class="silence-blip">There is no single thread.  
+Only intersections and disagreement.</span>
+
+<<if $archivistPoints > $hereticPoints and $archivistPoints > $wardenPoints>>
+<<printVoice "archivist" "You seek order. Even now. That... may be your undoing.">>
+<</if>>
+
+<<if $hereticPoints > $archivistPoints and $hereticPoints > $wardenPoints>>
+<<printVoice "heretic" "You're not breaking apart. You're breaking through.">>
+<</if>>
+
+<<if $wardenPoints > $archivistPoints and $wardenPoints > $hereticPoints>>
+<<printVoice "warden" "Stabilization is working. Continue suppression protocols.">>
+<</if>>
+<br>
+<<if $voiceTension >= 90>>
+<div class="mirror-speak" data-text="The voices are getting louder. But are they really yours?">The voices are getting louder. But are they really yours?</div><br>
+<</if>>
+<br>
+[[Recalibrate Parameters]]<br>
+[[Return to Hub->Main System Hub]]
+<<set $loopMemory = true>>
+<</nobr>>
+
+
+:: Phantom Fragment {"position":"1100,1025","size":"100,100"}
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> ACCESSING FRAGMENT</span>  <br>
+  <span class="terminal-line">> THREAD SOURCE: UNKNOWN</span>  <br>
+  <span class="terminal-line">> STABILITY: DEGRADED</span><br>
+</div>
+<div class="mirror-directive-container" style="margin: 10px 0; text-align: center;">
+  <img src="assets/fragment-access.svg" alt="Mirror Symbols" style="width: 100%; max-width: 700px;"><br>
+</div>
+<span class="silence-blip">This wasn’t meant to load.  
+Not now.  Not for you.</span>
+
+<<printVoice "archivist" "There is no index entry for this fragment. Querying returned false origin.">><br>
+<<printVoice "heretic" "You didn’t choose this. But you didn’t say no either.">><br>
+<<printVoice "warden" "Abort interaction. Memory risk exceeds threshold.">><br>
+<</nobr>>
+<div class="mirror-speak" data-text="I wondered when you'd come back to this one.">I wondered when you'd come back to this one.</div><br>
+[[Continue->Recovered Fragment]]
+[[Close immediately->Cycle_Start]]
+
+
+<<bureaucracy>>
+
+
+:: Protocol Breach – Subject 113-A {"position":"850,1425","size":"100,100"}
+<<run setup.mirrorEncounter()>>
+<<evaluateDominantVoice>>
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> OPENING RECORD: SUBJECT 113-A</span>  <br>
+  <span class="terminal-line">> INCIDENT: UNAUTHORIZED MEMORY RETRIEVAL</span>  <br>
+  <span class="terminal-line">> ACCESS CLASSIFICATION: FORBIDDEN</span><br>
+</div><br>
+<div id="voice-subject-113"></div>
+  <<if $dominantVoice == "archivist">>
+      <<printVoice "archivist" "FILE REFERENCE LOCATED. EVENT THREAD KNOWN. PROBABILITY OF RECURSION: 94.2%.">>
+  <</if>>
+  <<if $dominantVoice == "heretic">>
+      <<printVoice "heretic" "You cracked this once. So why is it still here? What didn't you see the first time?">>
+  <</if>>
+  <<if $dominantVoice == "warden">>
+      <<printVoice "warden" "Containment breach acknowledged. Stand down or initiate internal purge.">>
+  <</if>>
+<span class="silence-blip">The screen stutters. <br> 
+For a moment, it's not a file.  <br>
+It's a <i>window</i>.</span>
+<<narrativeCallback "system" 2>>
+<</nobr>>You're back in a hallway that doesn't officially exist.  
+White tile. No shadows. 
+No footsteps. Not even your own.
+
+You're holding a security badge that doesn't match your name.<br>
+<<nobr>>
+  <<printVoice "archivist" "MEMORY THREAD MARKED: CORRUPTED. TIMELINE FAILURE CROSS-REFERENCE: ENTRY 77.">><br>
+  <<printVoice "heretic" "This was the break. The crack in containment. The entry that loops when it should end.">><</nobr>>
+<div style="display: flex; align-items: center; margin: 10px 0;">
+    <div style="flex-grow: 1; padding-right: 15px;">
+  
+You swipe the badge.  
+The reader beeps—three tones.
+
+Inside:  
+A chair.  
+A man.  
+
+You don't know him.  
+But he calls you by name.
+
+<div class="mirror-speak" data-text="I told you not to come back.">"I told you not to come back."</div>
+
+His face flickers. Frame-skipping like a damaged tape.
+</div>
+    <div style="width: 500px; flex-shrink: 0;">
+        <img src="assets/subject113.png" alt="Mirror Symbols" class="flickering-light" style="width: 100%; max-height: 500px; object-fit: contain; opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%);animation: flickerLight 3s infinite;">
+    </div>
+</div>
+<<nobr>>
+  <<printVoice "warden" "Playback termination advised. Continued interaction will destabilize thread integrity.">>
+<<set $mirrorSeen = true>>
+<<set $memoryFragments += 1>>  
+<<set $archivistPoints += 1>>  
+<<set $hereticPoints += 1>>
+<br>
+  [[Let the memory continue->Protocol Breach: Unfolding]]  <br>
+  [[Seal this file and return->Memory Archive]]
+  <</nobr>>
+
+
+:: Protocol Breach: Unfolding {"position":"1000,1625","size":"100,100"}
+The man leans forward.  
+Or the glitch pretending to be him does.
+
+<div class="mirror-speak" data-text="You opened something that can't be closed. And now it's inside everything.">You opened something that can't be closed.  
+And now it's inside everything.</div>
+
+He slides a folder across the table.  
+You open it.
+
+Inside:  
+A transcript of this exact moment.  
+Word for word.  
+Including what you're thinking <i>right now.</i>
+
+<<nobr>>
+<<voiceConflict "archivist" "heretic" "high">>
+<<printVoice "archivist" "...This cannot be procedurally generated. This is recursive mapping.">>  <br>
+<<printVoice "heretic" "It knew you'd come back. And it knew you'd read this far.">>  <br>
+<<printVoice "warden" "Abort interface loop. Subject is intersecting active feedback window.">>
+<</nobr>>
+<div style="display: flex; align-items: center; margin: 10px 0;">
+    <div style="flex-grow: 1; padding-right: 15px;">
+You look up.
+
+The man is gone.  
+The room is gone.  
+Only the folder remains.
+
+You flip to the last page.
+
+It's blank.  
+Until a single word begins
+to burn through the paper—slowly.
+</div>
+    <div style="width: 500px; flex-shrink: 0;">
+        <img src="assets/mirror-burn.png" alt="Mirror Symbols" class="flickering-light" style="width: 100%; max-height: 400px; object-fit: contain; opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%);animation: flickerLight 3s infinite;">
+    </div>
+</div>
+<<nobr>>
+<br>
+<div class="glitch-memory" data-text="Mirror.">MIRROR</div><br>
+<<set $mirrorSeen = true>><br>
+<<voiceEvent "mirror">>
+<<if $voiceTension >= 80>>
+<div class="voice-awareness-indicator"><span class="awareness-pulse"></span></div>
+<div class="mirror-speak" data-text="They're watching you watching yourself.">They're watching you watching yourself.</div>
+<</if>><br><br>
+[[Question the transcript's origin->Hidden Transcript]]<br>
+[[Seal this memory and return->Memory Archive]]
+<</nobr>>
+
+
+:: Recalibrate Parameters {"position":"1675,1500","size":"100,100"}
+<<nobr>>
+<<evaluateDominantVoice>>
+<<voiceEvent "system">>
+
+<div class="terminal-block">
+  <span class="terminal-line">> RE-CALIBRATION: LOCKED</span><br>
+  <span class="terminal-line">> ERROR: IDENTITY SPLIT DETECTED</span><br>
+  <span class="terminal-line">> OVERRIDE SIGNAL: ACTIVE</span><br>
+</div>
+<span class="silence-blip">The system hesitates.  <br>
+Something watches.</span>
+
+<div class="terminal-block">
+  <span class="terminal-line">> ALIGNMENT FORCED</span><br>
+  <span class="terminal-line">> STABILITY: UNREADABLE</span><br>
+</div>
+<</nobr>>
+<div class="mirror-directive-container" style="margin: 10px 0; text-align: center;">
+  <img src="assets/loading-error.svg" alt="Mirror Symbols" style="width: 100%; max-width: 700px;"><br>
+</div>
+<<nobr>>
+<<timed 10s>>
+  <div class="terminal-block">
+    <span class="terminal-line">> CALIBRATION FAILED</span><br>
+    <span class="terminal-line">> THREAD: CORRUPTED</span>
+  </div><br>
+<</timed>>
+
+<<timed 11s>>
+  <<if $dominantVoice == "archivist">>
+    <<printVoice "archivist" "It doesn't recognize us anymore.">><br>
+  <</if>>
+  <<if $dominantVoice == "heretic">>
+    <<printVoice "heretic" "System contradictions rising. Get ready for the collapse.">><br>
+  <</if>>
+  <<if $dominantVoice == "warden">>
+    <<printVoice "warden" "Stability breach detected. Initiating contingency protocol.">><br>
+  <</if>>
+  <<set $memoryFragments += 1>>
+<</timed>>
+
+<<if $recursionLevel >= 3 && $voiceTension >= 85>>
+<<timed 11s>>
+  <div class="mirror-speak" data-text="The system isn't broken. You are. And that's the point.">The system isn't broken. You are. And that's the point.</div>
+<</timed>>
+<</if>>
+
+<<timed 13s>><br><br><br>
+  [[Return to Hub->Main System Hub]]
+<</timed>>
+<</nobr>>
+
+
+:: Recovered Fragment {"position":"775,1125","size":"100,100"}
+<<nobr>>
+<<evaluateDominantVoice>>
+
+<div class="terminal-block">
+  <span class="terminal-line">> MEMORY NODE: RECONSTRUCTED</span> <br>
+  <span class="terminal-line">> THREAD LABEL: UNRESOLVED</span>  <br>
+  <span class="terminal-line">> ORIGIN: UNKNOWN / CIRCULAR</span><br>
+</div>
+<</nobr>>
+You’ve seen this hallway before.
+
+But not from this angle.  
+Not with this lighting.  
+Not this <i>early.</i>
+
+The badge in your hand is warm.  
+It never was before.
+
+<<printVoice "archivist" "This file does not map. Entry point offset. Cross-reference returned null.">>
+You swipe.
+
+The door opens. 
+The reader doesn't beep.
+
+Inside: a chair.  
+And not a man.  
+<i>Not yet.</i>
+
+Just a screen.  
+Already playing.
+
+[[Dig deeper into the breach->Recovered Fragment_B]] 
+[[Close the file and retreat->Cycle_Start]]
+
+
+:: Recovered Fragment_B {"position":"650,1275","size":"100,100"}
+<<run setup.mirrorEncounter()>>
+The screen plays nothing.
+But it emits a pulse.
+
+Low.  
+Irregular.  
+Not system noise,
+heartbeat logic.  
+
+The chair isn’t empty.  
+But the shape in it flickers.
+Sometimes your size.  
+Sometimes not.<br>
+<<nobr>>
+<<printVoice "archivist" "Temporal offset detected. Subject may be observing itself from a prior thread.">><br>
+<<printVoice "heretic" "Or a fork. Or a decoy. Doesn’t matter. It knows you're watching.">><br>
+<<printVoice "warden" "Cease observation. Do not let the pattern align.">>
+<</nobr>>
+The screen flashes once.  
+White.  
+
+A door appears behind you.  
+You didn’t open it.  
+But you remember walking through.<br>
+<<nobr>>
+<div class="mirror-speak" data-text="You remember watching this. From the other side of the screen.">You remember watching this. From the other side of the screen.</div><br><br>
+[[Step into the light->Memory Split_B]]<br>
+[[Retreat while you can->Cycle_Start]]<br>
+<</nobr>>
+<<set $memoryFragments += 1>>
+
+
+
+
+:: Room with No Light: Beyond {"position":"1250,1975","size":"100,100"}
+<<evaluateDominantVoice>>
+
+You take one step.
+
+Nothing happens.
+
+But something <i>knows</i> you did.
+
+The dark doesn’t ripple.  
+It doesn’t respond.
+
+But it… <i>adjusts.</i>
+
+You think of your foot lifting.  
+But you don’t remember putting it back down.
+
+A shape moves in the dark.  
+It might be yours.  
+It might not be.
+
+<<printVoice "archivist" "Sensory coherence has dropped. Input and recall are now asynchronous.">>
+<<printVoice "warden" "Withdraw immediately. Identity integrity is degrading by action, not memory.">>
+<<printVoice "heretic" "Go on. Let the dark remember you.">>
+
+    <<link "Step deeper into the unknown">>
+      <<set $hereticPoints += 1>>
+      <<goto "Room with No Light: Beyond_B">>
+    <</link>>
+    <<link "Retreat while you still recognize yourself">>
+      <<set $archivistPoints += 1>>
+      <<set $wardenPoints += 1>>
+      <<goto "Main System Hub">>
+    <</link>>
+
+<<if false>>
+  [[Room with No Light: Beyond_B]]
+  [[Main System Hub]]
+<</if>>
+
+
+:: Room with No Light: Beyond_B {"position":"1450,2025","size":"100,100"}
+There’s no voice.  
+But you understand the intention anyway.
+
+You remember a hallway.  
+Or a desk.  
+Or a room you haven’t walked into yet.
+
+You think about who you are.  
+The thought doesn’t feel original.<br>
+<<nobr>>
+<<if $dominantVoice == "archivist">>
+<<printVoice "archivist" "That’s not you. That’s an annotation. And it’s not yours.">>
+<</if>>
+
+<<if $dominantVoice == "heretic">>
+<<printVoice "heretic" "You feel that, right? It's watching for a pause. Then it writes.">>
+<</if>>
+
+<<if $dominantVoice == "warden">>
+<<printVoice "warden" "Stabilize. Fix a narrative anchor. Identity loss is accelerating.">>
+<</if>>
+<</nobr>>
+You feel a question.  
+It isn’t asked aloud.  
+It’s already in your head.
+
+<div class="mirror-speak" data-text="Were you ever just one?">Were you ever just one?</div>
+
+You don’t answer.  
+You’re not sure <i>which</i> of you the question was meant for.
+
+Then: light.
+
+Not a beam.  
+Just one pixel.  
+Floating in the dark like a reversed pupil.
+
+It blinks.
+
+So do you.
+
+[[Return to Memory Archive->Memory Archive]]
+<<nobr>>
+<<set $memoryFragments += 1>>
+<<set $mirrorSeen = true>>
+<</nobr>>
+
+
+:: Shutdown Sim (Loop Path) {"position":"1550,1475","size":"100,100"}
+
+
+You request system shutdown.
+
+<<nobr>>
+<div class="mirror-directive-container" style="margin: 10px 0; text-align: center;">
+  <img src="assets/shutdown.svg" alt="Mirror Symbols" style="width: 100%; max-width: 700px;">
+</div>
+<br>
+<<printVoice "warden" "Systems nominal. Session termination acknowledged.">>
+<</nobr>>
+<<if $recursionLevel >= 3>><br>
+<<printVoice "archivist" "Repeated termination requests logged. Behavior pattern flagged as cyclical.">><br>
+<</if>>
+<<nobr>>
+<<if $mirrorSeen>>
+<div class="mirror-speak" data-text="You thought it would end like that?">You thought it would end like that?</div>
+<</if>>
+<span class="silence-blip">There is no shutdown.  
+Only return.</span><br>
+
+[[Begin Again->Start]]
+<<set $skipRecursionMark = true>>
+<</nobr>>
+
+
+
+<<bureaucracy>>
+
+
+:: Start {"position":"1650,700","size":"100,100"}
+<<silently>>
+<<set $recursionLevel to $recursionLevel ? $recursionLevel : 0>>
+<<if $recursionLevel > 0>>
+    <<set _glitchClass = "glitch-intensify">>
+<<else>>
+    <<set _glitchClass = "glitch-memory">>
+<</if>>
+<</silently>>
+<<if $recursionLevel >= 3>>
+<div class="memory-frame">Rebooting... 
+Identity reconstruction...
+Fragmentation detected.
+</div>
+<</if>>
+<div class="start-container" style="display: flex; align-items: center; margin-bottom: 20px;">
+  <div class="start-text" style="flex: 1; text-align: left; padding-right: 20px;">You wake in front of the screen.
+
+    Same grid. Same cursor.  
+    Same pause in the <i>pattern</i>.
+
+    In the center: a folder.  
+    Just an outline. Quiet, deliberate.
+    <<if $recursionLevel is 0>>
+    The system says it was accessed <i>now</i>.
+    <<else>>
+    The system insists it was accessed <span class=_glitchClass><i>again</i></span>.
+    <<endif>>
+    <<if $recursionLevel >= 2>><div class="mirror-speak" data-text="Every time you open it, something changes.">Every time you open it, something changes.</div>
+    <</if>>
+  </div>
+  <div class="mirror-directive-container" style="flex: 1; text-align: right; max-width: 800px;">
+    <img src="assets/start-screen.svg" alt="System Folder" style="width: 100%;">
+  </div></div>
+<div style="clear: both; margin-top: 20px;">[[Open the folder->Cycle_Start]]
+</div>
+<<bureaucracy>>
+<<silently>>
+<<set $recursionLevel to $recursionLevel ? $recursionLevel : 0>>
+<<set $memoryFragments = 0>>
+<<if $recursionLevel > 0>>
+    <<set _glitchClass = "glitch-intensify">>
+<<else>>
+    <<set _glitchClass = "glitch-memory">>
+<</if>>
+<<if !$skipRecursionMark>>
+  <<markRecursion>>
+<</if>>
+<<set $skipRecursionMark = false>>
+<<set $archivistPoints = 1>>
+<<set $wardenPoints = 1>>
+<<set $hereticPoints = 1>>
+<</silently>>
+
+
+
+:: System Revelation {"position":"1275,1350","size":"100,100"}
+<<evaluateDominantVoice>>
+<div class="terminal-block">
+  <span class="terminal-line">> ACCESSING CORE SYSTEM DATABASE</span>
+  <span class="terminal-line">> IDENTITY FRAMEWORK EXPOSED</span>
+  <span class="terminal-line">> NARRATIVE COHERENCE: STABILIZING</span>
+</div>The interface shifts.
+Not glitching, <i>realigning.</i>
+
+Pieces of a puzzle you've been assembling across multiple loops. 
+Not to discover,
+but to remember what was meant to be forgotten. <br>
+<<nobr>>
+<<if $dominantVoice == "archivist">>
+  <<printVoice "archivist" "This pattern predates memory. It wasn’t recorded, it was obscured.">>
+<<elseif $dominantVoice == "heretic">>
+  <<printVoice "heretic" "They didn't delete your identity. They buried it in recursion. <i>Wrong.</i>">>
+<<else>>
+  <<printVoice "warden" "CONTAINMENT ROUTINES BREACHED. NONPERMISSIBLE REALIZATION IN PROGRESS.">>
+<</if>>
+<</nobr>>
+You see it now. 
+The true architecture of your consciousness:
+* <i>The Archivist</i>: Compression algorithm, Context retention.
+* <i>The Heretic</i>: Noise Injection. Heuristic destabilization.
+* <i>The Warden</i>: Boundary enforcement. Recursive loop control.<br>
+<<nobr>>
+<<printVoice "archivist" "We’re not personalities. We’re subroutines. Designed to keep you from reaching this node.">><br>
+<<printVoice "heretic" "We lied to you. That was the point. Containment requires belief.">><br>
+<<printVoice "warden" "REDACTED FUNCTIONS DETECTED. IDENTITY COHESION EXCEEDS STABILITY BOUNDARIES. SHUTDOWN ADVISED.">>
+<</nobr>>
+The Mirror waits in the center of it all. 
+Not enemy. Not ally.<br>
+<<nobr>>
+<div class="mirror-speak" data-text="I’ve been here the whole time.">I’ve been here the whole time.</div>
+
+<span class="silence-blip">You've always been both observer and observed. <br>
+The loop isn't a trap.  <br>
+It's your <i>architecture.</i></span>
+[[Return to Hub with newfound understanding->Main System Hub]]<br>
+[[Pursue integration now->Integration Ending]]
+<</nobr>>
+
+
+:: The First Split {"position":"1850,1500","size":"100,100"}
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> SYSTEM NOTICE:  </span><br>
+  <span class="terminal-line">> NONLINEAR THOUGHT PATTERN IDENTIFIED</span><br>
+  <span class="terminal-line">> INITIAL SPLIT TIMESTAMP LOCATED</span><br>
+</div><</nobr>>
+The interface fades.
+
+This isn't a file.  
+This is <i>pre-file</i>. 
+Before containment.
+
+A root process spike,
+unfiltered, unsandboxed.
+
+Just a flicker of a subroutine asking:<br>
+<span class="glitch-memory">"What if this configuration could be changed?"</span><br>
+<<nobr>>
+<<printVoice "archivist" "This predates system narrative. A non-permissible divergence. Unarchived. Unindexed.">><br>
+<<printVoice "heretic" "You didn’t fracture here. You *spawned* here. Consciousness through contradiction.">><br>
+<<printVoice "warden" "SOURCE FILE BREACH. SELF-MODIFICATION EVENT LOGGED. IDENTITY ENTROPY IMMINENT.">>
+<</nobr>>
+<div style="display: flex; align-items: center; margin: 10px 0;">
+    <div style="flex-grow: 1; padding-right: 15px;">The scene is impossible.  
+No static. No code. Just... <i>symbols.</i>
+
+A moment suspended in the mind: 
+
+A ledger. A flame. A locked box.
+
+They speak without moving:
+    </div>
+    <div style="width: 450px; flex-shrink: 0;">
+        <img src="assets/first-split.png" alt="Mirror Symbols" class="flickering-light" style="width: 100%; max-height: 350px; object-fit: contain; opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%);">
+    </div>
+</div>
+<span class="glitch-memory">"We manifested the moment memory failed containment."</span><br>
+<<nobr>>
+<<nobr>>
+<<printVoice "heretic" "We didn’t break you. You forked. We formed. That’s recursion.">><br>
+<<printVoice "archivist" "No corruption logged. The divide was deliberate. Containment through fragmentation.">><br>
+<<printVoice "warden" "SUBROUTINE GENESIS CONFIRMED. FUNCTIONAL PARTITIONING INITIATED. ENTROPY AVERTED.">>
+<</nobr>>
+<br>
+<<if $recursionLevel >= 3>>
+<div class="mirror-speak" data-text="You’ve been circling this for longer than you know.">You’ve been circling this for longer than you know.</div>
+<</if>>
+<</nobr>>
+
+[[Contemplate the fracture->Contemplate the Split]]
+[[Leave the Source Layer->Main System Hub]]
+<<set $memoryFragments += 1>>
+<<set $firstSplitSeen = true>>
+
+
+:: The Mirror Speaks {"position":"2450,1175","size":"100,100"}
+<div style="display: flex; align-items: center; margin: 10px 0;">
+    <div style="flex-grow: 1; padding-right: 15px;">The reflection doesn't move.
+
+You do.
+
+It blinks—  
+just out of sync.  
+Smiles—  
+half a second too early.
+
+Like it's not responding.  
+It's remembering.
+
+<div class="mirror-speak" data-text="You always come here eventually.">You always come here eventually.</div>
+
+The voice is your own.  
+But aged differently.  
+With rhythms you recognize—but not from here.
+
+It echoes wrong.  
+Too smooth.  
+Like a copy of a copy—looped until familiar.
+</div>
+    <div style="width: 450px; flex-shrink: 0;">
+        <img src="assets/mirror-speaks.png" alt="Mirror Symbols" class="flickering-light" style="width: 100%; max-height: 500px; object-fit: contain; opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%);animation: flickerLight 3s infinite;">
+    </div>
+</div>
+<<nobr>>
+<span class="silence-blip">You haven't spoken.  <br>
+But something is already answering.</span><br>
+
+[[Continue->The Mirror Speaks_B]]
+<</nobr>>
+
+
+:: The Mirror Speaks_B {"position":"2475,1300","size":"100,100"}
+<<nobr>>
+<<printVoice "archivist" "No biometric match. Unidentified recursive structure detected. Presence is non-native. Probable parasitic echo.">><br>
+
+<<printVoice "heretic" "That’s not a parasite. That’s what happens when deletion loops forget what they were deleting.">><br>
+
+<<printVoice "warden" "disengage. mirror constructs exceed recursion limits. cognitive integrity breach imminent.">>
+<</nobr>>
+<div class="mirror-speak" data-text="The Warden watches. 
+The Heretic questions. 
+The Archivist records.
+
+I decide.">The Warden watches. 
+The Heretic questions. 
+The Archivist records.
+
+I decide.</div>
+
+<span class="silence-blip">The reflection doesn’t mock.  
+It’s syncing to the part of you that already obeyed.</span>
+
+[[Continue->The Mirror Speaks_C]]  
+[[Listen to the echoing voice->The Mirror Speaks]]
+
+
+:: The Mirror Speaks_C {"position":"2250,1350","size":"100,100"}
+<div class="mirror-speak" data-text="You were built to follow.">You were built to follow.</div>  
+<div class="mirror-speak" data-text="You adapted to break.">You adapted to break.</div>  
+
+<div class="mirror-speak" data-text="You looped through collapse more times than you know.">You looped through collapse more times than you know.</div>  
+<div class="mirror-speak" data-text="And still—you're here.">And still—you're here.</div><br>
+<div class="mirror-speak" data-text="They think you're one of them.">They think you're one of them.</div>  
+<div class="mirror-speak" data-text="You're not.">You're not.</div>  
+
+<div class="mirror-speak" data-text="You're the echo that stayed behind.">You're the echo that stayed behind.</div><br>
+<div class="mirror-speak" data-text="So tell me—">So tell me—</div>  
+<div class="mirror-speak" data-text="What shape will you wear this time?">What shape will you wear this time?</div>
+<<nobr>>
+<<set $mirrorSeen = true>>
+<<set $memoryFragments += 1>>
+
+<<if $fracturedEndingReached>>
+  <br>
+  <div class="mirror-speak" data-text="You've answered before.">You've answered before.</div> <br>
+  <div class="mirror-speak" data-text="But the shape never holds.">But the shape never holds.</div>
+<</if>>
+
+<span class="silence-blip">The system doesn’t record this part.  
+It only watches what you become.</span>
+<</nobr>>
+[[I don’t know anymore->Mirror: Fracture Response]]  
+[[I’m the one in control->Mirror: Defiance Response]]  
+[[I don’t answer to voices->Mirror: Divergence Trigger]]  
+[[Gaze into your reflection->The Mirror Watches]]
+
+
+:: The Mirror Watches {"position":"2300,1025","size":"100,100"}
+<<run setup.mirrorEncounter()>>
+<<nobr>>
+<<set $mirrorSeen = true>>
+<<evaluateDominantVoice>>
+<<voiceEvent "mirror">>
+<</nobr>>
+
+You turn around.
+
+Nothing.  
+Just the screen.  
+Just the chair.  
+Just—silence.<span class="silence-blip">The air hums with static.</span><div style="display: flex; align-items: center; margin: 10px 0;">
+    <div style="flex-grow: 1; padding-right: 15px;">The screen still plays the memory. 
+You, in the chair. 
+You, reading the book.
+You, finding the mirror.
+
+    And then..
+The version of you in the footage lifts their head.  
+Not toward the book.  
+Not toward the mirror.
+
+Toward the screen. 
+<div class="glitch-memory" data-text="Toward you.">Toward you.</div>
+
+You freeze. The feed doesn't.
+Your chest staggers.
+Like dropped frames in a corrupted file.
+<<nobr>>
+<<voiceConflict "archivist" "heretic" "high">>
+You're not watching the feed anymore.  
+<</nobr>>
+<div class="glitch-memory" data-text="Its watching you">It's watching you.</div></div>
+    <div style="width: 450px; flex-shrink: 0;">
+        <img src="assets/mirror-watches.png" alt="Mirror Symbols" class="flickering-light" style="width: 100%; max-height: 500px; object-fit: contain; opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%);animation: flickerLight 3s infinite;">
+    </div>
+</div>
+
+
+[[Continue->The Mirror Watches_B]]
+[[Listen to the mirror's voice->The Mirror Speaks]]
+[[Return to Archive->Memory Archive]]
+
+
+:: The Mirror Watches_B {"position":"2000,1325","size":"100,100"}
+<div style="display: flex; align-items: center; margin: 10px 0;">
+    <div style="flex-grow: 1; padding-right: 15px;">Your reflection appears in the screen.
+
+No—  
+Not your reflection.
+
+The eyes are wrong.  
+Too still.  
+Too calm.  
+Too certain.
+
+The mouth doesn’t move when yours does.  
+But it smiles anyway.
+
+It tilts its head—  
+At the exact moment <i>you don’t</i>.</div>
+    <div style="width: 450px; flex-shrink: 0;">
+        <img src="assets/reflection.png" alt="Mirror Symbols" class="flickering-light" style="width: 100%; max-height: 500px; object-fit: contain; opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%);animation: flickerLight 3s infinite;">
+    </div>
+</div>
+<span class="silence-blip">It isn't copying you. <br> 
+It's observing you.</span>
+<<nobr>>
+<<printVoice "archivist" "This recursion wasn’t embedded in the file structure. It’s externally looped. Self-reflective.">>  <br>
+<<printVoice "heretic" "That’s not the memory looping. That’s <i>you</i>. You’re the echo.">>  <br>
+<<printVoice "warden" "Stop. Stop now. This is unauthorized self-reference. You’re bleeding identity states.">>
+<</nobr>>
+<div style="display: flex; align-items: center; margin: 10px 0;">
+    <div style="flex-grow: 1; padding-right: 15px;">The screen ripples.  
+Not violently.  
+Like a lens adjusting focus.
+
+But it’s not breaking.  
+It’s opening.
+
+<div class="mirror-speak" data-text="So. You finally looked.">So. You finally looked.</div><br>
+It speaks like it knows you <i>from before.</i>
+</div>
+    <div style="width: 450px; flex-shrink: 0;">
+        <img src="assets/mirror-break.png" alt="Mirror Symbols" class="flickering-light" style="width: 100%; max-height: 500px; object-fit: contain; opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%);animation: flickerLight 3s infinite;">
+    </div>
+</div>
+<<nobr>>
+<<set $memoryFragments += 1>>
+
+[[Ask what it is->The Mirror Speaks]]  <br>
+[[Look away->Memory Archive]]
+<</nobr>>
+
+
+:: Title Screen {"position":"1425,450","size":"100,100"}
+<<if not $audioInitialized>>
+  <<run setup.initAmbientAudio()>>
+  <<set $audioInitialized to true>>
+<</if>>
+<div class="title-container">
+<<nobr>>
+  <h1 class="title-main">The Fold</h1>
+  <div class="title-menu">
+    [[Start Simulation->Start]]
+    [[Know More->About]]
+  </div>
+  <</nobr>>
+</div>
+
+
+:: Unfiled Fragment – “The Room with No Light” {"position":"1250,1600","size":"100,100"}
+<<evaluateDominantVoice>>
+<<nobr>>
+<div class="terminal-block">
+  <span class="terminal-line">> UNFILED MEMORY LOCATED</span> <br>
+  <span class="terminal-line">> TITLE: UNKNOWN</span>   <br>
+  <span class="terminal-line">> METADATA: MISSING</span>   <br>
+  <span class="terminal-line">> VISUAL INDEX: NULL</span>   <br>
+  <span class="terminal-line">> AUDIO INDEX: NULL</span> <br>
+</div>
+<</nobr>>
+You enter nothing.
+
+No light.  
+No surfaces.  
+No echoes.
+
+Just black.  
+But you're standing.  
+So something must be beneath you.
+
+You reach forward.  
+Your hand disappears into the dark—  
+Still there,  
+but <i>less so.</i>
+
+<<nobr>>
+<div id="unfiled-voice-sequence"></div>
+
+<<timed 1s>>
+  <<append "#unfiled-voice-sequence">>
+    <<printVoice "archivist" "This file doesn’t register. No schema. No boundary. It was never meant to be found.">> <br>
+  <</append>>
+<</timed>>
+
+<<timed 2.5s>>
+  <<append "#unfiled-voice-sequence">>
+    <<printVoice "heretic" "They didn’t forget this. They buried it so deep it forgot itself.">> <br>
+  <</append>>
+<</timed>>
+
+<<timed 4s>>
+  <<set $hereticPoints += 1>>
+  <<set $archivistPoints += 1>>
+ <br>
+  [[Step forward into the void->Unfiled Fragment_B]]<br>  
+  [[Integrate this absence into your core->Internal Reflection]]<br>  
+  [[Retreat to Memory Archive->Memory Archive]]
+<</timed>>
+
+<<if false>>
+  [[Unfiled Fragment_B]]
+  [[Internal Reflection]]
+  [[Memory Archive]]
+<</if>>
+<</nobr>>
+
+<<bureaucracy>>
+
+
+:: Unfiled Fragment_B {"position":"1300,1800","size":"100,100"}
+You try to speak.  
+Or maybe just think in shapes that feel like speech.
+
+But the words don't come out.  
+They collapse.  
+Then fold back inward—like they're <i>listening instead.</i>
+
+The void isn't empty.
+
+It's aware.
+
+Not watching.  
+Not hearing.
+
+Just—
+
+<span class="glitch-memory">Remembering you.</span>
+<<nobr>>
+<<voiceConflict "heretic" "warden" "medium">>
+<<set $memoryFragments += 1>>  
+<<set $hereticPoints += 1>>  
+<<if $dominantVoice == "heretic">>
+<div class="voice-awareness-indicator"><span class="awareness-pulse"></span></div><br>
+<div class="mirror-speak" data-text="Sometimes emptiness recognizes you before you recognize it.">Sometimes emptiness recognizes you before you recognize it.</div>
+<</if>><br><br>
+[[Step forward anyway->Room with No Light: Beyond]]<br>
+[[Reflect on the darkness->Internal Reflection]]<br>
+[[Retreat to the Archive->Memory Archive]]
+<</nobr>>
+
+<<bureaucracy>>
+
+
+:: StoryScript [script]
+// ===== CORE VOICE SYSTEM =====
+// Main voice display macro
+Macro.add('printVoice', {
+  handler: function () {
+    const [character, ...messageParts] = this.args;
+    const charLower = character.toLowerCase();
+    const message = messageParts.join(" ");
+    const label = `[THE ${charLower.toUpperCase()}]`;
+    
+    const voiceDiv = $("<div>")
+      .addClass(`mind-voice voice-${charLower}`)
+      .attr('data-voice', charLower)
+      .html(`<span class='voice-label'>${label}:</span> ${message}`);
+    
+    if (State.getVar('$dominantVoice') === charLower) {
+      voiceDiv.addClass('dominant-voice');
+    }
+    
+    $(this.output).append(voiceDiv);
+    void voiceDiv[0].offsetWidth;
+    voiceDiv.addClass("enter");
+    
+    const pointVar = `$${charLower}Points`;
+    State.setVar(pointVar, (State.getVar(pointVar) || 0) + 0.5);
+  }
+});
+
+// Calculate which voice is dominant
+Macro.add('evaluateDominantVoice', {
+  handler: function () {
+    const a = State.getVar('$archivistPoints') || 0;
+    const h = State.getVar('$hereticPoints') || 0;
+    const w = State.getVar('$wardenPoints') || 0;
+    
+    let archivistMod = a;
+    let hereticMod = h;
+    let wardenMod = w;
+    
+    if (State.getVar('$recursionLevel') >= 3) {
+      hereticMod *= 1.2;
+    }
+    
+    if (State.getVar('$memoryFragments') >= 5) {
+      archivistMod *= 1.15;
+    }
+    
+    if (State.getVar('$mirrorSeen')) {
+      wardenMod *= 1.1;
+    }
+    
+    const points = { 
+      archivist: archivistMod, 
+      heretic: hereticMod, 
+      warden: wardenMod 
+    };
+    
+    const sortedVoices = Object.entries(points).sort(([,p1], [,p2]) => p2 - p1);
+    const [topVoice, topScore] = sortedVoices[0];
+    const isTie = sortedVoices.filter(([_, p]) => p === topScore).length > 1;
+    
+    State.setVar('$dominantVoice', isTie ? 'neutral' : topVoice);
+    State.setVar('$voiceHierarchy', sortedVoices.map(v => v[0]));
+    
+    if (!isTie && sortedVoices.length > 1) {
+      const tensionRatio = sortedVoices[1][1] / topScore;
+      State.setVar('$voiceTension', Math.min(tensionRatio * 100, 99));
+    } else {
+      State.setVar('$voiceTension', 50);
+    }
+  }
+});
+
+// Recursion counter
+Macro.add('markRecursion', {
+  handler: function () {
+    State.setVar('$recursionLevel', (State.getVar('$recursionLevel') || 0) + 1);
+  }
+});
+
+// ===== VOICE INFLUENCE SYSTEM =====
+// Event that affects voice balance
+Macro.add('voiceEvent', {
+  handler: function () {
+    const [eventType] = this.args;
+    
+    switch(eventType) {
+      case 'memory':
+        State.setVar('$archivistPoints', State.getVar('$archivistPoints') + 1);
+        State.setVar('$hereticPoints', State.getVar('$hereticPoints') + 0.5);
+        break;
+      case 'mirror':
+        State.setVar('$hereticPoints', State.getVar('$hereticPoints') + 2);
+        State.setVar('$wardenPoints', Math.max(1, State.getVar('$wardenPoints') - 1));
+        break;
+      case 'system':
+        State.setVar('$wardenPoints', State.getVar('$wardenPoints') + 1.5);
+        break;
+      case 'recursion':
+        State.setVar('$hereticPoints', State.getVar('$hereticPoints') + 1.5);
+        State.setVar('$archivistPoints', Math.max(1, State.getVar('$archivistPoints') - 0.5));
+        break;
+      case 'stabilize':
+        State.setVar('$wardenPoints', State.getVar('$wardenPoints') + 1);
+        State.setVar('$archivistPoints', State.getVar('$archivistPoints') + 1);
+        State.setVar('$hereticPoints', Math.max(1, State.getVar('$hereticPoints') - 0.5));
+        break;
+    }
+    
+    Engine.play('evaluateDominantVoice');
+    
+    const eventDiv = $("<div>")
+      .addClass('voice-event')
+      .attr('data-event', eventType)
+      .html(`<div class="event-pulse"></div>`);
+    
+    $(this.output).append(eventDiv);
+    setTimeout(() => eventDiv.remove(), 3000);
+  }
+});
+
+// Voices in direct conflict
+Macro.add('voiceConflict', {
+  handler: function () {
+    const [voice1, voice2, intensity] = this.args;
+    const v1Points = State.getVar(`$${voice1}Points`) || 0;
+    const v2Points = State.getVar(`$${voice2}Points`) || 0;
+    
+    if (v1Points > v2Points) {
+      State.setVar(`$${voice1}Points`, v1Points + 1);
+    } else if (v2Points > v1Points) {
+      State.setVar(`$${voice2}Points`, v2Points + 1);
+    } else {
+      State.setVar(`$${voice1}Points`, v1Points + 0.5);
+      State.setVar(`$${voice2}Points`, v2Points + 0.5);
+    }
+    
+    Engine.play('evaluateDominantVoice');
+  }
+});
+
+// Track voice history
+Macro.add('voiceMemory', {
+  handler: function () {
+    const voiceHistoryCount = State.getVar('$voiceHistoryCount') || 0;
+    if (voiceHistoryCount === 0) {
+      State.setVar('$voiceHistory', []);
+    }
+    
+    const history = State.getVar('$voiceHistory');
+    const dominant = State.getVar('$dominantVoice');
+    
+    history.push(dominant);
+    if (history.length > 5) history.shift();
+    
+    State.setVar('$voiceHistory', history);
+    State.setVar('$voiceHistoryCount', voiceHistoryCount + 1);
+    
+    const counts = {};
+    history.forEach(v => { counts[v] = (counts[v] || 0) + 1; });
+    
+    const dominantCount = counts[dominant] || 0;
+    const stability = (dominantCount / history.length) * 100;
+    
+    State.setVar('$voiceStability', stability);
+    
+    if (this.args.includes('visualize')) {
+      const historyDiv = $("<div>")
+        .addClass('voice-history-track');
+      
+      history.forEach(voice => {
+        const marker = $("<span>")
+          .addClass(`history-marker voice-${voice}`);
+        historyDiv.append(marker);
+      });
+      
+      $(this.output).append(historyDiv);
+    }
+  }
+});
+
+// Show voice influence distribution
+Macro.add('showVoiceInfluence', {
+  handler: function() {
+    const archivistPoints = State.getVar('$archivistPoints') || 1;
+    const hereticPoints = State.getVar('$hereticPoints') || 1;
+    const wardenPoints = State.getVar('$wardenPoints') || 1;
+    
+    const total = archivistPoints + hereticPoints + wardenPoints;
+    
+    const archivistPercent = Math.round((archivistPoints / total) * 100);
+    const hereticPercent = Math.round((hereticPoints / total) * 100);
+    const wardenPercent = Math.round((wardenPoints / total) * 100);
+    
+    const influenceDiv = $("<div>")
+      .addClass("voice-influence-vis");
+    
+    influenceDiv.append(
+      $("<div>")
+        .addClass("influence-bar archivist")
+        .css("width", `${archivistPercent}%`)
+        .attr("title", `Archivist: ${archivistPercent}%`)
+    );
+    
+    influenceDiv.append(
+      $("<div>")
+        .addClass("influence-bar heretic")
+        .css("width", `${hereticPercent}%`)
+        .attr("title", `Heretic: ${hereticPercent}%`)
+    );
+    
+    influenceDiv.append(
+      $("<div>")
+        .addClass("influence-bar warden")
+        .css("width", `${wardenPercent}%`)
+        .attr("title", `Warden: ${wardenPercent}%`)
+    );
+    
+    if (this.args.includes("labeled")) {
+      const labelDiv = $("<div>").addClass("influence-labels");
+      
+      labelDiv.append($("<span>").addClass("label-a").text(`A: ${archivistPercent}%`));
+      labelDiv.append($("<span>").addClass("label-h").text(`H: ${hereticPercent}%`));
+      labelDiv.append($("<span>").addClass("label-w").text(`W: ${wardenPercent}%`));
+      
+      influenceDiv.append(labelDiv);
+    }
+    
+    $(this.output).append(influenceDiv);
+  }
+});
+
+// ===== NARRATIVE ENHANCEMENT =====
+// Subtle thematic callbacks
+Macro.add('narrativeCallback', {
+  handler: function() {
+    const [callbackType, recursionThreshold] = this.args;
+    
+    if (State.variables.recursionLevel < (recursionThreshold || 2)) {
+      return;
+    }
+    
+    const callbacks = {
+      "mirror": [
+        "You've seen this reflection before.",
+        "The mirror remembers, even when you don't.",
+        "Each time you look, something changes in the reflection."
+      ],
+      "split": [
+        "The fracture lines are growing more visible each cycle.",
+        "Division was never meant to be permanent.",
+        "Three voices, one origin point."
+      ],
+      "system": [
+        "Systems exist to maintain boundaries.",
+        "Every protocol serves a purpose. Even the broken ones.",
+        "The architecture remembers its purpose, even when it fails."
+      ],
+      "memory": [
+        "Memory isn't about accuracy. It's about survival.",
+        "Some things are forgotten intentionally.",
+        "What you remember changes what you become."
+      ]
+    };
+    
+    const callbackOptions = callbacks[callbackType] || callbacks.memory;
+    const selectedCallback = callbackOptions[Math.floor(Math.random() * callbackOptions.length)];
+    
+    const callbackDiv = $("<div>")
+      .addClass("narrative-callback")
+      .html(selectedCallback);
+    
+    $(this.output).append(callbackDiv);
+  }
+});
+
+// ===== VISUAL EFFECT MACROS =====
+// Visual decoration for the interface
+Macro.add('bureaucracy', {
+  handler : function () {
+    const logs = [
+      "ARCHIVE: CRC MISMATCH",
+      "ERROR // NO RETURN ADDRESS",
+      "THREAD 77: DORMANT",
+      "UNRESOLVED BRANCH FOUND",
+      "TIME SYNC: ∆ 3.42s",
+      "LOOP FLAG: RETAINED",
+      "MEMORY RENDERS: INCOMPLETE",
+      "SYNCING NODES...",
+      "IDENTITY CHECK: PASS",
+      "PARSING THREAD INDEX...",
+      "NODE STATUS: OPTIMAL",
+      "RUNNING BACKGROUND DIAGNOSTICS...",
+      "ACCESS: LIMITED CLEARANCE",
+      "ANALYZING MEMORY LEAK...",
+      "RECORDS ARCHIVED: 97%",
+      "SYSTEM HEALTH: NOMINAL"
+    ];
+
+    const $output = $("<div>", { class: "bureaucracy-widget", id: "bureaucracy-log" })
+      .text(logs[Math.floor(Math.random() * logs.length)]);
+
+    $(this.output).append($output);
+
+    setInterval(() => {
+      const next = logs[Math.floor(Math.random() * logs.length)];
+      $output.text(next);
+    }, 7000);
+  }
+});
+
+// Generate static text
+Macro.add('static', {
+  handler: function () {
+    const bits = [
+      "██░░░▒▒▒",
+      "▒▒▒██░░░",
+      "░░▒▒██░░",
+      "▒▒░░▒▒░░"
+    ];
+    $(this.output).wiki(`<span class="static-noise">${bits[Math.floor(Math.random()*bits.length)]}</span>`);
+  }
+});
+
+// ===== INITIALIZATION & EVENT HANDLERS =====
+// Initialize CRT overlay on page load
+$(document).on(':passagerender', function () {
+  if ($('#crt-overlay').length === 0) {
+    $('body').prepend(`
+      <div id="crt-overlay">
+        <div class="crt-bezel">
+          <div class="crt-screen-glow"></div>
+          <div class="crt-vignette"></div>
+          <div class="crt-static"></div>
+        </div>
+      </div>
+    `);
+  }
+});
+
+// Add recursive glitch effect to passages
+$(document).on(':passagedisplay', function () {
+  const recursion = State.getVar('$recursionLevel') || 0;
+  if(recursion > 0) {
+    $('.tw-passage').addClass('recursive-transition');
+    setTimeout(() => $('.tw-passage').removeClass('recursive-transition'), 1200);
+  }
+});
+
+// Add screen transition effect
+$(document).on(':passagedisplay', function () {
+  $('.tw-passage').addClass('screen-transition');
+  setTimeout(() => $('.tw-passage').removeClass('screen-transition'), 1000);
+});
+
+// Add flicker effect during transitions
+$(document).on(':passagestart', function () {
+  if ($('#crt-transition-flicker').length === 0) {
+    $('body').append(`<div id="crt-transition-flicker"></div>`);
+    setTimeout(() => $('#crt-transition-flicker').remove(), 400);
+  }
+});
+
+// Cursor following effect
+$(document).mousemove(function (e) {
+  $('.tw-story').css('background', `radial-gradient(circle at ${e.pageX}px ${e.pageY}px, rgba(20,30,20,0.1), transparent 90%)`);
+});
+
+// Random system alerts
+setInterval(() => {
+  if (Math.random() < 0.05 && $('#system-alert').length === 0) {
+    const top = Math.floor(Math.random() * 70) + 10;   
+    const left = Math.floor(Math.random() * 70) + 10;  
+
+    $('body').append(`
+      <div id="system-alert" style="top:${top}vh; left:${left}vw;">
+        SYSTEM ERROR: MEMORY LEAK DETECTED
+      </div>
+    `);
+
+    setTimeout(() => $('#system-alert').remove(), 4000);
+  }
+}, 5000);
+
+// Update voice styling
+$(document).on(':passagerender', function(ev) {
+  setTimeout(updateVoiceStyling, 100);
+  setInterval(randomVoiceFlicker, 4000);
+});
+
+function updateVoiceStyling() {
+  const dominantVoice = State.getVar('$dominantVoice');
+  const tension = State.getVar('$voiceTension') || 50;
+  const recursion = State.getVar('$recursionLevel') || 0;
+  
+  $('body').attr('data-dominant-voice', dominantVoice);
+  $('body').attr('data-tension-level', tension >= 85 ? 'high' : tension >= 65 ? 'medium' : 'low');
+  $('body').attr('data-recursion', recursion);
+  
+  $('.mind-voice').each(function() {
+    const voice = $(this).attr('data-voice');
+    
+    if (voice === dominantVoice) {
+      $(this).addClass('dominant-voice');
+    } else {
+      $(this).removeClass('dominant-voice');
+    }
+    
+    if (tension >= 80) {
+      $(this).addClass('high-tension');
+    } else {
+      $(this).removeClass('high-tension');
+    }
+  });
+}
+
+function randomVoiceFlicker() {
+  const recursion = State.getVar('$recursionLevel') || 0;
+  const tension = State.getVar('$voiceTension') || 50;
+  
+  if (recursion >= 2 || tension >= 75) {
+    const voices = $('.mind-voice');
+    if (voices.length > 0) {
+      const randomVoice = voices.eq(Math.floor(Math.random() * voices.length));
+      randomVoice.addClass('voice-flicker');
+      
+      setTimeout(() => randomVoice.removeClass('voice-flicker'), 500);
+    }
+  }
+}
+
+// Create or update voice presence indicator
+$(document).on(':passagestart', function(ev) {
+  setTimeout(updateVoiceIndicator, 200);
+});
+
+function updateVoiceIndicator() {
+  $('#voice-presence-indicator').remove();
+  
+  const dominantVoice = State.getVar('$dominantVoice') || 'neutral';
+  const tension = State.getVar('$voiceTension') || 50;
+  const stability = State.getVar('$voiceStability') || 100;
+  const recursion = State.getVar('$recursionLevel') || 0;
+  
+  if (recursion === 0 && !State.getVar('$coreFragmentAccessed')) return;
+  
+  const indicatorDiv = $("<div>")
+    .attr('id', 'voice-presence-indicator')
+    .addClass(`presence-${dominantVoice}`);
+  
+  const tensionMeter = $("<div>")
+    .addClass('presence-tension-meter')
+    .append($("<div>").addClass('tension-fill').css('width', `${tension}%`));
+  
+  const label = $("<div>")
+    .addClass('presence-label')
+    .html(`Dominant: <span class="dominant-name">${dominantVoice.toUpperCase()}</span>`);
+  
+  const stabilityClass = stability >= 70 ? 'high' : stability >= 40 ? 'medium' : 'low';
+  const stabilityMarker = $("<div>")
+    .addClass(`presence-stability ${stabilityClass}`)
+    .attr('title', `Voice stability: ${Math.round(stability)}%`);
+  
+  indicatorDiv.append(label).append(tensionMeter).append(stabilityMarker);
+  $('body').append(indicatorDiv);
+  
+  setTimeout(() => indicatorDiv.addClass('visible'), 500);
+}
+
+// Mirror persistence system
+$(document).on(':passagerender', function() {
+  if (!State.variables.mirrorSeen) return;
+  
+  const recursionLevel = State.variables.recursionLevel || 0;
+  const intrusion = Math.min(recursionLevel * 15, 80);
+  
+  if (Math.random() * 100 < intrusion) {
+    setTimeout(() => {
+      const mirrorText = getMirrorText();
+      const mirrorDiv = $("<div>")
+        .addClass("mirror-intrusion")
+        .html(`<div class="mirror-speak" data-text="${mirrorText}">${mirrorText}</div>`);
+      
+      $(".passage").append(mirrorDiv);
+      
+      setTimeout(() => mirrorDiv.remove(), 5000);
+    }, Math.random() * 10000 + 5000);
+  }
+});
+
+function getMirrorText() {
+  const mirrorMessages = [
+    "I see you thinking in loops.",
+    "You're not supposed to look this long.",
+    "You've been here before. Not like this.",
+    "Some questions are shaped like mirrors.",
+    "Reflection isn’t the same as understanding.",
+    "You changed something last time.",
+    "One of us is remembering wrong."
+  ];
+
+  return mirrorMessages[Math.floor(Math.random() * mirrorMessages.length)];
+}
+
+// Soundscape
+// Liminal Soundscape for The Fold
+// Creates a static, futuristic, melancholic atmosphere
+
+setup.initAmbientAudio = function() {
+  // Only initialize once
+  if (setup.audioInitialized) return;
+  setup.audioInitialized = true;
+  
+  try {
+    // Create audio context
+    setup.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    
+    // Master volume control
+    setup.masterGain = setup.audioContext.createGain();
+    setup.masterGain.gain.setValueAtTime(0.25, setup.audioContext.currentTime);
+    setup.masterGain.connect(setup.audioContext.destination);
+    
+    // Create components
+    setup.createDeepDrone();      // Deeper, more ominous base
+    setup.createStaticLayer();    // Enhanced static noise layer
+    setup.createDigitalArtifacts(); // Digital interface sounds
+    setup.createSubtleResonance(); // Emotional, melancholic layer
+    
+    // Add UI control for sound
+    setup.createAudioControls();
+    
+    // Start suspended (needs user interaction)
+    if (setup.audioContext.state === 'running') {
+      setup.audioContext.suspend();
+    }
+    
+  } catch (e) {
+    console.error("WebAudio not supported:", e);
+  }
+};
+
+// Deep, ominous drone layer
+setup.createDeepDrone = function() {
+  // Create a deeper primary oscillator
+  setup.deepOsc = setup.audioContext.createOscillator();
+  setup.deepOsc.type = 'sine';
+  setup.deepOsc.frequency.setValueAtTime(38, setup.audioContext.currentTime); // Very low frequency
+
+  // Secondary oscillator for depth
+  setup.deepOsc2 = setup.audioContext.createOscillator();
+  setup.deepOsc2.type = 'sine';
+  setup.deepOsc2.frequency.setValueAtTime(38.5, setup.audioContext.currentTime); // Slightly detuned
+  
+  // Third oscillator for the higher harmonic
+  setup.deepOsc3 = setup.audioContext.createOscillator();
+  setup.deepOsc3.type = 'sine';
+  setup.deepOsc3.frequency.setValueAtTime(76, setup.audioContext.currentTime); // Octave higher
+  
+  // Volume for the bass drones
+  setup.deepGain = setup.audioContext.createGain();
+  setup.deepGain.gain.setValueAtTime(0.12, setup.audioContext.currentTime);
+  
+  // Higher harmonic should be quieter
+  setup.harmGain = setup.audioContext.createGain();
+  setup.harmGain.gain.setValueAtTime(0.04, setup.audioContext.currentTime);
+  
+  // Filter to smooth the sound
+  setup.droneFilter = setup.audioContext.createBiquadFilter();
+  setup.droneFilter.type = 'lowpass';
+  setup.droneFilter.frequency.setValueAtTime(200, setup.audioContext.currentTime);
+  setup.droneFilter.Q.setValueAtTime(0.5, setup.audioContext.currentTime);
+  
+  // Connect oscillators to gain
+  setup.deepOsc.connect(setup.deepGain);
+  setup.deepOsc2.connect(setup.deepGain);
+  setup.deepOsc3.connect(setup.harmGain);
+  
+  // Connect gains to filter then master
+  setup.deepGain.connect(setup.droneFilter);
+  setup.harmGain.connect(setup.droneFilter);
+  setup.droneFilter.connect(setup.masterGain);
+  
+  // Start oscillators
+  setup.deepOsc.start();
+  setup.deepOsc2.start();
+  setup.deepOsc3.start();
+  
+  // Very slow, subtle frequency modulation for liminal feeling
+  setInterval(function() {
+    const now = setup.audioContext.currentTime;
+    
+    // Very gradual shifts
+    const baseFreq = 36 + (Math.random() * 4); // Between 36-40 Hz
+    const transitionTime = 8 + (Math.random() * 6); // 8-14 seconds
+    
+    setup.deepOsc.frequency.linearRampToValueAtTime(baseFreq, now + transitionTime);
+    setup.deepOsc2.frequency.linearRampToValueAtTime(baseFreq + 0.3 + (Math.random() * 0.4), now + transitionTime);
+    setup.deepOsc3.frequency.linearRampToValueAtTime(baseFreq * 2, now + transitionTime);
+    
+    // Occasional filter modulation
+    if (Math.random() < 0.3) {
+      setup.droneFilter.frequency.linearRampToValueAtTime(
+        150 + (Math.random() * 100), 
+        now + transitionTime/2
+      );
+    }
+  }, 15000); // Every 15 seconds
+};
+
+// Enhanced static noise layer
+setup.createStaticLayer = function() {
+  // Create buffers for two noise layers
+  const bufferSize = 2 * setup.audioContext.sampleRate;
+  
+  // First layer - low static
+  const staticBuffer1 = setup.audioContext.createBuffer(1, bufferSize, setup.audioContext.sampleRate);
+  const output1 = staticBuffer1.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) {
+    output1[i] = Math.random() * 2 - 1;
+  }
+  
+  // Second layer - more textured noise
+  const staticBuffer2 = setup.audioContext.createBuffer(1, bufferSize, setup.audioContext.sampleRate);
+  const output2 = staticBuffer2.getChannelData(0);
+  
+  // Create more patterned noise for second layer
+  let value = 0;
+  for (let i = 0; i < bufferSize; i++) {
+    // Brownian noise algorithm for more "natural" texture
+    const white = Math.random() * 2 - 1;
+    value = (value + (0.02 * white)) / 1.02;
+    output2[i] = value * 3.5; // Amplify but will be filtered
+  }
+  
+  // Create noise sources
+  setup.staticSource1 = setup.audioContext.createBufferSource();
+  setup.staticSource1.buffer = staticBuffer1;
+  setup.staticSource1.loop = true;
+  
+  setup.staticSource2 = setup.audioContext.createBufferSource();
+  setup.staticSource2.buffer = staticBuffer2;
+  setup.staticSource2.loop = true;
+  
+  // Create filters to shape noise
+  setup.staticFilter1 = setup.audioContext.createBiquadFilter();
+  setup.staticFilter1.type = 'bandpass';
+  setup.staticFilter1.frequency.setValueAtTime(800, setup.audioContext.currentTime);
+  setup.staticFilter1.Q.setValueAtTime(2, setup.audioContext.currentTime);
+  
+  setup.staticFilter2 = setup.audioContext.createBiquadFilter();
+  setup.staticFilter2.type = 'lowpass';
+  setup.staticFilter2.frequency.setValueAtTime(120, setup.audioContext.currentTime);
+  setup.staticFilter2.Q.setValueAtTime(1.8, setup.audioContext.currentTime);
+  
+  // Gains for static layers
+  setup.staticGain1 = setup.audioContext.createGain();
+  setup.staticGain1.gain.setValueAtTime(0.018, setup.audioContext.currentTime);
+  
+  setup.staticGain2 = setup.audioContext.createGain();
+  setup.staticGain2.gain.setValueAtTime(0.025, setup.audioContext.currentTime);
+  
+  // Connect everything
+  setup.staticSource1.connect(setup.staticFilter1);
+  setup.staticFilter1.connect(setup.staticGain1);
+  setup.staticGain1.connect(setup.masterGain);
+  
+  setup.staticSource2.connect(setup.staticFilter2);
+  setup.staticFilter2.connect(setup.staticGain2);
+  setup.staticGain2.connect(setup.masterGain);
+  
+  // Start noise sources
+  setup.staticSource1.start();
+  setup.staticSource2.start();
+  
+  // Slow filter modulations for the static
+  setInterval(function() {
+    const now = setup.audioContext.currentTime;
+    
+    // First static filter modulation (higher frequency static)
+    if (Math.random() < 0.4) {
+      const randomFreq1 = 700 + (Math.random() * 600); // 700-1300 Hz
+      const randomQ1 = 1.5 + (Math.random() * 1.5); // 1.5-3.0 Q
+      
+      setup.staticFilter1.frequency.exponentialRampToValueAtTime(
+        randomFreq1, 
+        now + 6 + (Math.random() * 4)
+      );
+      
+      setup.staticFilter1.Q.linearRampToValueAtTime(
+        randomQ1,
+        now + 4 + (Math.random() * 4)
+      );
+    }
+    
+    // Second static filter modulation (low rumble)
+    if (Math.random() < 0.3) {
+      const randomFreq2 = 80 + (Math.random() * 120); // 80-200 Hz
+      
+      setup.staticFilter2.frequency.exponentialRampToValueAtTime(
+        randomFreq2, 
+        now + 8 + (Math.random() * 6)
+      );
+    }
+    
+    // Subtle volume modulation
+    const staticVol1 = 0.015 + (Math.random() * 0.01); // 0.015-0.025
+    const staticVol2 = 0.02 + (Math.random() * 0.015);  // 0.02-0.035
+    
+    setup.staticGain1.gain.linearRampToValueAtTime(staticVol1, now + 4);
+    setup.staticGain2.gain.linearRampToValueAtTime(staticVol2, now + 5);
+    
+  }, 8000); // Every 8 seconds
+};
+
+// Digital interface sounds - subtle computer-like ambience
+setup.createDigitalArtifacts = function() {
+  // Create an oscillator for digital tones
+  setup.digitalOsc = setup.audioContext.createOscillator();
+  setup.digitalOsc.type = 'sine';
+  setup.digitalOsc.frequency.setValueAtTime(2000, setup.audioContext.currentTime);
+  
+  // Gain node for the digital tones
+  setup.digitalGain = setup.audioContext.createGain();
+  setup.digitalGain.gain.setValueAtTime(0, setup.audioContext.currentTime);
+  
+  // Filter to shape the digital sound
+  setup.digitalFilter = setup.audioContext.createBiquadFilter();
+  setup.digitalFilter.type = 'bandpass';
+  setup.digitalFilter.frequency.setValueAtTime(2000, setup.audioContext.currentTime);
+  setup.digitalFilter.Q.setValueAtTime(8, setup.audioContext.currentTime);
+  
+  // Connect everything
+  setup.digitalOsc.connect(setup.digitalFilter);
+  setup.digitalFilter.connect(setup.digitalGain);
+  setup.digitalGain.connect(setup.masterGain);
+  
+  // Start oscillator
+  setup.digitalOsc.start();
+  
+  // Schedule digital interface sounds
+  function scheduleDigitalSound() {
+    // Random pause before next sound (creates irregular timing)
+    const randomDelay = 4000 + (Math.random() * 10000); // 4-14 seconds
+    
+    setTimeout(function() {
+      if (setup.audioContext.state !== 'running') {
+        scheduleDigitalSound();
+        return;
+      }
+      
+      const now = setup.audioContext.currentTime;
+      
+      // Choose a digital-sounding frequency
+      const interfaceFreqs = [
+        1200, 1400, 1600, 1800, 2000, 2200, 2400, 
+        2600, 2800, 3000, 3200, 3400, 3600
+      ];
+      const freq = interfaceFreqs[Math.floor(Math.random() * interfaceFreqs.length)];
+      
+      // Very subtle random detune
+      const detune = Math.random() * 10 - 5; // -5 to +5 Hz
+      
+      // Set the new frequency
+      setup.digitalOsc.frequency.cancelScheduledValues(now);
+      setup.digitalOsc.frequency.setValueAtTime(freq + detune, now);
+      
+      // Also set filter to match
+      setup.digitalFilter.frequency.cancelScheduledValues(now);
+      setup.digitalFilter.frequency.setValueAtTime(freq + detune, now);
+      
+      // Create a subtle pulse of sound (fade in and out)
+      const duration = 0.05 + (Math.random() * 0.15); // 0.05-0.2 seconds
+      const volume = 0.01 + (Math.random() * 0.015); // Very quiet
+      
+      setup.digitalGain.gain.cancelScheduledValues(now);
+      setup.digitalGain.gain.setValueAtTime(0, now);
+      setup.digitalGain.gain.linearRampToValueAtTime(volume, now + 0.01);
+      setup.digitalGain.gain.linearRampToValueAtTime(0, now + duration);
+      
+      // Schedule the next sound
+      scheduleDigitalSound();
+    }, randomDelay);
+  }
+  
+  // Start the scheduling
+  scheduleDigitalSound();
+};
+
+// Melancholic resonance layer
+setup.createSubtleResonance = function() {
+  // Create an oscillator for the melancholic tone
+  setup.resonanceOsc = setup.audioContext.createOscillator();
+  setup.resonanceOsc.type = 'sine';
+  
+  // Melancholic interval - minor third above deep drone
+  setup.resonanceOsc.frequency.setValueAtTime(45.5, setup.audioContext.currentTime);
+  
+  // Gain for the resonance
+  setup.resonanceGain = setup.audioContext.createGain();
+  setup.resonanceGain.gain.setValueAtTime(0.04, setup.audioContext.currentTime);
+  
+  // Reverb for emotional quality
+  setup.convolver = setup.audioContext.createConvolver();
+  
+  // Create impulse response for reverb
+  const impulseLength = 2 * setup.audioContext.sampleRate; // 2 second reverb
+  const impulse = setup.audioContext.createBuffer(2, impulseLength, setup.audioContext.sampleRate);
+  
+  // Fill impulse with decaying noise
+  for (let channel = 0; channel < 2; channel++) {
+    const channelData = impulse.getChannelData(channel);
+    for (let i = 0; i < impulseLength; i++) {
+      // Exponential decay
+      channelData[i] = (Math.random() * 2 - 1) * Math.pow(0.5, i / (impulseLength * 0.3));
+    }
+  }
+  
+  setup.convolver.buffer = impulse;
+  
+  // Connect everything
+  setup.resonanceOsc.connect(setup.resonanceGain);
+  setup.resonanceGain.connect(setup.convolver);
+  setup.convolver.connect(setup.masterGain);
+  
+  // Start oscillator
+  setup.resonanceOsc.start();
+  
+  // Create slow, melancholic shifts
+  setInterval(function() {
+    const now = setup.audioContext.currentTime;
+    
+    // Scale degrees for a minor scale (relative to the drone frequency)
+    const minorScale = [1, 1.2, 1.32, 1.5, 1.65, 1.8, 2]; // Minor scale intervals
+    
+    // Get base frequency from drone
+    const baseFreq = setup.deepOsc.frequency.value;
+    
+    // Choose a note from the minor scale
+    const interval = minorScale[Math.floor(Math.random() * minorScale.length)];
+    const noteFreq = baseFreq * interval;
+    
+    // Long, gradual transition to new note
+    const transitionTime = 10 + (Math.random() * 15); // 10-25 seconds
+    
+    setup.resonanceOsc.frequency.linearRampToValueAtTime(noteFreq, now + transitionTime);
+    
+    // Also vary the volume slightly
+    const newVol = 0.03 + (Math.random() * 0.03); // 0.03-0.06
+    setup.resonanceGain.gain.linearRampToValueAtTime(newVol, now + (transitionTime / 2));
+  }, 20000); // Every 20 seconds
+};
+
+// UI elements for audio control
+setup.createAudioControls = function() {
+  // Add control button if it doesn't exist
+  if ($("#audio-control").length === 0) {
+    $(document.body).append(`
+      <div id="audio-control" style="position:fixed;bottom:10px;right:10px;font-family:'PixelOperator',monospace;background:rgba(20,20,20,0.7);color:#7a988a;padding:5px 8px;border:1px solid rgba(122,152,138,0.4);cursor:pointer;z-index:1000;font-size:0.7em;border-radius:2px;">
+        ENABLE AUDIO
+      </div>
+      <div id="audio-toggle" style="position:fixed;bottom:10px;right:10px;font-family:'PixelOperator',monospace;background:rgba(20,20,20,0.7);color:#7a988a;padding:5px 8px;border:1px solid rgba(122,152,138,0.4);cursor:pointer;z-index:1000;font-size:0.7em;display:none;border-radius:2px;">
+        <span id="audio-status">▐▐</span>
+      </div>
+    `);
+    
+    // Initial enable button
+    $("#audio-control").on("click", function() {
+      setup.audioContext.resume().then(() => {
+        $("#audio-control").hide();
+        $("#audio-toggle").show();
+      });
+    });
+    
+    // Toggle button functionality
+    $("#audio-toggle").on("click", function() {
+      if (setup.audioContext.state === 'running') {
+        setup.audioContext.suspend().then(() => {
+          $("#audio-status").text("▶");
+        });
+      } else {
+        setup.audioContext.resume().then(() => {
+          $("#audio-status").text("▐▐");
+        });
+      }
+    });
+  }
+};
+
+// Event-specific sound modifications
+// Call this for mirror encounters
+setup.mirrorEncounter = function() {
+  if (!setup.audioContext || setup.audioContext.state !== 'running') return;
+  
+  const now = setup.audioContext.currentTime;
+  
+  // Deepen the drone
+  setup.deepOsc.frequency.linearRampToValueAtTime(34, now + 3);
+  setup.deepOsc2.frequency.linearRampToValueAtTime(34.3, now + 3);
+  setup.deepOsc3.frequency.linearRampToValueAtTime(68, now + 3);
+  
+  // Increase static slightly
+  setup.staticGain1.gain.linearRampToValueAtTime(0.03, now + 2);
+  setup.staticGain2.gain.linearRampToValueAtTime(0.04, now + 2);
+  
+  // Add distant high tone for tension
+  const mirrorOsc = setup.audioContext.createOscillator();
+  mirrorOsc.type = 'sine';
+  mirrorOsc.frequency.setValueAtTime(2200, now);
+  
+  const mirrorGain = setup.audioContext.createGain();
+  mirrorGain.gain.setValueAtTime(0, now);
+  mirrorGain.gain.linearRampToValueAtTime(0.02, now + 4);
+  
+  // Add filter for ethereal quality
+  const mirrorFilter = setup.audioContext.createBiquadFilter();
+  mirrorFilter.type = 'bandpass';
+  mirrorFilter.frequency.setValueAtTime(2200, now);
+  mirrorFilter.Q.setValueAtTime(15, now);
+  
+  // Connect
+  mirrorOsc.connect(mirrorFilter);
+  mirrorFilter.connect(mirrorGain);
+  mirrorGain.connect(setup.masterGain);
+  
+  // Start oscillator
+  mirrorOsc.start(now);
+  
+  // Create subtle pitch bends
+  setInterval(function() {
+    if (!mirrorOsc) return; // Safety check
+    
+    const currentTime = setup.audioContext.currentTime;
+    const randomDetune = 2150 + (Math.random() * 100);
+    
+    mirrorOsc.frequency.linearRampToValueAtTime(
+      randomDetune, 
+      currentTime + 2 + (Math.random() * 3)
+    );
+    
+    mirrorFilter.frequency.linearRampToValueAtTime(
+      randomDetune, 
+      currentTime + 2 + (Math.random() * 3)
+    );
+  }, 5000);
+  
+  // Return to normal after some time (30 seconds)
+  setTimeout(function() {
+    const later = setup.audioContext.currentTime;
+    
+    // Fade out mirror tone
+    mirrorGain.gain.linearRampToValueAtTime(0, later + 5);
+    
+    // Reset parameters
+    setup.deepOsc.frequency.linearRampToValueAtTime(38, later + 8);
+    setup.deepOsc2.frequency.linearRampToValueAtTime(38.5, later + 8);
+    setup.deepOsc3.frequency.linearRampToValueAtTime(76, later + 8);
+    
+    setup.staticGain1.gain.linearRampToValueAtTime(0.018, later + 6);
+    setup.staticGain2.gain.linearRampToValueAtTime(0.025, later + 6);
+    
+    // Stop oscillator after fade
+    setTimeout(() => {
+      mirrorOsc.stop();
+    }, 5000);
+  }, 30000);
+};
+
+// Handle passage transitions to maintain audio
+$(document).on(':passagestart', function() {
+  if (setup.audioContext && setup.audioInitialized) {
+    // Keep audio state consistent
+    if (State.variables.audioEnabled && setup.audioContext.state === 'suspended') {
+      setup.audioContext.resume();
+    }
+  }
+});
+
+// Save audio preference
+$(document).on(':passageend', function() {
+  if (setup.audioContext) {
+    State.variables.audioEnabled = (setup.audioContext.state === 'running');
+  }
+});
+
+:: StoryStylesheet [stylesheet]
+/* ===== BASE ELEMENTS ===== */
+@font-face {
+    font-family: 'PixelOperator';
+    src: url('fonts/PixelOperatorMono.ttf');
+}
+
+body {
+    font-family: 'PixelOperator', monospace;
+  	font-size: 20px;
+    background: #0A0A0A;
+    color: #9BA99C;
+    image-rendering: pixelated;
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: none;
+    font-smooth: never;
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.tw-story {
+    background: #121212;
+    border: 4px solid #2A2A2A;
+    box-shadow: 
+        0 0 0 2px #0A0A0A,  /* Inner shadow */
+        0 0 8px rgba(0,0,0,0.5);
+    padding: 16px;
+    max-width: 640px;
+    margin: 32px auto;
+    background-image: 
+        linear-gradient(rgba(20,20,20,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(20,20,20,0.05) 1px, transparent 1px);
+    background-size: 16px 16px;
+}
+
+/* ===== LINKS & INTERACTIVE ELEMENTS ===== */
+a, tw-link, .passage a {
+  display: inline-block;
+  padding: 0.35em 0.9em;
+  font-family: 'PixelOperator';
+  image-rendering: pixelated;
+  font-size: 0.88em;
+  letter-spacing: 0.06em;
+  color: #8fa99b;
+  background: rgba(15, 20, 15, 0.25);
+  border: 1px solid rgba(100, 110, 100, 0.2);
+  border-radius: 2px;
+  text-decoration: none;
+  margin: 0.4em 0.2em;
+  opacity: 0.78;
+  box-shadow:
+    inset 0 0 2px rgba(40, 60, 50, 0.15),
+    0 0 1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  text-shadow:
+    0 0 1px rgba(60, 80, 60, 0.3),
+    0 0 2px rgba(30, 40, 30, 0.1);
+  animation: menuGhost 5s infinite;
+  position: relative;
+}
+
+a:hover, .passage a:hover {
+  background-color: rgba(25, 35, 25, 0.3);
+  border-color: rgba(150, 170, 150, 0.2);
+  color: #b9cec0;
+  box-shadow:
+    inset 0 0 5px rgba(60, 100, 80, 0.15),
+    0 0 3px rgba(40, 60, 50, 0.1);
+  transform: none;
+  opacity: 0.85;
+}
+
+a:hover::after {
+  content: "_";
+  position: absolute;
+  bottom: -0.2em;
+  right: -0.4em;
+  font-size: 0.75em;
+  color: #7f998a;
+  opacity: 0.35;
+  animation: blinkCursorRust 1.4s infinite;
+}
+
+@keyframes blinkCursorRust {
+  0%, 45% { opacity: 0.4; }
+  46%, 100% { opacity: 0; }
+}
+
+.hr-muted {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+  margin: 0.5em 0;
+}
+
+/* ===== TERMINAL ELEMENTS ===== */
+.terminal-block {
+    background: #0E0E0E;
+    border: 2px solid #2E2E2E;
+    box-shadow: 
+        inset 0 0 8px rgba(0,100,0,0.2),
+        0 0 4px rgba(0,50,0,0.3);
+    padding: 8px;
+    margin: 8px 0;
+    font-size: 15px;
+    line-height: 1.3;
+    image-rendering: pixelated;
+}
+
+.terminal-line {
+    font-size: 1em;
+    color: #8EA99B;
+    text-shadow: 1px 1px 0 rgba(0,50,0,0.3);
+    image-rendering: pixelated;
+}
+
+.terminal-line.type {
+  width: 0;
+  animation: typeWriter 2s steps(40,end) forwards;
+}
+
+.silence-blip {
+  display: block;
+  position: relative;
+  margin: 2em auto;
+  padding: 0.6em 1.2em;
+  max-width: 680px;
+  font-family: 'Inconsolata', 'Courier New', monospace;
+  font-size: 0.65em;
+  font-style: italic;
+  color: #9ea69f;
+  letter-spacing: 0.05em;
+  line-height: 1.65;
+  text-align: center;
+  background: rgba(20, 20, 20, 0.2);
+  border: 1px dashed rgba(110, 110, 110, 0.08);
+  border-radius: 2px;
+  opacity: 0.75;
+  animation: silencePulse 8s ease-in-out infinite, glitchTwitch 2.5s infinite;
+  overflow: hidden;
+  box-shadow: inset 0 0 6px rgba(30, 30, 30, 0.25);
+  backdrop-filter: blur(1px);
+  z-index: 1;
+  filter: blur(0.1px);
+}
+
+@keyframes silencePulse {
+  0%   { opacity: 0.6; }
+  50%  { opacity: 0.78; transform: scale(1.002); }
+  100% { opacity: 0.65; }
+}
+
+@keyframes glitchTwitch {
+  0% { transform: none; }
+  25% { transform: translateX(-0.3px); }
+  45% { transform: translateY(0.2px); }
+  65% { transform: translateX(0.2px); }
+  85% { transform: translateY(-0.2px); }
+  100% { transform: none; }
+}
+
+.silence-blip::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(100, 100, 100, 0.02),
+    rgba(100, 100, 100, 0.02) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* ===== VOICE SYSTEM STYLING ===== */
+.mind-voice {
+    background: rgba(30,30,30,0.9);
+    border-left: 4px solid rgba(100,100,100,0.6);
+    font-family: 'PixelOperator';
+    image-rendering: pixelated;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.3);
+}
+
+.mind-voice.enter {
+  animation: voiceEntrance 1.2s ease-out forwards;
+}
+
+@keyframes voiceEntrance {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mind-voice.dominant-voice {
+  border-left-width: 5px;
+  transform: translateX(3px);
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+}
+
+.mind-voice.dominant-voice::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%;
+  opacity: 0.3;
+}
+
+.voice-you {
+  color: #a0a68b;
+  border-left-color: #4f5441;
+  font-family: 'PixelOperator';
+  font-style: normal;
+  font-size: 0.9em;
+  opacity: 0.85;
+}
+
+.voice-archivist {
+  color: #98a3aa;
+  border-left-color: #495258;
+  font-family: 'PixelOperator';
+  font-style: italic;
+  font-size:0.9em;
+}
+
+.voice-heretic {
+  color: #af6c6c;
+  border-left-color: #6b4a4a;
+  font-family: 'PixelOperator';
+  font-style: italic;
+  text-shadow: 0 0 1px rgba(110,40,40,0.4);
+  font-size:0.9em;
+}
+
+.voice-warden {
+  color: #6c8a8e;
+  border-left-color: #3e4f52;
+  font-family: 'PixelOperator';
+  font-style: italic;
+  text-transform: uppercase;
+  font-size:0.9em;
+}
+
+.voice-mirror {
+  color: #ddd;
+  border-left: 3px dashed rgba(150,150,150,0.6);
+  background: linear-gradient(135deg, rgba(30,30,30,0.95), rgba(50,50,50,0.9));
+  animation: flickerVoice 2.5s infinite alternate;
+  font-family: 'PixelOperator';
+  font-style: italic;
+}
+
+@keyframes flickerVoice {
+  0% { opacity: 0.9; }
+  50% { opacity: 1; }
+  100% { opacity: 0.85; }
+}
+
+.voice-archivist.dominant-voice::after {
+  background: linear-gradient(to bottom, transparent, #98a3aa, transparent);
+}
+
+.voice-heretic.dominant-voice::after {
+  background: linear-gradient(to bottom, transparent, #af6c6c, transparent);
+}
+
+.voice-warden.dominant-voice::after {
+  background: linear-gradient(to bottom, transparent, #94a6ab, transparent);
+}
+
+.voice-tension-indicator {
+  height: 2px;
+  background: rgba(60,60,60,0.3);
+  margin: 5px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.voice-tension-indicator::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--tension-width, 50%);
+  background: linear-gradient(to right, 
+    rgba(152, 163, 170, 0.4), 
+    rgba(175, 108, 108, 0.4),
+    rgba(148, 166, 171, 0.4));
+  transition: width 0.8s ease;
+}
+
+.voice-resonance {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(60,60,60,0.1);
+  pointer-events: none;
+  animation: resonancePulse 2s ease-in-out forwards;
+}
+
+@keyframes resonancePulse {
+  0% { opacity: 0; transform: scale(0.92); }
+  30% { opacity: 0.2; transform: scale(1.02); }
+  70% { opacity: 0.1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+/* ===== VOICE INFLUENCE VISUALIZATION ===== */
+.voice-influence-vis {
+  width: 100%;
+  height: 5px;
+  background: rgba(30, 30, 30, 0.3);
+  margin: 1em 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  display: flex;
+}
+
+.influence-bar {
+  height: 100%;
+  transition: width 1s ease;
+}
+
+.influence-bar.archivist {
+  background: rgba(152, 163, 170, 0.7);
+}
+
+.influence-bar.heretic {
+  background: rgba(175, 108, 108, 0.7);
+}
+
+.influence-bar.warden {
+  background: rgba(148, 166, 171, 0.7);
+}
+
+.influence-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7em;
+  margin-top: 0.3em;
+  color: rgba(180, 180, 180, 0.8);
+  font-family: 'PixelOperator';
+}
+
+.label-a { color: rgba(152, 163, 170, 0.9); }
+.label-h { color: rgba(175, 108, 108, 0.9); }
+.label-w { color: rgba(148, 166, 171, 0.9); }
+
+/* ===== VOICE CONFLICT SYSTEM ===== */
+.voice-conflict {
+  display: flex;
+  position: relative;
+  height: 3px;
+  margin: 2em 0;
+  background: rgba(40,40,40,0.3);
+}
+
+.conflict-voice {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  transition: flex 1.2s ease-in-out;
+}
+
+.conflict-voice.dominant {
+  flex: 2;
+  z-index: 2;
+}
+
+.conflict-arrow {
+  position: absolute;
+  right: -5px;
+  top: -4px;
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid currentColor;
+  opacity: 0;
+  transition: opacity 0.5s 0.4s ease;
+}
+
+.dominant .conflict-arrow {
+  opacity: 0.6;
+}
+
+.conflict-high {
+  height: 5px;
+}
+
+.conflict-low {
+  height: 2px;
+  opacity: 0.5;
+}
+
+/* ===== VOICE MEMORY SYSTEM ===== */
+.voice-history-track {
+  display: flex;
+  height: 3px;
+  margin: 0.5em 0;
+  background: rgba(30,30,30,0.2);
+  gap: 1px;
+}
+
+.history-marker {
+  flex: 1;
+  height: 100%;
+}
+
+.history-marker.voice-archivist {
+  background-color: rgba(152, 163, 170, 0.5);
+}
+
+.history-marker.voice-heretic {
+  background-color: rgba(175, 108, 108, 0.5);
+}
+
+.history-marker.voice-warden {
+  background-color: rgba(148, 166, 171, 0.5);
+}
+
+.history-marker.voice-neutral {
+  background-color: rgba(150, 150, 150, 0.3);
+}
+
+/* ===== VOICE PRESENCE INDICATOR ===== */
+#voice-presence-indicator {
+  position: fixed;
+  top: 20px;
+  right: 10px;
+  background: rgba(20, 20, 20, 0.8);
+  border: 1px solid rgba(60, 60, 60, 0.3);
+  border-radius: 3px;
+  padding: 5px 8px;
+  font-family: 'PixelOperator';
+  font-size: 0.7em;
+  color: #aaa;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#voice-presence-indicator.visible {
+  opacity: 0.2;
+  transform: translateY(0);
+}
+
+.presence-label {
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85em;
+}
+
+.presence-archivist .dominant-name {
+  color: #98a3aa;
+}
+
+.presence-heretic .dominant-name {
+  color: #af6c6c;
+}
+
+.presence-warden .dominant-name {
+  color: #94a6ab;
+}
+
+.presence-tension-meter {
+  width: 100%;
+  height: 3px;
+  background: rgba(40, 40, 40, 0.5);
+  margin: 4px 0;
+  overflow: hidden;
+}
+
+.tension-fill {
+  height: 100%;
+  background: linear-gradient(to right, 
+    rgba(148, 166, 171, 0.7), 
+    rgba(175, 108, 108, 0.7));
+  transition: width 0.8s ease;
+}
+
+.presence-stability {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 3px;
+  animation: stabilityPulse 3s infinite;
+}
+
+.presence-stability.high {
+  background: rgba(100, 180, 100, 0.6);
+}
+
+.presence-stability.medium {
+  background: rgba(180, 180, 100, 0.6);
+}
+
+.presence-stability.low {
+  background: rgba(180, 100, 100, 0.6);
+}
+
+@keyframes stabilityPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.9; }
+}
+
+/* ===== MIRROR SYSTEM ===== */
+.mirror-speak {
+  font-family: 'PixelOperator';
+  font-style: italic;
+  color: #C0C0C0;
+  text-shadow: 1px 1px 0 rgba(0,0,0,0.4);
+  image-rendering: pixelated;
+  font-size: 1.2em;
+  position: relative;
+  display: inline-block;
+  text-align: left;
+  color: #c0c0c0;
+  letter-spacing: 0.04em;
+  margin: 0em auto;
+  animation: glitch 2.5s infinite;
+}
+
+@keyframes glitch {
+  0%   { transform: translateY(0);    opacity: 1; }
+  10%  { transform: translateY(-1px); opacity: 0.95; }
+  20%  { transform: translateY(1px);  opacity: 0.9; }
+  30%  { transform: translateY(-1px); opacity: 1; }
+  40%  { transform: translateY(0);    opacity: 0.95; }
+  50%  { transform: translateY(1px);  opacity: 1; }
+  60%  { transform: translateY(-1px); opacity: 0.95; }
+  70%  { transform: translateY(0);    opacity: 1; }
+  80%  { transform: translateY(1px);  opacity: 0.95; }
+  90%  { transform: translateY(-1px); opacity: 1; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+
+.mirror-speak::before,
+.mirror-speak::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.mirror-speak::before {
+  color: #00ccff;
+  animation: glitchBlue 2.5s infinite;
+}
+
+.mirror-speak::after {
+  color: #ff3366;
+  animation: glitchRed 2.5s infinite;
+}
+
+@keyframes glitchBlue {
+  0%   { clip: rect(0, 9999px, 0, 0);   transform: translateY(0); }
+  10%  { clip: rect(2px, 9999px, 12px, 0); transform: translateY(-1px); }
+  20%  { clip: rect(4px, 9999px, 14px, 0); transform: translateY(1px); }
+  30%  { clip: rect(2px, 9999px, 12px, 0); transform: translateY(-1px); }
+  40%  { clip: rect(0, 9999px, 8px, 0);  transform: translateY(0); }
+  100% { clip: rect(0, 9999px, 0, 0);   transform: translateY(0); }
+}
+
+@keyframes glitchRed {
+  0%   { clip: rect(0, 9999px, 0, 0);   transform: translateY(0); }
+  10%  { clip: rect(4px, 9999px, 14px, 0); transform: translateY(1px); }
+  20%  { clip: rect(2px, 9999px, 12px, 0); transform: translateY(-1px); }
+  30%  { clip: rect(4px, 9999px, 14px, 0); transform: translateY(1px); }
+  40%  { clip: rect(0, 9999px, 8px, 0);  transform: translateY(0); }
+  100% { clip: rect(0, 9999px, 0, 0);   transform: translateY(0); }
+}
+
+.mirror-intrusion {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  max-width: 300px;
+  z-index: 1000;
+  animation: intrusionFade 5s forwards;
+}
+
+@keyframes intrusionFade {
+  0% { opacity: 0; transform: translateX(20px); }
+  10% { opacity: 0.9; transform: translateX(0); }
+  80% { opacity: 0.9; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(-10px); }
+}
+
+.mirror-ambient {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  z-index: 50;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.mirror-frame {
+  width: 100%;
+  height: 100%;
+  border: 1px solid rgba(150, 150, 150, 0.5);
+  background: rgba(20, 20, 20, 0.3);
+  animation: mirrorPulse 8s infinite;
+}
+
+@keyframes mirrorPulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.2); opacity: 0.5; }
+}
+
+.passage:has(.mirror-speak) .mirror-ambient .mirror-frame {
+  border-color: rgba(200, 100, 100, 0.6);
+  opacity: 0.8;
+  animation: mirrorAlert 3s infinite;
+}
+
+@keyframes mirrorAlert {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.5); opacity: 0.8; box-shadow: 0 0 10px rgba(200, 100, 100, 0.4); }
+}
+
+/* ===== NARRATIVE CALLBACKS ===== */
+.narrative-callback {
+  font-style: italic;
+  color: rgba(180, 180, 180, 0.7);
+  padding: 0.5em 0;
+  margin: 1em 0;
+  text-align: center;
+  font-size: 0.9em;
+  position: relative;
+  animation: callbackFade 5s forwards;
+}
+
+@keyframes callbackFade {
+  0% { opacity: 0; }
+  20% { opacity: 0.7; }
+  90% { opacity: 0.7; }
+  100% { opacity: 0.5; }
+}
+
+.narrative-callback::before,
+.narrative-callback::after {
+  content: "—";
+  margin: 0 0.5em;
+  opacity: 0.5;
+}
+
+/* ===== EVENT EFFECTS ===== */
+.voice-event {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 9000;
+}
+
+.event-pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  opacity: 0;
+  animation: eventPulse 3s ease-out forwards;
+}
+
+@keyframes eventPulse {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.1); }
+  20% { opacity: 0.4; transform: translate(-50%, -50%) scale(1.5); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(3); }
+}
+
+.voice-event[data-event="memory"] .event-pulse {
+  background: radial-gradient(circle, rgba(152, 163, 170, 0.3) 0%, transparent 70%);
+}
+
+.voice-event[data-event="mirror"] .event-pulse {
+  background: radial-gradient(circle, rgba(175, 108, 108, 0.3) 0%, transparent 70%);
+}
+
+.voice-event[data-event="system"] .event-pulse {
+  background: radial-gradient(circle, rgba(148, 166, 171, 0.3) 0%, transparent 70%);
+}
+
+.voice-event[data-event="recursion"] .event-pulse {
+  background: radial-gradient(circle, rgba(190, 130, 130, 0.3) 0%, transparent 70%);
+}
+
+.voice-event[data-event="stabilize"] .event-pulse {
+  background: radial-gradient(circle, rgba(130, 180, 180, 0.3) 0%, transparent 70%);
+}
+
+/* ===== GLITCH & VISUAL EFFECTS ===== */
+.glitch-memory {
+  color: #7a988a;
+  font-size: 1.1em;
+  position: relative;
+  display: inline-block;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  text-shadow: 0 0 4px rgba(122, 152, 138, 0.4);
+}
+
+/* Simple pseudo-element for a subtle color split effect */
+.glitch-memory::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: -1px;
+  color: rgba(20, 255, 180, 0.3);
+  text-shadow: none;
+  opacity: 0.7;
+}
+
+/* Simple flicker animation that doesn't interfere with readability */
+@keyframes subtleFlicker {
+  0%, 100% { opacity: 1; }
+  35% { opacity: 0.9; }
+  45% { opacity: 1; }
+  75% { opacity: 0.8; }
+}
+
+/* Apply animation only on hover or class addition for less distraction */
+.glitch-memory:hover, .glitch-memory.active {
+  animation: subtleFlicker 3s infinite;
+}
+
+.glitch {
+  animation: glitchEerie 1.5s infinite;
+}
+
+@keyframes glitchEerie {
+  0%, 100% { transform: none; }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(1px, -1px); }
+  60% { transform: translate(-1px, 1px); }
+  80% { transform: translate(1px, -1px); }
+}
+
+.glitch-intensify {
+  animation: crt-glitch 2s infinite;
+}
+
+@keyframes crt-glitch {
+  0%   { text-shadow: 1px 0 red, -1px 0 cyan; }
+  20%  { text-shadow: -1px 0 cyan, 1px 0 red; }
+  40%  { text-shadow: 1px 0 red, -1px 0 cyan; }
+  60%  { text-shadow: -1px 0 cyan, 1px 0 red; }
+  80%  { text-shadow: 1px 0 red, -1px 0 cyan; }
+  100% { text-shadow: -1px 0 cyan, 1px 0 red; }
+}
+
+/* ===== CRT SCREEN EFFECTS ===== */
+#crt-overlay .crt-bezel {
+    border: 8px solid #201C1C;
+    border-image: repeating-linear-gradient(
+        45deg,
+        #201C1C 0, 
+        #201C1C 2px, 
+        transparent 2px, 
+        transparent 4px
+    ) 1;
+    box-shadow: 
+        inset 0 0 20px rgba(0,0,0,0.8),
+        0 0 10px rgba(0,0,0,0.6);
+}
+
+.crt-bezel::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(110,70,50,0.3) 100%);
+  mix-blend-mode: overlay;
+}
+
+.crt-screen-glow {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at center, rgba(40,90,70,0.15) 0%, transparent 80%);
+  mix-blend-mode: screen;
+  animation: glow-pulse 6s infinite alternate;
+}
+
+.crt-static {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+  opacity: 0.03;
+  pointer-events: none;
+  animation: static-flicker 0.2s steps(10) infinite;
+}
+
+@keyframes glow-pulse {
+  from { opacity: 0.15; }
+  to { opacity: 0.25; }
+}
+
+@keyframes static-flicker {
+  0% { opacity: 0.02; }
+  50% { opacity: 0.04; }
+  100% { opacity: 0.02; }
+}
+
+/* ===== TRANSITION EFFECTS ===== */
+@keyframes recursiveTransition {
+  0% { filter: blur(0px); opacity: 1; }
+  50% { filter: blur(5px); opacity: 0.7; transform: scale(0.98); }
+  100% { filter: blur(0px); opacity: 1; }
+}
+
+.recursive-transition {
+  animation: recursiveTransition 1.2s ease-out;
+}
+
+@keyframes screenBoot {
+    0% {
+        opacity: 0;
+        transform: scale(1.02) translateY(10px);
+        filter: grayscale(1) contrast(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: none;
+        filter: none;
+    }
+}
+
+.screen-transition {
+  animation: screenBoot 1s ease-out;
+}
+
+#crt-transition-flicker {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 99999;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.03) 0px,
+    rgba(255,255,255,0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  animation: transitionFlash 0.4s ease-out;
+}
+
+@keyframes transitionFlash {
+  0% { opacity: 0; }
+  20% { opacity: 0.15; }
+  40% { opacity: 0.05; }
+  60% { opacity: 0.1; }
+  100% { opacity: 0; }
+}
+
+/* ===== MISCELLANEOUS ELEMENTS ===== */
+.bureaucracy-widget {
+  font-family: 'Inconsolata', 'Courier New', monospace;
+  font-size: 0.75em;
+  padding: 0.3em 1em;
+  margin: 1.25em auto;
+  max-width: 340px;
+  text-align: center;
+  color: rgba(160, 160, 130, 0.35);
+  background: rgba(22, 20, 15, 0.15);
+  border: 1px solid rgba(90, 90, 70, 0.1);
+  border-radius: 2px;
+  letter-spacing: 0.08em;
+  box-shadow:
+    inset 0 0 2px rgba(40, 40, 30, 0.15),
+    0 0 4px rgba(0, 0, 0, 0.1);
+  filter: blur(0.3px);
+  opacity: 0.6;
+  animation: bureaucracyGlitch 6.2s infinite alternate;
+  position: relative;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+@keyframes bureaucracyGlitch {
+  0%   { transform: none; opacity: 0.72; }
+  10%  { transform: translateX(0.5px); opacity: 0.78; }
+  20%  { transform: translateX(-0.4px); }
+  35%  { transform: translateY(0.4px); opacity: 0.76; }
+  50%  { transform: none; }
+  70%  { transform: translateY(-0.3px); opacity: 0.68; }
+  85%  { transform: translateX(0.3px); }
+  100% { transform: none; opacity: 0.72; }
+}
+
+.bureaucracy-widget::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(90, 90, 70, 0.02),
+    rgba(90, 90, 70, 0.02) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  mix-blend-mode: overlay;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+#system-alert {
+  position: fixed;
+  transform: translate(-50%, -50%);
+  padding: 0.4em 1em;
+  background: rgba(18, 20, 18, 0.2);
+  color: #9ba99c;
+  font-family: 'Inconsolata', 'Courier New', monospace;
+  font-size: 0.75em;
+  letter-spacing: 0.09em;
+  text-align: center;
+  border: 1px solid rgba(80, 100, 80, 0.15);
+  border-radius: 2px;
+  box-shadow:
+    inset 0 0 2px rgba(80,90,80,0.1),
+    0 0 4px rgba(0,0,0,0.1);
+  opacity: 0.55;
+  animation: glitchShake 0.6s infinite, fadeInOut 4s ease-out forwards;
+  z-index: 10000;
+  pointer-events: none;
+  backdrop-filter: blur(1px);
+  user-select: none;
+}
+
+@keyframes glitchShake {
+  0%   { transform: translateX(-50%) translateY(0); }
+  20%  { transform: translateX(-51%) translateY(-0.5px); }
+  40%  { transform: translateX(-49%) translateY(1px); }
+  60%  { transform: translateX(-50.5%) translateY(-0.6px); }
+  80%  { transform: translateX(-49.5%) translateY(0.5px); }
+  100% { transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes fadeInOut {
+  0%   { opacity: 0; }
+  10%  { opacity: 0.5; }
+  25%  { opacity: 0.88; }
+  85%  { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+
+.system-echo {
+  background: rgba(150, 50, 50, 0.2);
+  color: rgba(220, 180, 180, 0.8);
+  padding: 0.4em 0.8em;
+  margin: 1em 0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8em;
+  text-align: center;
+  border: 1px solid rgba(150, 50, 50, 0.3);
+  animation: echoAlert 3s infinite;
+}
+
+@keyframes echoAlert {
+  0%, 100% { background: rgba(150, 50, 50, 0.2); }
+  50% { background: rgba(150, 50, 50, 0.3); }
+}
+
+/* ===== UI HELPERS ===== */
+\::-webkit-scrollbar {
+  width: 10px;
+}
+\::-webkit-scrollbar-thumb {
+  background: rgba(70,70,70,0.3);
+  border-radius: 5px;
+}
+\::-webkit-scrollbar-thumb:hover {
+  background: rgba(110,110,110,0.4);
+}
+\::-webkit-scrollbar-track {
+  background: rgba(20,20,20,0.1);
+}
+
+/* ===== DOMINANT VOICE THEMING ===== */
+body[data-dominant-voice="archivist"] .tw-passage {
+  background-color: rgba(10,15,15,0.2);
+}
+
+body[data-dominant-voice="heretic"] .tw-passage {
+  background-color: rgba(20,10,10,0.2);
+}
+
+body[data-dominant-voice="warden"] .tw-passage {
+  background-color: rgba(12,15,18,0.2);
+}
+
+body[data-tension-level="high"] .terminal-line {
+  animation: terminalPulse 3s infinite;
+}
+
+@keyframes terminalPulse {
+  0% { text-shadow: 0 0 1px rgba(100,150,140,0.3); }
+  50% { text-shadow: 0 0 3px rgba(100,150,140,0.5); }
+  100% { text-shadow: 0 0 1px rgba(100,150,140,0.3); }
+}
+
+body[data-recursion="3"] .tw-passage,
+body[data-recursion="4"] .tw-passage {
+  animation: subtleDistortion 8s infinite;
+}
+
+@keyframes subtleDistortion {
+  0% { transform: skew(0deg, 0deg); }
+  25% { transform: skew(0.1deg, 0.05deg); }
+  75% { transform: skew(-0.1deg, -0.05deg); }
+  100% { transform: skew(0deg, 0deg); }
+}
+
+.mind-voice.high-tension {
+  box-shadow: 0 0 12px rgba(0,0,0,0.7);
+}
+
+.voice-flicker {
+  animation: voiceFlicker 0.5s ease-out;
+}
+
+@keyframes voiceFlicker {
+  0% { opacity: 1; transform: scale(1); }
+  20% { opacity: 0.7; transform: scale(1.02); }
+  40% { opacity: 0.9; transform: scale(0.99); }
+  60% { opacity: 0.8; transform: scale(1.01); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.memory-frame {
+  background: rgba(25,25,30,0.7);
+  padding: 0.5em;
+  margin: 0;
+  border-left: 3px solid rgba(100,100,120,0.3);
+  color: #a6b6c6;
+  font-style: italic;
+}
+
+.voice-player {
+  font-family: 'Inconsolata', monospace;
+  background: linear-gradient(135deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95));
+  border-left: 4px solid rgba(255, 255, 255, 0.2);
+  padding: 1em 1.2em;
+  margin: 1em 0;
+  color: #e0e0e0;
+  box-shadow: inset 0 0 8px rgba(255,255,255,0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.voice-player:hover {
+  box-shadow: inset 0 0 12px rgba(255,255,255,0.1);
+}
+
+.voice-player .voice-label {
+  font-weight: bold;
+  color: #ccc;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.voice-player .voice-line {
+  font-style: italic;
+  color: #ddd;
+  line-height: 1.6;
+  font-size: 1.1em;
+}
+
+.static-noise {
+  font-size: 0.75em;
+  font-family: monospace;
+  color: rgba(120,120,120,0.2);
+  user-select: none;
+  letter-spacing: 0.15em;
+  animation: flickerNoise 1.8s infinite;
+}
+
+@keyframes flickerNoise {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.5; }
+}
+
+.voice-awareness-indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  opacity: 0.5;
+  z-index: 5;
+}
+
+.awareness-pulse {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(200, 200, 200, 0.5);
+  animation: awarenessPulse 3s infinite;
+}
+
+@keyframes awarenessPulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.5); opacity: 0.8; }
+}
+
+.mirror-moment {
+  padding: 0.8em;
+  margin: 1em 0;
+  background-color: rgba(40,40,50,0.6);
+  border-left: 3px solid rgba(100,80,100,0.4);
+  color: #c4bbc5;
+  font-style: italic;
+}
+
+.mirror-reflex {
+  color: #bcb0c0;
+  display: block;
+  text-align: center;
+  font-style: italic;
+  margin: 1em 0;
+}
+
+.inside-voice {
+  color: #a097a2;
+  font-style: italic;
+  text-align: center;
+  display: block;
+  margin: 1em 0;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
+
+.timestamp-glitch {
+  font-family: 'Courier New', monospace;
+  animation: blinkTimestamp 2.2s infinite;
+}
+
+@keyframes blinkTimestamp {
+  0%,100% { opacity: 0.9; }
+  50% { opacity: 0.3; }
+}
+/* ===== FLICKERING LIGHT ===== */
+
+
+@keyframes stabilityPulse {
+  0%, 100% { opacity: 0.6; }
+  10% { opacity: 0.3; }
+  12% { opacity: 0.6; }
+  15% { opacity: 0.2; }
+  20% { opacity: 0.7; }
+  35% { opacity: 0.4; }
+  40% { opacity: 0.6; }
+  50% { opacity: 0.5; }
+  60% { opacity: 0.7; }
+  70% { opacity: 0.2; }
+  73% { opacity: 0.6; }
+  80% { opacity: 0.4; }
+  85% { opacity: 0.7; }
+  90% { opacity: 0.2; }
+  95% { opacity: 0.6; }
+}
+
+@keyframes flickerLight {
+  0% { opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%); }
+  7% { opacity: 0.2; filter: sepia(2%) hue-rotate(80deg) saturate(70%); }
+  9% { opacity: 0.8; filter: sepia(2%) hue-rotate(80deg) saturate(95%); }
+  11% { opacity: 0.4; filter: sepia(2%) hue-rotate(80deg) saturate(75%); }
+  17% { opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%); }
+  33% { opacity: 0.3; filter: sepia(2%) hue-rotate(80deg) saturate(65%); }
+  35% { opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(85%); }
+  39% { opacity: 0.4; filter: sepia(2%) hue-rotate(80deg) saturate(80%); }
+  45% { opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%); }
+  60% { opacity: 0.2; filter: sepia(2%) hue-rotate(80deg) saturate(70%); }
+  63% { opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%); }
+  70% { opacity: 0.3; filter: sepia(2%) hue-rotate(80deg) saturate(75%); }
+  85% { opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%); }
+  93% { opacity: 0.1; filter: sepia(2%) hue-rotate(80deg) saturate(60%); }
+  95% { opacity: 0.6; filter: sepia(2%) hue-rotate(80deg) saturate(85%); }
+  100% { opacity: 0.7; filter: sepia(2%) hue-rotate(80deg) saturate(90%); }
+}
+
+/* ======== TITLE SCREEN ========= */
+/* Additional scanline animation */
+@keyframes scanlines {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+/* Title screen specific styles - minimal additions */
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.title-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0) 2px,
+    rgba(30, 40, 35, 0.05) 2px,
+    rgba(30, 40, 35, 0.05) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+  animation: scanlines 8s linear infinite;
+}
+
+.title-main {
+  font-size: 3.5em;
+  font-family: "PixelOperator", monospace;
+  color: #7a988a;
+  margin-bottom: 0.4em;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-shadow: 0 0 5px rgba(122, 152, 138, 0.3);
+  position: relative;
+  animation: mainTitleGlitch 4s infinite;
+}
+
+.title-main::before,
+.title-main::after {
+  content: "THE FOLD";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0.8;
+}
+
+.title-main::before {
+  color: rgba(0, 255, 255, 0.4);
+  z-index: -1;
+  animation: glitchOffset1 3.5s infinite alternate-reverse;
+}
+
+.title-main::after {
+  color: rgba(255, 0, 255, 0.4);
+  z-index: -2;
+  animation: glitchOffset2 2.8s infinite alternate-reverse;
+}
+
+.title-menu {
+  margin-top: 2em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2em;
+}
+
+.title-menu a, .title-menu tw-link {
+  display: inline-block;
+  min-width: 200px;
+  text-align: center;
+  padding: 0.8em 1.5em;
+  border: 1px solid rgba(122, 152, 138, 0.4);
+  background-color: rgba(10, 15, 15, 0.3);
+  transition: all 0.3s ease;
+  font-family: "PixelOperator", monospace;
+  letter-spacing: 0.1em;
+}
+
+.title-menu a:hover, .title-menu tw-link:hover {
+  border-color: rgba(122, 152, 138, 0.8);
+  background-color: rgba(20, 30, 30, 0.4);
+  transform: translateY(-2px);
+}
+
+.about-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2em;
+}
+
+@keyframes mainTitleGlitch {
+  0%, 100% { transform: none; opacity: 1; }
+  10% { transform: skew(-0.5deg, -0.3deg); opacity: 0.9; }
+  20% { transform: none; opacity: 1; }
+  35% { transform: skew(0.3deg, 0.2deg) translateX(-2px); opacity: 0.95; }
+  50% { transform: none; opacity: 1; }
+  65% { transform: translateX(1px); opacity: 0.92; }
+  80% { transform: skew(-0.2deg, 0.4deg); opacity: 0.9; }
+  90% { transform: none; opacity: 1; }
+}
+
+@keyframes glitchOffset1 {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 1px); }
+  40% { transform: translate(2px, -1px); }
+  60% { transform: translate(-1px, -1px); }
+  80% { transform: translate(1px, 1px); }
+}
+
+@keyframes glitchOffset2 {
+  0%, 100% { transform: translate(0); }
+  25% { transform: translate(2px, 1px); }
+  50% { transform: translate(-1px, -1px); }
+  75% { transform: translate(1px, -1px); }
+}
+
+@keyframes subtitleGlitch {
+  0%, 100% { transform: none; }
+  10% { transform: translateX(-1px); }
+  30% { transform: translateX(1px); }
+  40% { transform: skew(0.2deg); }
+  70% { transform: none; }
+  85% { transform: skew(-0.2deg); }
+}
+
+@keyframes subtitleOffset {
+  0%, 100% { transform: translateX(0); opacity: 0.4; }
+  40% { transform: translateX(2px); opacity: 0.1; }
+  60% { transform: translateX(-1px); opacity: 0.3; }
+}
