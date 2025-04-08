@@ -86,7 +86,7 @@ But the system still lets you leave.</span>
 <</nobr>>
 
 
-:: Anomaly Report {"position":"2275,1975","size":"100,100"}
+:: Anomaly Report {"position":"2225,1950","size":"100,100"}
 <<nobr>>
 <div class="terminal-block">
   <span class="terminal-line">> SYSTEM ACCESS GRANTED</span><br> 
@@ -176,7 +176,7 @@ You are... incompatible.</span>
 [[Begin (new self)->Title Screen]]
 
 
-:: Contemplate the Split {"position":"2050,1750","size":"100,100"}
+:: Contemplate the Split {"position":"1975,1775","size":"100,100"}
 <br>
 The raw pulse of pre-containment thought echoes before you.  
 Not memory. Not narrative. 
@@ -198,7 +198,7 @@ but as design.
 <<bureaucracy>>
 
 
-:: Convergence: Fractured {"position":"1875,1850","size":"100,100"}
+:: Convergence: Fractured {"position":"475,1850","size":"100,100"}
 <<nobr>>
 <<set $fracturedEndingReached = true>>
 <<evaluateDominantVoice>>
@@ -237,7 +237,7 @@ Running.
 [[Continue->Convergence: Fractured_B]]
 
 
-:: Convergence: Fractured_B {"position":"1950,2050","size":"100,100"}
+:: Convergence: Fractured_B {"position":"600,2000","size":"100,100"}
 They do not vanish.  
 They do not merge.  
 
@@ -293,7 +293,7 @@ And now, you remember all of them.
 <<markRecursion>>
 
 
-:: Convergence: Standoff {"position":"1650,2000","size":"100,100"}
+:: Convergence: Standoff {"position":"675,1825","size":"100,100"}
 <<set $standoffEndingReached = true>>
 
 The Mirror collapses into static.  
@@ -330,7 +330,7 @@ And you silence the memory anyway.
 <<markRecursion>>
 
 
-:: Core Fragment Access {"position":"1775,1675","size":"100,100"}
+:: Core Fragment Access {"position":"600,1475","size":"100,100"}
 <<evaluateDominantVoice>>
 <<nobr>>
 <<voiceEvent "memory">>
@@ -367,7 +367,7 @@ Or what you were supposed to think you were.
 [[Continue->Core Fragment Access_B]]
 
 
-:: Core Fragment Access_B {"position":"1725,1850","size":"100,100"}
+:: Core Fragment Access_B {"position":"550,1675","size":"100,100"}
 You remember this place.
 
 Not all at once—  
@@ -480,7 +480,7 @@ Once more, procedural nodes unfold. Each a gateway into the system's controlled 
 <<bureaucracy>>
 
 
-:: Decode Mirror {"position":"825,1800","size":"100,100"}
+:: Decode Mirror {"position":"875,1800","size":"100,100"}
 The symbols coalesce into a cryptic equation...
 A reflection of your shattered identity. <br>
 <<nobr>>
@@ -531,7 +531,7 @@ Who is creating whom?</span>
 <<bureaucracy>>
 
 
-:: Glitch Probe {"position":"1975,1425","size":"100,100"}
+:: Glitch Probe {"position":"1900,1425","size":"100,100"}
 <<nobr>>
 <<set $memoryFragments += 1>>
 
@@ -790,9 +790,6 @@ But it feels like it's watching what you choose.</span>
 <<if $mirrorSeen and $memoryFragments >= 5>>
 [[SYSTEM NOTICE: Irregular Pattern Identified->The First Split]]<br>
 <</if>>
-<<if $firstSplitSeen and $memoryFragments >= 1>>
-[[ACCESS CORE FRAGMENT->Core Fragment Access]]<br>
-<</if>>
 <<if $coreFragmentAccessed and $fracturedEndingReached and $standoffEndingReached and $memoryFragments >= 7>>
 [[Override Protocol: Become One->Integration Ending]]<br>
 <</if>>
@@ -856,7 +853,7 @@ It feels like it's asking.</span>
 <<bureaucracy>>
 
 
-:: Memory Echo {"position":"1900,1050","size":"100,100"}
+:: Memory Echo {"position":"2000,1025","size":"100,100"}
 <div style="display: flex; align-items: center; margin: 10px 0;">
     <div style="flex-grow: 1; padding-right: 15px;">
         <span>
@@ -1012,7 +1009,7 @@ Not even from the recording.
 [[Close the fragment->Memory Archive]]
 
 
-:: Memory Split_B {"position":"2675,1600","size":"100,100"}
+:: Memory Split_B {"position":"2575,1600","size":"100,100"}
 The hallway flickers.  
 Now it’s a hospital.  
 Then a childhood bedroom.  
@@ -1049,7 +1046,7 @@ Your right hand tingles.<br>
 [[Continue->Memory Split_C]]
 
 
-:: Memory Split_C {"position":"2375,1750","size":"100,100"}
+:: Memory Split_C {"position":"2375,1725","size":"100,100"}
 <<run setup.mirrorEncounter()>>
 A breath.  
 But not yours.
@@ -1490,7 +1487,7 @@ Something watches.</span>
 <</nobr>>
 
 
-:: Recovered Fragment {"position":"775,1125","size":"100,100"}
+:: Recovered Fragment {"position":"700,1100","size":"100,100"}
 <<nobr>>
 <<evaluateDominantVoice>>
 
@@ -1526,7 +1523,7 @@ Already playing.
 [[Close the file and retreat->Cycle_Start]]
 
 
-:: Recovered Fragment_B {"position":"650,1275","size":"100,100"}
+:: Recovered Fragment_B {"position":"625,1275","size":"100,100"}
 <<run setup.mirrorEncounter()>>
 The screen plays nothing.
 But it emits a pulse.
@@ -1553,7 +1550,7 @@ You didn’t open it.
 But you remember walking through.<br>
 <<nobr>>
 <div class="mirror-speak" data-text="You remember watching this. From the other side of the screen.">You remember watching this. From the other side of the screen.</div><br><br>
-[[Step into the light->Memory Split_B]]<br>
+[[Step into the light->Core Fragment Access]]<br>
 [[Retreat while you can->Cycle_Start]]<br>
 <</nobr>>
 <<set $memoryFragments += 1>>
@@ -1774,7 +1771,7 @@ It's your <i>architecture.</i></span>
 <</nobr>>
 
 
-:: The First Split {"position":"1850,1500","size":"100,100"}
+:: The First Split {"position":"1800,1625","size":"100,100"}
 <<nobr>>
 <div class="terminal-block">
   <span class="terminal-line">> SYSTEM NOTICE:  </span><br>
@@ -4814,4 +4811,14 @@ body:has(.mirror-speak) .progression-indicator .progression-text {
   52% { transform: none; color: #7a988a; }
   98% { transform: none; color: #7a988a; }
   99% { transform: translateX(2px); color: rgba(175, 108, 108, 0.8); }
+}
+
+/* ======= NAV HIDDEN ====== */
+#ui-bar {
+  display: none;
+}
+
+/* Adjust the story area to take up full width */
+#story {
+  margin-left: 0;
 }

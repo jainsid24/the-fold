@@ -1671,6 +1671,16 @@ body:has(.mirror-speak) .progression-indicator .progression-text {
   52% { transform: none; color: #7a988a; }
   98% { transform: none; color: #7a988a; }
   99% { transform: translateX(2px); color: rgba(175, 108, 108, 0.8); }
+}
+
+/* ======= NAV HIDDEN ====== */
+#ui-bar {
+  display: none;
+}
+
+/* Adjust the story area to take up full width */
+#story {
+  margin-left: 0;
 }</style><script role="script" id="twine-user-script" type="text/twine-javascript">// ===== CORE VOICE SYSTEM =====
 // Main voice display macro
 Macro.add('printVoice', {
@@ -2825,7 +2835,7 @@ But the system still lets you leave.&lt;/span&gt;
 [[Investigate Memory Breach-&gt;Protocol Breach – Subject 113-A]]  &lt;br&gt;
 [[Return to Hub-&gt;Main System Hub]]
 &lt;&lt;/timed&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="Anomaly Report" tags="" position="2275,1975" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="Anomaly Report" tags="" position="2225,1950" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; SYSTEM ACCESS GRANTED&lt;/span&gt;&lt;br&gt; 
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; VIEWING: ANOMALY REPORT THREAD — NODE 7&lt;/span&gt;&lt;br&gt;
@@ -2907,7 +2917,7 @@ You are... incompatible.&lt;/span&gt;
 &lt;/div&gt;
 &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;markRecursion&gt;&gt;
-[[Begin (new self)-&gt;Title Screen]]</tw-passagedata><tw-passagedata pid="5" name="Contemplate the Split" tags="" position="2050,1750" size="100,100">&lt;br&gt;
+[[Begin (new self)-&gt;Title Screen]]</tw-passagedata><tw-passagedata pid="5" name="Contemplate the Split" tags="" position="1975,1775" size="100,100">&lt;br&gt;
 The raw pulse of pre-containment thought echoes before you.  
 Not memory. Not narrative. 
 Just the &lt;i&gt;moment the architecture fractured.&lt;/i&gt;  
@@ -2925,7 +2935,7 @@ but as design.
 [[Return to the System Hub-&gt;Main System Hub]]
 
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="Convergence: Fractured" tags="" position="1875,1850" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="Convergence: Fractured" tags="" position="475,1850" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $fracturedEndingReached = true&gt;&gt;
 &lt;&lt;evaluateDominantVoice&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -2960,7 +2970,7 @@ Running.
 
 &lt;&lt;narrativeCallback &quot;split&quot; 1&gt;&gt;
 
-[[Continue-&gt;Convergence: Fractured_B]]</tw-passagedata><tw-passagedata pid="7" name="Convergence: Fractured_B" tags="" position="1950,2050" size="100,100">They do not vanish.  
+[[Continue-&gt;Convergence: Fractured_B]]</tw-passagedata><tw-passagedata pid="7" name="Convergence: Fractured_B" tags="" position="600,2000" size="100,100">They do not vanish.  
 They do not merge.  
 
 They persist.  
@@ -3012,7 +3022,7 @@ And now, you remember all of them.
 &lt;/div&gt;
 &lt;&lt;/nobr&gt;&gt;
 [[Restart (as yourself)-&gt;Title Screen]]
-&lt;&lt;markRecursion&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="Convergence: Standoff" tags="" position="1650,2000" size="100,100">&lt;&lt;set $standoffEndingReached = true&gt;&gt;
+&lt;&lt;markRecursion&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="Convergence: Standoff" tags="" position="675,1825" size="100,100">&lt;&lt;set $standoffEndingReached = true&gt;&gt;
 
 The Mirror collapses into static.  
 
@@ -3045,7 +3055,7 @@ And you silence the memory anyway.
 &lt;/div&gt;
 
 [[Restart (broken self)-&gt;Title Screen]]
-&lt;&lt;markRecursion&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="Core Fragment Access" tags="" position="1775,1675" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
+&lt;&lt;markRecursion&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="Core Fragment Access" tags="" position="600,1475" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
 &lt;&lt;nobr&gt;&gt;
 &lt;&lt;voiceEvent &quot;memory&quot;&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
@@ -3078,7 +3088,7 @@ Or looked like what you used to be.
 
 Or what you were supposed to think you were.
 
-[[Continue-&gt;Core Fragment Access_B]]</tw-passagedata><tw-passagedata pid="10" name="Core Fragment Access_B" tags="" position="1725,1850" size="100,100">You remember this place.
+[[Continue-&gt;Core Fragment Access_B]]</tw-passagedata><tw-passagedata pid="10" name="Core Fragment Access_B" tags="" position="550,1675" size="100,100">You remember this place.
 
 Not all at once—  
 in pieces.  
@@ -3183,7 +3193,7 @@ Once more, procedural nodes unfold. Each a gateway into the system&#39;s control
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="Decode Mirror" tags="" position="825,1800" size="100,100">The symbols coalesce into a cryptic equation...
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="Decode Mirror" tags="" position="875,1800" size="100,100">The symbols coalesce into a cryptic equation...
 A reflection of your shattered identity. &lt;br&gt;
 &lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;equation-container&quot; style=&quot;margin: 20px 0; text-align: center;&quot;&gt;
@@ -3226,7 +3236,7 @@ As you study the equation, it seems to adjust itself, offering you two distinct 
 Who is creating whom?&lt;/span&gt;
 [[Return to System Hub-&gt;Main System Hub]]
 &lt;&lt;/nobr&gt;&gt;
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="Glitch Probe" tags="" position="1975,1425" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="Glitch Probe" tags="" position="1900,1425" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $memoryFragments += 1&gt;&gt;
 
 &lt;div class=&quot;terminal-block&quot;&gt;
@@ -3468,9 +3478,6 @@ But it feels like it&#39;s watching what you choose.&lt;/span&gt;
 &lt;&lt;if $mirrorSeen and $memoryFragments &gt;= 5&gt;&gt;
 [[SYSTEM NOTICE: Irregular Pattern Identified-&gt;The First Split]]&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;if $firstSplitSeen and $memoryFragments &gt;= 1&gt;&gt;
-[[ACCESS CORE FRAGMENT-&gt;Core Fragment Access]]&lt;br&gt;
-&lt;&lt;/if&gt;&gt;
 &lt;&lt;if $coreFragmentAccessed and $fracturedEndingReached and $standoffEndingReached and $memoryFragments &gt;= 7&gt;&gt;
 [[Override Protocol: Become One-&gt;Integration Ending]]&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
@@ -3527,7 +3534,7 @@ It feels like it&#39;s asking.&lt;/span&gt;
 [[Reconstruct Request-&gt;Access Denied – Reconstruct Request]]&lt;br&gt;
 [[Back to Hub-&gt;Main System Hub]]&lt;br&gt;
 &lt;&lt;/nobr&gt;&gt;
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="Memory Echo" tags="" position="1900,1050" size="100,100">&lt;div style=&quot;display: flex; align-items: center; margin: 10px 0;&quot;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="Memory Echo" tags="" position="2000,1025" size="100,100">&lt;div style=&quot;display: flex; align-items: center; margin: 10px 0;&quot;&gt;
     &lt;div style=&quot;flex-grow: 1; padding-right: 15px;&quot;&gt;
         &lt;span&gt;
         Static hums in your ears as the fragment loads.
@@ -3667,7 +3674,7 @@ Not even from the recording.
 &lt;&lt;set $archivistPoints += 1&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 [[Look behind-&gt;The Mirror Watches]]  
-[[Close the fragment-&gt;Memory Archive]]</tw-passagedata><tw-passagedata pid="24" name="Memory Split_B" tags="" position="2675,1600" size="100,100">The hallway flickers.  
+[[Close the fragment-&gt;Memory Archive]]</tw-passagedata><tw-passagedata pid="24" name="Memory Split_B" tags="" position="2575,1600" size="100,100">The hallway flickers.  
 Now it’s a hospital.  
 Then a childhood bedroom.  
 Then—
@@ -3700,7 +3707,7 @@ Your right hand tingles.&lt;br&gt;
 &lt;&lt;nobr&gt;&gt;
 &lt;&lt;printVoice &quot;heretic&quot; &quot;You left it open. But something else walked through.&quot;&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
-[[Continue-&gt;Memory Split_C]]</tw-passagedata><tw-passagedata pid="25" name="Memory Split_C" tags="" position="2375,1750" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
+[[Continue-&gt;Memory Split_C]]</tw-passagedata><tw-passagedata pid="25" name="Memory Split_C" tags="" position="2375,1725" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
 A breath.  
 But not yours.
 
@@ -4097,7 +4104,7 @@ Something watches.&lt;/span&gt;
 &lt;&lt;timed 13s&gt;&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
   [[Return to Hub-&gt;Main System Hub]]
 &lt;&lt;/timed&gt;&gt;
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="Recovered Fragment" tags="" position="775,1125" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="Recovered Fragment" tags="" position="700,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;evaluateDominantVoice&gt;&gt;
 
 &lt;div class=&quot;terminal-block&quot;&gt;
@@ -4129,7 +4136,7 @@ Just a screen.
 Already playing.
 
 [[Dig deeper into the breach-&gt;Recovered Fragment_B]] 
-[[Close the file and retreat-&gt;Cycle_Start]]</tw-passagedata><tw-passagedata pid="37" name="Recovered Fragment_B" tags="" position="650,1275" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
+[[Close the file and retreat-&gt;Cycle_Start]]</tw-passagedata><tw-passagedata pid="37" name="Recovered Fragment_B" tags="" position="625,1275" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
 The screen plays nothing.
 But it emits a pulse.
 
@@ -4155,7 +4162,7 @@ You didn’t open it.
 But you remember walking through.&lt;br&gt;
 &lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;mirror-speak&quot; data-text=&quot;You remember watching this. From the other side of the screen.&quot;&gt;You remember watching this. From the other side of the screen.&lt;/div&gt;&lt;br&gt;&lt;br&gt;
-[[Step into the light-&gt;Memory Split_B]]&lt;br&gt;
+[[Step into the light-&gt;Core Fragment Access]]&lt;br&gt;
 [[Retreat while you can-&gt;Cycle_Start]]&lt;br&gt;
 &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;set $memoryFragments += 1&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="Room with No Light: Beyond" tags="" position="1250,1975" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
@@ -4353,7 +4360,7 @@ The loop isn&#39;t a trap.  &lt;br&gt;
 It&#39;s your &lt;i&gt;architecture.&lt;/i&gt;&lt;/span&gt;
 [[Return to Hub with newfound understanding-&gt;Main System Hub]]&lt;br&gt;
 [[Pursue integration now-&gt;Integration Ending]]
-&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="The First Split" tags="" position="1850,1500" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;/nobr&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="The First Split" tags="" position="1800,1625" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; SYSTEM NOTICE:  &lt;/span&gt;&lt;br&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; NONLINEAR THOUGHT PATTERN IDENTIFIED&lt;/span&gt;&lt;br&gt;
