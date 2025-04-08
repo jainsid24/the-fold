@@ -28,7 +28,6 @@ The Fold (Aesthetics)
 </div>
 
 
-
 :: Access Denied – Reconstruct Request {"position":"1425,1450","size":"100,100"}
 <<evaluateDominantVoice>>
 <<nobr>>
@@ -368,7 +367,6 @@ Or what you were supposed to think you were.
 [[Continue->Core Fragment Access_B]]
 
 
-
 :: Core Fragment Access_B {"position":"1725,1850","size":"100,100"}
 You remember this place.
 
@@ -497,6 +495,40 @@ As you study the equation, it seems to adjust itself, offering you two distinct 
 
 [[Accept the challenge and integrate the fragments->Integration Ending]]  
 [[Resist and retreat to safety->Memory Archive]]
+
+
+:: Developer Musings {"position":"1450,800","size":"100,100"}
+<div style="background: rgba(15,25,15,0.4); border: 1px solid rgba(100,150,100,0.3); padding: 20px; max-width: 700px; margin: 0 auto;">
+  <h2 style="text-align: center; color: #7a988a; letter-spacing: 0.1em; margin-bottom: 20px; font-family: 'PixelOperator', monospace;">DEVELOPER NOTES</h2>
+  <<nobr>>
+  <div style="font-family: 'PixelOperator', monospace; line-height: 1.6; color: #9ba99c; margin-bottom: 30px;">
+<p>Hello there, curious explorer. You've discovered my hidden notes.</p>
+
+<p>Creating <i>The Fold</i> has been a journey through recursive loops of my own. Exploring the boundaries between identity, memory, and system. Every branch you've followed, every voice you've trusted, has been part of this experiment in digital consciousness.</p>
+
+<p>Being a long-time admirer of narrative experiences like <i>Disco Elysium</i>, <i>Detroit Become Human</i>, and <i>Heavy Rain</i> (to name a few), I wanted to create something that exists at the intersection of interface and identity.</p>
+
+<p>The existential questions posed in works like <i>Ghost in the Shell</i>, <i>Ergo Proxy</i>, and <i>Serial Experiments Lain</i> (among many other great works) have deeply influenced how I approached this project—where does the self end and the system begin? When we fragment, which piece holds the truth?</p>
+
+<p>I hope you enjoy recursing through multiple paths and choices <i>(if they matter)</i> and find yourself lost in The Fold as I did while designing it.</p>
+
+    <p style="text-align: right; font-style: italic; margin-top: 20px;">— Sid</p>
+  </div>
+  
+  <div class="terminal-block" style="margin-top: 30px;">
+    <span class="terminal-line">> DEVELOPER ACCESS: ACTIVE</span><br>
+    <span class="terminal-line">> META NARRATIVE: UNLOCKED</span><br>
+    <span class="terminal-line">> PERSPECTIVE: EXTERNAL</span>
+  </div>
+  <</nobr>>
+</div>
+<<nobr>>
+<div class="mirror-speak" data-text="Even creators become part of their own systems." style="align:center">Even creators become part of their own systems.</div>
+<span class="silence-blip">The boundary between fiction and author blurs.<br>
+Who is creating whom?</span>
+[[Return to System Hub->Main System Hub]]
+<</nobr>>
+<<bureaucracy>>
 
 
 :: Glitch Probe {"position":"1975,1425","size":"100,100"}
@@ -714,6 +746,9 @@ because <i>you did.</i>
   <<if $dominantVoice == "warden">>
   <span class="terminal-line">> PRIORITY MODE: COMPLIANCE ENFORCEMENT</span><br>
   <</if>>
+  <<if $konamiActivated>>
+  <span class="terminal-line glitch">> DEVELOPER ACCESS: GRANTED</span><br>
+  <</if>>
 </div>
 <br>
 <div class="mirror-directive-container" style="margin: 10px 0; text-align: center;">
@@ -732,6 +767,12 @@ Folders that open and close with a satisfying click.<br>
 <</if>>
 <<if $mirrorSeen and $memoryFragments >= 6>>
 <div class="mirror-speak" data-text="In your absence, they reshaped this space.">In your absence, they reshaped this space.</div>
+<</if>>
+<<if $konamiAttempt and !$konamiActivated>>
+<div class="terminal-block">
+  <span class="terminal-line glitch">> HIDDEN PROTOCOL DETECTED</span><br>
+  <span class="terminal-line">> UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT B A</span>
+</div>
 <</if>>
 <span class="silence-blip">The system waits.<br>
 But it feels like it's watching what you choose.</span>
@@ -754,6 +795,9 @@ But it feels like it's watching what you choose.</span>
 <</if>>
 <<if $coreFragmentAccessed and $fracturedEndingReached and $standoffEndingReached and $memoryFragments >= 7>>
 [[Override Protocol: Become One->Integration Ending]]<br>
+<</if>>
+<<if $konamiActivated>>
+[[DEVELOPER ACCESS->Developer Musings]]<br>
 <</if>>
 <</nobr>>
 <<bureaucracy>>
@@ -1515,8 +1559,6 @@ But you remember walking through.<br>
 <<set $memoryFragments += 1>>
 
 
-
-
 :: Room with No Light: Beyond {"position":"1250,1975","size":"100,100"}
 <<evaluateDominantVoice>>
 
@@ -1608,8 +1650,6 @@ So do you.
 
 
 :: Shutdown Sim (Loop Path) {"position":"1550,1475","size":"100,100"}
-
-
 You request system shutdown.
 
 <<nobr>>
@@ -1691,7 +1731,6 @@ Fragmentation detected.
 <<set $wardenPoints = 1>>
 <<set $hereticPoints = 1>>
 <</silently>>
-
 
 
 :: System Revelation {"position":"1275,1350","size":"100,100"}
@@ -3077,6 +3116,100 @@ $(document).on(':passageend', function() {
   }
 });
 
+// KONAMI CODE for SugarCube
+// This implementation is specific to SugarCube's syntax
+$(document).ready(function() {
+  // The Konami Code sequence
+  const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // up up down down left right left right b a
+  let konamiPosition = 0;
+
+  // Debug variable to check if the code is loaded
+  console.log("Konami code handler initialized");
+  
+  // Listen for key presses
+  $(document).on('keydown', function(e) {
+    // Get the correct key code
+    const key = e.keyCode || e.which;
+    
+    // For debugging - log when a key in the sequence is pressed
+    if (konamiCode.includes(key)) {
+      console.log("Potential konami key pressed: " + key + ", position: " + konamiPosition);
+    }
+    
+    // Check if the key matches the next key in the sequence
+    if (key === konamiCode[konamiPosition]) {
+      // Move to the next key in the sequence
+      konamiPosition++;
+      console.log("Konami sequence: " + konamiPosition + "/" + konamiCode.length);
+      
+      // If the full sequence is entered correctly
+      if (konamiPosition === konamiCode.length) {
+        // Reset the position
+        konamiPosition = 0;
+        console.log("KONAMI CODE ACTIVATED!");
+        
+        // Only trigger if we're on the Main System Hub passage
+        if (Story.get(State.passage).title === "Main System Hub") {
+          console.log("On Main System Hub - activating...");
+          
+          // Set a story variable to mark activation
+          State.variables.konamiActivated = true;
+          
+          // Create a visual effect to indicate success
+          $('body').append('<div id="konami-success" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #7a988a; padding: 20px; font-family: \'PixelOperator\', monospace; text-align: center; z-index: 9999; border: 1px solid #7a988a;">KONAMI CODE ACTIVATED</div>');
+          
+          // Add the link to the developer musings
+          $('.passage').append('<div style="margin-top: 20px;"><a href="javascript:void(0)" id="developer-link" style="color: #8fa99b; background: rgba(30, 50, 30, 0.4); border: 1px solid rgba(122, 152, 138, 0.6); padding: 0.35em 0.9em; text-decoration: none; display: inline-block;">DEVELOPER MUSINGS</a></div>');
+          
+          // Make the link work by navigating to a new passage
+          $('#developer-link').on('click', function() {
+            Engine.play("Developer Musings");
+          });
+          
+          // Remove the success message after 2 seconds
+          setTimeout(function() {
+            $('#konami-success').fadeOut(function() {
+              $(this).remove();
+            });
+          }, 2000);
+        } else {
+          console.log("Not on Main System Hub - current passage: " + Story.get(State.passage).title);
+        }
+      }
+    } else {
+      // Reset the position if the wrong key is pressed
+      konamiPosition = 0;
+    }
+  });
+  
+  // Add a hint to the Main System Hub passage
+  $(document).on(':passagerender', function(ev) {
+    if (Story.get(State.passage).title === "Main System Hub") {
+      console.log("Rendering Main System Hub - adding hint");
+      if ($("#konami-hint").length === 0) {
+        $('.passage').append('<div id="konami-hint" style="position: fixed; bottom: 10px; left: 10px; font-family: \'PixelOperator\', monospace; color: #7a988a; opacity: 0.3; font-size: 0.7em;">[??] Legacy Access Protocol</div>');
+        
+        // Make it pulse occasionally
+        setInterval(function() {
+          $('#konami-hint').animate({opacity: 0.6}, 600).animate({opacity: 0.3}, 600);
+        }, 5000);
+      }
+      
+      // If Konami was previously activated, show the link
+      if (State.variables.konamiActivated) {
+        console.log("Konami already activated - showing link");
+        if ($("#developer-link").length === 0) {
+          $('.passage').append('<div style="margin-top: 20px;"><a href="javascript:void(0)" id="developer-link" style="color: #8fa99b; background: rgba(30, 50, 30, 0.4); border: 1px solid rgba(122, 152, 138, 0.6); padding: 0.35em 0.9em; text-decoration: none; display: inline-block;">DEVELOPER MUSINGS</a></div>');
+          
+          $('#developer-link').on('click', function() {
+            Engine.play("Developer Musings");
+          });
+        }
+      }
+    }
+  });
+});
+
 :: StoryStylesheet [stylesheet]
 /* ===== BASE ELEMENTS ===== */
 @font-face {
@@ -4438,4 +4571,103 @@ body[data-recursion="4"] .tw-passage {
   0%, 100% { transform: translateX(0); opacity: 0.4; }
   40% { transform: translateX(2px); opacity: 0.1; }
   60% { transform: translateX(-1px); opacity: 0.3; }
+}
+
+/* KONAMI CODE */
+/* Add these styles to your CSS module in Twine */
+
+/* Konami code hint styling */
+#konami-hint {
+  cursor: help;
+  transition: all 0.3s ease;
+  border-bottom: 1px dashed rgba(122, 152, 138, 0.3);
+  padding-bottom: 2px;
+}
+
+#konami-hint:hover {
+  text-shadow: 0 0 5px rgba(122, 152, 138, 0.5);
+}
+
+/* Konami activation animation */
+@keyframes konamiActivation {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 20px rgba(122, 152, 138, 0.6); }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* Developer access button styling - appears when Konami code is activated */
+.passage a[href="Developer Musings"] {
+  background-color: rgba(30, 50, 30, 0.4);
+  border-color: rgba(122, 152, 138, 0.6);
+  color: #8fa99b;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+  animation: konamiActivation 2s infinite;
+}
+
+.passage a[href="Developer Musings"]:hover {
+  background-color: rgba(40, 70, 40, 0.5);
+  border-color: rgba(122, 152, 138, 0.8);
+  color: #a0baa6;
+}
+
+.passage a[href="Developer Musings"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(122, 152, 138, 0.4), transparent);
+  transform: skewX(-20deg);
+  animation: shineEffect 3s infinite;
+}
+
+@keyframes shineEffect {
+  0% { left: -150%; }
+  30% { left: -150%; }
+  100% { left: 150%; }
+}
+
+/* Konami sequence visual feedback */
+#konami-indicator {
+  background-color: rgba(20, 30, 20, 0.7);
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 1px solid rgba(122, 152, 138, 0.4);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+/* Konami success feedback */
+#konami-success {
+  z-index: 9999;
+  border-radius: 3px;
+  box-shadow: 0 0 30px rgba(122, 152, 138, 0.5);
+}
+
+/* Additional glitch effect for Konami-activated elements */
+.terminal-line.glitch {
+  position: relative;
+  color: #a0baa6;
+  text-shadow: 
+    0 0 2px rgba(160, 186, 166, 0.8),
+    0 0 4px rgba(122, 152, 138, 0.4);
+  animation: terminalGlitch 2s infinite;
+}
+
+@keyframes terminalGlitch {
+  0% { left: 0; }
+  2% { left: -3px; }
+  4% { left: 0; }
+  25% { left: 0; }
+  27% { left: 2px; }
+  29% { left: 0; }
+  50% { left: 0; }
+  52% { left: -2px; }
+  54% { left: 0; }
+  75% { left: 0; }
+  77% { left: 3px; }
+  79% { left: 0; }
 }
