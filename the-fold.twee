@@ -1,5 +1,5 @@
 :: StoryTitle
-The Fold (Aesthetics)
+The Fold
 
 
 :: StoryData
@@ -1669,7 +1669,7 @@ You request system shutdown.
 <span class="silence-blip">There is no shutdown.  
 Only return.</span><br>
 
-[[Begin Again->Start]]
+[[Begin Again->Title Screen]]
 <<set $skipRecursionMark = true>>
 <</nobr>>
 
@@ -1722,9 +1722,6 @@ Fragmentation detected.
     <<set _glitchClass = "glitch-intensify">>
 <<else>>
     <<set _glitchClass = "glitch-memory">>
-<</if>>
-<<if !$skipRecursionMark>>
-  <<markRecursion>>
 <</if>>
 <<set $skipRecursionMark = false>>
 <<set $archivistPoints = 1>>
@@ -2027,12 +2024,38 @@ It speaks like it knows you <i>from before.</i>
   <<run setup.initAmbientAudio()>>
   <<set $audioInitialized to true>>
 <</if>>
+<<silently>>
+  /* Initialize history tracking if it doesn't exist */
+  <<if !$visitedPassages>>
+    <<set $visitedPassages to {}>>
+  <</if>>
+  
+  /* Add current passage to visited passages */
+  <<set $visitedPassages[passage()] to true>>
+  
+  /* Count unique visited passages */
+  <<set _visitedCount = 0>>
+  <<for _passage, _value range $visitedPassages>>
+    <<set _visitedCount += 1>>
+  <</for>>
+  
+  /* Calculate progression based solely on number of passages visited */
+  <<set _totalPassages = 51>> /* Total number of passages in the game */
+  <<set _progressPercent = Math.floor((_visitedCount / _totalPassages) * 100)>>
+<</silently>>
 <div class="title-container">
 <<nobr>>
   <h1 class="title-main">The Fold</h1>
   <div class="title-menu">
     [[Start Simulation->Start]]
     [[Know More->About]]
+  </div>
+  
+  <div class="progression-indicator" title="Story Progression: <<print _progressPercent>>%">
+    <span class="progression-text"><<print _progressPercent>>%</span>
+    <div class="progression-bar">
+      <div class="progression-fill" style="width: <<print _progressPercent>>%;"></div>
+    </div>
   </div>
   <</nobr>>
 </div>
@@ -3208,6 +3231,19 @@ $(document).ready(function() {
       }
     }
   });
+});
+
+/* ========= PROGRESSION ========== */
+$(document).on(':passagerender', function(ev) {
+  // Initialize visited passages object if it doesn't exist
+  if (!State.variables.visitedPassages) {
+    State.variables.visitedPassages = {};
+  }
+  
+  // Add current passage to visited passages
+  if (State.passage) {
+    State.variables.visitedPassages[State.passage] = true;
+  }
 });
 
 :: StoryStylesheet [stylesheet]
@@ -4670,4 +4706,112 @@ body[data-recursion="4"] .tw-passage {
   75% { left: 0; }
   77% { left: 3px; }
   79% { left: 0; }
+}
+
+/* ======= PROGRESSION ========= */
+.progression-indicator {
+  position: fixed;
+  top: 10px;
+  left: 10px; /* Increased to avoid overlap with audio controls */
+  font-family: 'PixelOperator', monospace;
+  font-size: 1.1em;
+  color: #7a988a;
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+  z-index: 100;
+  text-align: right;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  pointer-events: none;
+}
+
+/* Hover effect to make it more visible when needed */
+.progression-indicator:hover {
+  opacity: 0.75;
+}
+
+/* Text showing the percentage */
+.progression-text {
+  font-size: 0.8em;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  animation: glitchNumber 8s infinite;
+}
+
+/* Progress bar background */
+.progression-bar {
+  width: 50px;
+  height: 2px;
+  background: rgba(60, 80, 70, 0.2);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Progress bar fill */
+.progression-fill {
+  height: 100%;
+  background: linear-gradient(to right, rgba(100, 150, 130, 0.4), rgba(122, 152, 138, 0.7));
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: fillFlicker 4s infinite;
+}
+
+/* Add special effect for 100% completion */
+.progression-indicator[title="Story Progression: 100%"] .progression-text,
+.progression-indicator[title="Story Progression: 100%"] .progression-fill {
+  color: #8aa99b;
+  text-shadow: 0 0 3px rgba(122, 152, 138, 0.6);
+  animation: achievementPulse 2s infinite;
+}
+
+/* Subtle flicker animation for the progress fill */
+@keyframes fillFlicker {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 0.9; }
+}
+
+/* Number glitch effect */
+@keyframes glitchNumber {
+  0%, 100% { transform: none; }
+  95.9% { transform: none; }
+  96% { transform: translateX(-1px); }
+  96.5% { transform: none; }
+  97% { transform: translateX(1px); }
+  97.5% { transform: none; }
+}
+
+/* Pulse effect for 100% completion */
+@keyframes achievementPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Make the indicator more visible on title screen */
+.title-container .progression-indicator {
+  opacity: 0.5;
+  top: 15px;
+  left: 10px;
+}
+
+/* Hide indicator during certain story phases if needed */
+body[data-dominant-voice="heretic"] .progression-indicator {
+  opacity: 0.2;
+}
+
+/* Mirror presence effect */
+body:has(.mirror-speak) .progression-indicator .progression-text {
+  animation: mirrorNumberGlitch 3s infinite;
+}
+
+@keyframes mirrorNumberGlitch {
+  0%, 100% { transform: none; color: #7a988a; }
+  48% { transform: none; color: #7a988a; }
+  50% { transform: translateX(-2px); color: rgba(175, 108, 108, 0.8); }
+  52% { transform: none; color: #7a988a; }
+  98% { transform: none; color: #7a988a; }
+  99% { transform: translateX(2px); color: rgba(175, 108, 108, 0.8); }
 }
