@@ -27,6 +27,8 @@ The Fold
   [[Return->Title Screen]]
 </div>
 
+<<bureaucracy>>
+
 
 :: Access Denied – Reconstruct Request {"position":"1425,1450","size":"100,100"}
 <<evaluateDominantVoice>>
@@ -84,6 +86,8 @@ But the system still lets you leave.</span>
 [[Return to Hub->Main System Hub]]
 <</timed>>
 <</nobr>>
+
+<<bureaucracy>>
 
 
 :: Anomaly Report {"position":"2225,1950","size":"100,100"}
@@ -175,6 +179,8 @@ You are... incompatible.</span>
 <<markRecursion>>
 [[Begin (new self)->Title Screen]]
 
+<<bureaucracy>>
+
 
 :: Contemplate the Split {"position":"1975,1775","size":"100,100"}
 <br>
@@ -236,6 +242,8 @@ Running.
 
 [[Continue->Convergence: Fractured_B]]
 
+<<bureaucracy>>
+
 
 :: Convergence: Fractured_B {"position":"600,2000","size":"100,100"}
 They do not vanish.  
@@ -292,6 +300,8 @@ And now, you remember all of them.
 [[Restart (as yourself)->Title Screen]]
 <<markRecursion>>
 
+<<bureaucracy>>
+
 
 :: Convergence: Standoff {"position":"675,1825","size":"100,100"}
 <<set $standoffEndingReached = true>>
@@ -329,6 +339,8 @@ And you silence the memory anyway.
 [[Restart (broken self)->Title Screen]]
 <<markRecursion>>
 
+<<bureaucracy>>
+
 
 :: Core Fragment Access {"position":"600,1475","size":"100,100"}
 <<evaluateDominantVoice>>
@@ -365,6 +377,8 @@ Or looked like what you used to be.
 Or what you were supposed to think you were.
 
 [[Continue->Core Fragment Access_B]]
+
+<<bureaucracy>>
 
 
 :: Core Fragment Access_B {"position":"550,1675","size":"100,100"}
@@ -427,6 +441,8 @@ even when you couldn’t.
 
 [[Accept this truth->Convergence: Standoff]]  
 [[Reject it as illusion->Convergence: Fractured]]
+
+<<bureaucracy>>
 
 
 :: Cycle_Start {"position":"1200,800","size":"100,100"}
@@ -495,6 +511,8 @@ As you study the equation, it seems to adjust itself, offering you two distinct 
 
 [[Accept the challenge and integrate the fragments->Integration Ending]]  
 [[Resist and retreat to safety->Memory Archive]]
+
+<<bureaucracy>>
 
 
 :: Developer Musings {"position":"1450,800","size":"100,100"}
@@ -589,6 +607,8 @@ An encrypted message left behind.
 
 [[Decode the symbols->Decode Mirror]]  
 [[Ignore the message and return->Memory Archive]]
+
+<<bureaucracy>>
 
 
 :: Integration Ending {"position":"975,2075","size":"100,100"}
@@ -859,7 +879,7 @@ It feels like it's asking.</span>
 <<bureaucracy>>
 
 
-:: Memory Echo {"position":"2000,1025","size":"100,100"}
+:: Memory Echo {"position":"1875,1075","size":"100,100"}
 <div style="display: flex; align-items: center; margin: 10px 0;">
     <div style="flex-grow: 1; padding-right: 15px;">
         <span>
@@ -903,6 +923,8 @@ Now it remembers being used.</span>
 [[Continue->Memory Echo_02]]
 [[Return to Archive->Memory Archive]]
 
+<<bureaucracy>>
+
 
 :: Memory Echo_02 {"position":"1875,1225","size":"100,100"}
 <br>
@@ -938,8 +960,10 @@ Even though it never looks up.<br>
 [[Continue->Memory Echo_03]]
 [[Return to Archive->Memory Archive]]
 
+<<bureaucracy>>
 
-:: Memory Echo_03 {"position":"2100,950","size":"100,100"}
+
+:: Memory Echo_03 {"position":"2125,975","size":"100,100"}
 <br>
 <div style="display: flex; align-items: center; margin: 10px 0;">
     <div style="flex-grow: 1; padding-right: 15px;">
@@ -1014,6 +1038,8 @@ Not even from the recording.
 [[Look behind->The Mirror Watches]]  
 [[Close the fragment->Memory Archive]]
 
+<<bureaucracy>>
+
 
 :: Memory Split_B {"position":"2575,1600","size":"100,100"}
 The hallway flickers.  
@@ -1051,6 +1077,8 @@ Your right hand tingles.<br>
 <</nobr>>
 [[Continue->Memory Split_C]]
 
+<<bureaucracy>>
+
 
 :: Memory Split_C {"position":"2375,1725","size":"100,100"}
 <<run setup.mirrorEncounter()>>
@@ -1082,6 +1110,8 @@ Just listening.</span><<nobr>>
 [[Revisit the Anomaly->Anomaly Report]]<br>
 [[Return to Hub->Main System Hub]]  
 <</nobr>>
+
+<<bureaucracy>>
 
 
 :: Mirror: Defiance Response {"position":"2175,1525","size":"100,100"}
@@ -1124,6 +1154,8 @@ not typed, but <i>evoked</i>:
 [[Enter EXIT_NOTHING->Break the Loop (Hidden Path)]]  
 [[Remain in the system->Main System Hub]]
 
+<<bureaucracy>>
+
 
 :: Mirror: Divergence Trigger {"position":"2400,1475","size":"100,100"}
 You don’t respond.
@@ -1146,6 +1178,8 @@ Then it stops blinking.
 Because it doesn't know what you're doing.</span>
 
 [[Continue->Mirror: Divergence_B]]
+
+<<bureaucracy>>
 
 
 :: Mirror: Divergence_B {"position":"2250,1725","size":"100,100"}
@@ -1177,6 +1211,8 @@ It steps back.</span>
 [[Step outside the thread->Break the Loop (Hidden Path)]]  
 [[Return to Archive Interface->Main System Hub]]
 
+<<bureaucracy>>
+
 
 :: Mirror: Fracture Response {"position":"2575,1450","size":"100,100"}
 <div style="display: flex; align-items: center; margin: 10px 0;">
@@ -1207,6 +1243,8 @@ You’ve already dropped it.
 <<printVoice "heretic" "Don’t try to follow it. Let it collapse. It knows the way better than you do.">>
 <</nobr>>
 [[Continue->Memory Split_B]]
+
+<<bureaucracy>>
 
 
 :: Observe Silence {"position":"1325,1050","size":"100,100"}
@@ -1242,7 +1280,7 @@ Just silence.
 <<bureaucracy>>
 
 
-:: Personality Diagnostic {"position":"1750,1000","size":"100,100"}
+:: Personality Diagnostic {"position":"1750,925","size":"100,100"}
 <<nobr>>
 <<if $loopMemory>>
 <<printVoice "archivist" "You've been scanned before. Multiple results, none consistent.">>
@@ -1295,6 +1333,8 @@ Only intersections and disagreement.</span>
 [[Return to Hub->Main System Hub]]
 <<set $loopMemory = true>>
 <</nobr>>
+
+<<bureaucracy>>
 
 
 :: Phantom Fragment {"position":"1100,1025","size":"100,100"}
@@ -1384,6 +1424,8 @@ His face flickers. Frame-skipping like a damaged tape.
   [[Let the memory continue->Protocol Breach: Unfolding]]  <br>
   [[Seal this file and return->Memory Archive]]
   <</nobr>>
+  
+<<bureaucracy>>
 
 
 :: Protocol Breach: Unfolding {"position":"1000,1625","size":"100,100"}
@@ -1437,6 +1479,8 @@ to burn through the paper—slowly.
 [[Question the transcript's origin->Hidden Transcript]]<br>
 [[Seal this memory and return->Memory Archive]]
 <</nobr>>
+
+<<bureaucracy>>
 
 
 :: Recalibrate Parameters {"position":"1675,1500","size":"100,100"}
@@ -1492,6 +1536,8 @@ Something watches.</span>
 <</timed>>
 <</nobr>>
 
+<<bureaucracy>>
+
 
 :: Recovered Fragment {"position":"700,1100","size":"100,100"}
 <<nobr>>
@@ -1528,6 +1574,8 @@ Already playing.
 [[Dig deeper into the breach->Recovered Fragment_B]] 
 [[Close the file and retreat->Cycle_Start]]
 
+<<bureaucracy>>
+
 
 :: Recovered Fragment_B {"position":"625,1275","size":"100,100"}
 <<run setup.mirrorEncounter()>>
@@ -1560,6 +1608,8 @@ But you remember walking through.<br>
 [[Retreat while you can->Cycle_Start]]<br>
 <</nobr>>
 <<set $memoryFragments += 1>>
+
+<<bureaucracy>>
 
 
 :: Room with No Light: Beyond {"position":"1250,1975","size":"100,100"}
@@ -1601,6 +1651,8 @@ It might not be.
   [[Room with No Light: Beyond_B]]
   [[Main System Hub]]
 <</if>>
+
+<<bureaucracy>>
 
 
 :: Room with No Light: Beyond_B {"position":"1450,2025","size":"100,100"}
@@ -1650,6 +1702,8 @@ So do you.
 <<set $memoryFragments += 1>>
 <<set $mirrorSeen = true>>
 <</nobr>>
+
+<<bureaucracy>>
 
 
 :: Shutdown Sim (Loop Path) {"position":"1500,1450","size":"100,100"}
@@ -1776,6 +1830,8 @@ It's your <i>architecture.</i></span>
 [[Pursue integration now->Integration Ending]]
 <</nobr>>
 
+<<bureaucracy>>
+
 
 :: The First Split {"position":"1800,1625","size":"100,100"}
 <<nobr>>
@@ -1832,6 +1888,8 @@ They speak without moving:
 <<set $memoryFragments += 1>>
 <<set $firstSplitSeen = true>>
 
+<<bureaucracy>>
+
 
 :: The Mirror Speaks {"position":"2450,1175","size":"100,100"}
 <div style="display: flex; align-items: center; margin: 10px 0;">
@@ -1868,6 +1926,8 @@ But something is already answering.</span><br>
 [[Continue->The Mirror Speaks_B]]
 <</nobr>>
 
+<<bureaucracy>>
+
 
 :: The Mirror Speaks_B {"position":"2475,1300","size":"100,100"}
 <<nobr>>
@@ -1892,6 +1952,8 @@ It’s syncing to the part of you that already obeyed.</span>
 
 [[Continue->The Mirror Speaks_C]]  
 [[Listen to the echoing voice->The Mirror Speaks]]
+
+<<bureaucracy>>
 
 
 :: The Mirror Speaks_C {"position":"2250,1350","size":"100,100"}
@@ -1924,8 +1986,10 @@ It only watches what you become.</span>
 [[I don’t answer to voices->Mirror: Divergence Trigger]]  
 [[Gaze into your reflection->The Mirror Watches]]
 
+<<bureaucracy>>
 
-:: The Mirror Watches {"position":"2300,1025","size":"100,100"}
+
+:: The Mirror Watches {"position":"2325,975","size":"100,100"}
 <<run setup.mirrorEncounter()>>
 <<nobr>>
 <<set $mirrorSeen = true>>
@@ -1969,6 +2033,8 @@ You're not watching the feed anymore.
 [[Continue->The Mirror Watches_B]]
 [[Listen to the mirror's voice->The Mirror Speaks]]
 [[Return to Archive->Memory Archive]]
+
+<<bureaucracy>>
 
 
 :: The Mirror Watches_B {"position":"2000,1325","size":"100,100"}
@@ -2020,6 +2086,8 @@ It speaks like it knows you <i>from before.</i>
 [[Ask what it is->The Mirror Speaks]]  <br>
 [[Look away->Memory Archive]]
 <</nobr>>
+
+<<bureaucracy>>
 
 
 :: Title Screen {"position":"1425,450","size":"100,100"}
