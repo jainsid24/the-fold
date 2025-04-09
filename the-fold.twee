@@ -510,7 +510,7 @@ As you study the equation, it seems to adjust itself, offering you two distinct 
 
 <p>The existential questions posed in works like <i>Ghost in the Shell</i>, <i>Ergo Proxy</i>, and <i>Serial Experiments Lain</i> (among many other great works) have deeply influenced how I approached this project.</p>
 
-<p><i>Where does the self end and the system begin? When we fragment, which piece holds the truth?</i></p>
+<p><i>Where does the self end and the system begin? <br>When we fragment, which piece holds the truth?</i></p>
 
 <p>I hope you enjoy recursing through multiple paths and choices <i>(if they matter)</i> and find yourself lost in The Fold as I did while designing it.</p>
 
@@ -525,7 +525,11 @@ As you study the equation, it seems to adjust itself, offering you two distinct 
   <</nobr>>
 </div>
 <<nobr>>
-<div class="mirror-speak" data-text="Even creators become part of their own systems." style="align:center">Even creators become part of their own systems.</div>
+<div class="mirror-speak"
+     data-text="Even creators become part of their own systems."
+     style="display: block; text-align: center; margin: 0 auto;">
+  Even creators become part of their own systems.
+</div>
 <span class="silence-blip">The boundary between fiction and author blurs.<br>
 Who is creating whom?</span>
 [[Return to System Hub->Main System Hub]]
