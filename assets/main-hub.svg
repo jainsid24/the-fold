@@ -100,7 +100,16 @@
     </circle>
     <text x="0" y="25" text-anchor="middle" font-family="monospace" font-size="8" fill="#af6c6c" opacity="0.7">ANOMALY</text>
   </g>
-  
+<text x="500" y="375"
+      text-anchor="middle"
+      font-family="monospace"
+      font-size="6"
+      fill="#94a6ab"
+      opacity="0.2"
+      letter-spacing="1.5"
+      style="font-style: italic;">
+  /SEQ U:2 D:2 L→R X2 B>A [DEPRECATED]
+</text>
   <!-- Shut Down -->
   <g transform="translate(400,290)" filter="url(#ui-glow)">
     <circle cx="0" cy="0" r="15" fill="none" stroke="#7a988a" stroke-width="1" opacity="0.8">
