@@ -3041,7 +3041,6 @@ setup.createAudioControls = function() {
 };
 
 // Event-specific sound modifications
-// Call this for mirror encounters
 setup.mirrorEncounter = function() {
   if (!setup.audioContext || setup.audioContext.state !== 'running') return;
   
@@ -3137,7 +3136,6 @@ $(document).on(':passageend', function() {
 });
 
 // KONAMI CODE for SugarCube
-// This implementation is specific to SugarCube's syntax
 $(document).ready(function() {
   // The Konami Code sequence
   const konamiCode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65]; // up up down down left right left right b a
@@ -4607,8 +4605,6 @@ body[data-recursion="4"] .tw-passage {
 }
 
 /* KONAMI CODE */
-/* Add these styles to your CSS module in Twine */
-
 /* Konami code hint styling */
 #konami-hint {
   cursor: help;
