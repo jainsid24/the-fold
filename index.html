@@ -2668,7 +2668,7 @@ $(document).ready(function() {
   let konamiPosition = 0;
 
   // Debug variable to check if the code is loaded
-  console.log("Konami code handler initialized");
+  console.log("Legacy code handler initialized");
   
   // Listen for key presses
   $(document).on('keydown', function(e) {
@@ -2677,20 +2677,20 @@ $(document).ready(function() {
     
     // For debugging - log when a key in the sequence is pressed
     if (konamiCode.includes(key)) {
-      console.log("Potential konami key pressed: " + key + ", position: " + konamiPosition);
+      console.log("Potential legacy key pressed: " + key + ", position: " + konamiPosition);
     }
     
     // Check if the key matches the next key in the sequence
     if (key === konamiCode[konamiPosition]) {
       // Move to the next key in the sequence
       konamiPosition++;
-      console.log("Konami sequence: " + konamiPosition + "/" + konamiCode.length);
+      console.log("Legacy sequence: " + konamiPosition + "/" + konamiCode.length);
       
       // If the full sequence is entered correctly
       if (konamiPosition === konamiCode.length) {
         // Reset the position
         konamiPosition = 0;
-        console.log("KONAMI CODE ACTIVATED!");
+        console.log("LEGACY ACCESS UNLOCKED!");
         
         // Only trigger if we're on the Main System Hub passage
         if (Story.get(State.passage).title === "Main System Hub") {
@@ -2700,10 +2700,10 @@ $(document).ready(function() {
           State.variables.konamiActivated = true;
           
           // Create a visual effect to indicate success
-          $('body').append('<div id="konami-success" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #7a988a; padding: 20px; font-family: \'PixelOperator\', monospace; text-align: center; z-index: 9999; border: 1px solid #7a988a;">KONAMI CODE ACTIVATED</div>');
+          $('body').append('<div id="konami-success" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.8); color: #7a988a; padding: 20px; font-family: \'PixelOperator\', monospace; text-align: center; z-index: 9999; border: 1px solid #7a988a;">SEQ: LEGACY ACCESS UNLOCKED</div>');
           
           // Add the link to the developer musings
-          $('.passage').append('<div style="margin-top: 20px;"><a href="javascript:void(0)" id="developer-link" style="color: #8fa99b; background: rgba(30, 50, 30, 0.4); border: 1px solid rgba(122, 152, 138, 0.6); padding: 0.35em 0.9em; text-decoration: none; display: inline-block;">DEVELOPER MUSINGS</a></div>');
+          $('.passage').append('<div style="margin-top: 20px;"><a href="javascript:void(0)" id="developer-link" style="color: #8fa99b; background: rgba(30, 50, 30, 0.4); border: 1px solid rgba(122, 152, 138, 0.6); padding: 0.35em 0.9em; text-decoration: none; display: inline-block;">Developer Musings</a></div>');
           
           // Make the link work by navigating to a new passage
           $('#developer-link').on('click', function() {
