@@ -12,7 +12,7 @@ The Fold
 }
 
 
-:: About {"position":"1150,600","size":"100,100"}
+:: About {"position":"1125,400","size":"100,100"}
 <div class="about-container">
   <h2>About The Fold</h2>
   <p>
@@ -30,7 +30,7 @@ The Fold
 <<bureaucracy>>
 
 
-:: Access Denied – Reconstruct Request {"position":"1425,1450","size":"100,100"}
+:: Access Denied – Reconstruct Request {"position":"2125,1250","size":"100,100"}
 <<evaluateDominantVoice>>
 <<nobr>>
 <div class="terminal-block">
@@ -90,7 +90,7 @@ But the system still lets you leave.</span>
 <<bureaucracy>>
 
 
-:: Anomaly Report {"position":"2225,1950","size":"100,100"}
+:: Anomaly Report {"position":"1825,1100","size":"100,100"}
 <<nobr>>
 <div class="terminal-block">
   <span class="terminal-line">> SYSTEM ACCESS GRANTED</span><br> 
@@ -129,7 +129,7 @@ But the system still lets you leave.</span>
 <<bureaucracy>>
 
 
-:: Break the Loop (Hidden Path) {"position":"2625,2050","size":"100,100"}
+:: Break the Loop (Hidden Path) {"position":"2150,3050","size":"100,100"}
 <<set $divergenceEndingReached = true>>
 There is no transition.
 
@@ -182,7 +182,7 @@ You are... incompatible.</span>
 <<bureaucracy>>
 
 
-:: Contemplate the Split {"position":"1975,1775","size":"100,100"}
+:: Contemplate the Split {"position":"2400,1275","size":"100,100"}
 <br>
 The raw pulse of pre-containment thought echoes before you.  
 Not memory. Not narrative. 
@@ -204,7 +204,7 @@ but as design.
 <<bureaucracy>>
 
 
-:: Convergence: Fractured {"position":"475,1850","size":"100,100"}
+:: Convergence: Fractured {"position":"850,1650","size":"100,100"}
 <<nobr>>
 <<set $fracturedEndingReached = true>>
 <<evaluateDominantVoice>>
@@ -245,7 +245,7 @@ Running.
 <<bureaucracy>>
 
 
-:: Convergence: Fractured_B {"position":"600,2000","size":"100,100"}
+:: Convergence: Fractured_B {"position":"850,1825","size":"100,100"}
 They do not vanish.  
 They do not merge.  
 
@@ -303,7 +303,7 @@ And now, you remember all of them.
 <<bureaucracy>>
 
 
-:: Convergence: Standoff {"position":"675,1825","size":"100,100"}
+:: Convergence: Standoff {"position":"1000,1650","size":"100,100"}
 <<set $standoffEndingReached = true>>
 
 The Mirror collapses into static.  
@@ -342,7 +342,7 @@ And you silence the memory anyway.
 <<bureaucracy>>
 
 
-:: Core Fragment Access {"position":"600,1475","size":"100,100"}
+:: Core Fragment Access {"position":"1000,1300","size":"100,100"}
 <<evaluateDominantVoice>>
 <<nobr>>
 <<voiceEvent "memory">>
@@ -381,7 +381,7 @@ Or what you were supposed to think you were.
 <<bureaucracy>>
 
 
-:: Core Fragment Access_B {"position":"550,1675","size":"100,100"}
+:: Core Fragment Access_B {"position":"1000,1500","size":"100,100"}
 You remember this place.
 
 Not all at once—  
@@ -445,7 +445,7 @@ even when you couldn’t.
 <<bureaucracy>>
 
 
-:: Cycle_Start {"position":"1200,800","size":"100,100"}
+:: Cycle_Start {"position":"1375,575","size":"100,100"}
 <<evaluateDominantVoice>>
 <<nobr>>
 <div class="terminal-block">
@@ -496,7 +496,7 @@ Once more, procedural nodes unfold. Each a gateway into the system's controlled 
 <<bureaucracy>>
 
 
-:: Decode Mirror {"position":"875,1800","size":"100,100"}
+:: Decode Mirror {"position":"2150,1925","size":"100,100"}
 The symbols coalesce into a cryptic equation...
 A reflection of your shattered identity. <br>
 <<nobr>>
@@ -515,7 +515,7 @@ As you study the equation, it seems to adjust itself, offering you two distinct 
 <<bureaucracy>>
 
 
-:: Developer Musings {"position":"1450,800","size":"100,100"}
+:: Developer Musings {"position":"1550,1100","size":"100,100"}
 <div style="background: rgba(15,25,15,0.4); border: 1px solid rgba(100,150,100,0.3); padding: 20px; max-width: 700px; margin: 0 auto;">
   <h2 style="text-align: center; color: #7a988a; letter-spacing: 0.1em; margin-bottom: 20px; font-family: 'PixelOperator', monospace;">DEVELOPER NOTES</h2>
   <<nobr>>
@@ -555,7 +555,7 @@ Who is creating whom?</span>
 <<bureaucracy>>
 
 
-:: Glitch Probe {"position":"1900,1425","size":"100,100"}
+:: Glitch Probe {"position":"1825,1250","size":"100,100"}
 <<nobr>>
 <<set $memoryFragments += 1>>
 
@@ -590,7 +590,7 @@ But it doesn’t feel like you were the one looking.</span>
 <<bureaucracy>>
 
 
-:: Hidden Transcript {"position":"1100,1850","size":"100,100"}
+:: Hidden Transcript {"position":"2150,1750","size":"100,100"}
 <<run setup.mirrorEncounter()>>
 <<nobr>>
 Deep within the transcript, the single, burning word <i>Mirror</i> sears into your memory.  <br>
@@ -611,7 +611,7 @@ An encrypted message left behind.
 <<bureaucracy>>
 
 
-:: Integration Ending {"position":"975,2075","size":"100,100"}
+:: Integration Ending {"position":"1375,1100","size":"100,100"}
 <<nobr>>
 <div class="terminal-block">
   <span class="terminal-line">> INITIATING IDENTITY OVERRIDE...</span><br>
@@ -691,7 +691,7 @@ as if your next action has already been written.
 <<bureaucracy>>
 
 
-:: Internal Reflection {"position":"1500,1700","size":"100,100"}
+:: Internal Reflection {"position":"1525,1400","size":"100,100"}
 The system hesitates.  
 Not because it broke—  
 because <i>you did.</i>
@@ -748,7 +748,7 @@ because <i>you did.</i>
 <<bureaucracy>>
 
 
-:: Main System Hub {"position":"1550,1175","size":"100,100"}
+:: Main System Hub {"position":"1725,825","size":"100,100"}
 <<nobr>>
 <<set $archivistPoints += 1>>
 <<set $wardenPoints += 1>>
@@ -826,7 +826,7 @@ But it feels like it's watching what you choose.</span>
 <<bureaucracy>>
 
 
-:: Memory Archive {"position":"1200,1250","size":"100,100"}
+:: Memory Archive {"position":"1950,1100","size":"100,100"}
 <<evaluateDominantVoice>>
 <<nobr>>
 <div class="terminal-block">
@@ -879,7 +879,7 @@ It feels like it's asking.</span>
 <<bureaucracy>>
 
 
-:: Memory Echo {"position":"1875,1075","size":"100,100"}
+:: Memory Echo {"position":"1975,1250","size":"100,100"}
 <div style="display: flex; align-items: center; margin: 10px 0;">
     <div style="flex-grow: 1; padding-right: 15px;">
         <span>
@@ -926,7 +926,7 @@ Now it remembers being used.</span>
 <<bureaucracy>>
 
 
-:: Memory Echo_02 {"position":"1875,1225","size":"100,100"}
+:: Memory Echo_02 {"position":"1975,1400","size":"100,100"}
 <br>
 <div style="display: flex; align-items: center; margin: 10px 0;">
     <div style="flex-grow: 1; padding-right: 15px;">
@@ -963,7 +963,7 @@ Even though it never looks up.<br>
 <<bureaucracy>>
 
 
-:: Memory Echo_03 {"position":"2125,975","size":"100,100"}
+:: Memory Echo_03 {"position":"1975,1575","size":"100,100"}
 <br>
 <div style="display: flex; align-items: center; margin: 10px 0;">
     <div style="flex-grow: 1; padding-right: 15px;">
@@ -1003,7 +1003,7 @@ Like it's letting you decide what to remember.</span><br>
 <<bureaucracy>>
 
 
-:: Memory Echo_03b {"position":"2000,1175","size":"100,100"}
+:: Memory Echo_03b {"position":"1975,1750","size":"100,100"}
 You lean in.  
 Or maybe the footage does.
 
@@ -1041,7 +1041,7 @@ Not even from the recording.
 <<bureaucracy>>
 
 
-:: Memory Split_B {"position":"2575,1600","size":"100,100"}
+:: Memory Split_B {"position":"1825,2875","size":"100,100"}
 The hallway flickers.  
 Now it’s a hospital.  
 Then a childhood bedroom.  
@@ -1080,7 +1080,7 @@ Your right hand tingles.<br>
 <<bureaucracy>>
 
 
-:: Memory Split_C {"position":"2375,1725","size":"100,100"}
+:: Memory Split_C {"position":"1825,3050","size":"100,100"}
 <<run setup.mirrorEncounter()>>
 A breath.  
 But not yours.
@@ -1114,7 +1114,7 @@ Just listening.</span><<nobr>>
 <<bureaucracy>>
 
 
-:: Mirror: Defiance Response {"position":"2175,1525","size":"100,100"}
+:: Mirror: Defiance Response {"position":"2200,2725","size":"100,100"}
 <div class="voice-player"><span class="voice-you">[YOU]:  I don’t answer to voices.</span>
 </div>
 The Mirror’s expression shifts.  
@@ -1157,7 +1157,7 @@ not typed, but <i>evoked</i>:
 <<bureaucracy>>
 
 
-:: Mirror: Divergence Trigger {"position":"2400,1475","size":"100,100"}
+:: Mirror: Divergence Trigger {"position":"2025,2725","size":"100,100"}
 You don’t respond.
 
 You don't answer.  
@@ -1182,7 +1182,7 @@ Because it doesn't know what you're doing.</span>
 <<bureaucracy>>
 
 
-:: Mirror: Divergence_B {"position":"2250,1725","size":"100,100"}
+:: Mirror: Divergence_B {"position":"2025,2875","size":"100,100"}
 <div class="terminal-block">
   <span class="terminal-line">> RESPONSE NOT CLASSIFIED</span>  
   <span class="terminal-line">> DEVIATION INDEX: NULL</span>  
@@ -1214,7 +1214,7 @@ It steps back.</span>
 <<bureaucracy>>
 
 
-:: Mirror: Fracture Response {"position":"2575,1450","size":"100,100"}
+:: Mirror: Fracture Response {"position":"1825,2725","size":"100,100"}
 <div style="display: flex; align-items: center; margin: 10px 0;">
     <div style="flex-grow: 1; padding-right: 15px;">
 Static rushes in.
@@ -1247,7 +1247,7 @@ You’ve already dropped it.
 <<bureaucracy>>
 
 
-:: Observe Silence {"position":"1325,1050","size":"100,100"}
+:: Observe Silence {"position":"1175,850","size":"100,100"}
 <<nobr>>
 <<evaluateDominantVoice>>
 
@@ -1280,7 +1280,7 @@ Just silence.
 <<bureaucracy>>
 
 
-:: Personality Diagnostic {"position":"1750,925","size":"100,100"}
+:: Personality Diagnostic {"position":"1700,1100","size":"100,100"}
 <<nobr>>
 <<if $loopMemory>>
 <<printVoice "archivist" "You've been scanned before. Multiple results, none consistent.">>
@@ -1337,7 +1337,7 @@ Only intersections and disagreement.</span>
 <<bureaucracy>>
 
 
-:: Phantom Fragment {"position":"1100,1025","size":"100,100"}
+:: Phantom Fragment {"position":"1800,1400","size":"100,100"}
 <<nobr>>
 <div class="terminal-block">
   <span class="terminal-line">> ACCESSING FRAGMENT</span>  <br>
@@ -1362,7 +1362,7 @@ Not now.  Not for you.</span>
 <<bureaucracy>>
 
 
-:: Protocol Breach – Subject 113-A {"position":"850,1425","size":"100,100"}
+:: Protocol Breach – Subject 113-A {"position":"2125,1400","size":"100,100"}
 <<run setup.mirrorEncounter()>>
 <<evaluateDominantVoice>>
 <<nobr>>
@@ -1428,7 +1428,7 @@ His face flickers. Frame-skipping like a damaged tape.
 <<bureaucracy>>
 
 
-:: Protocol Breach: Unfolding {"position":"1000,1625","size":"100,100"}
+:: Protocol Breach: Unfolding {"position":"2150,1575","size":"100,100"}
 The man leans forward.  
 Or the glitch pretending to be him does.
 
@@ -1483,7 +1483,7 @@ to burn through the paper—slowly.
 <<bureaucracy>>
 
 
-:: Recalibrate Parameters {"position":"1675,1500","size":"100,100"}
+:: Recalibrate Parameters {"position":"1675,1250","size":"100,100"}
 <<nobr>>
 <<evaluateDominantVoice>>
 <<voiceEvent "system">>
@@ -1539,7 +1539,7 @@ Something watches.</span>
 <<bureaucracy>>
 
 
-:: Recovered Fragment {"position":"700,1100","size":"100,100"}
+:: Recovered Fragment {"position":"1325,850","size":"100,100"}
 <<nobr>>
 <<evaluateDominantVoice>>
 
@@ -1577,7 +1577,7 @@ Already playing.
 <<bureaucracy>>
 
 
-:: Recovered Fragment_B {"position":"625,1275","size":"100,100"}
+:: Recovered Fragment_B {"position":"1000,1125","size":"100,100"}
 <<run setup.mirrorEncounter()>>
 The screen plays nothing.
 But it emits a pulse.
@@ -1612,7 +1612,7 @@ But you remember walking through.<br>
 <<bureaucracy>>
 
 
-:: Room with No Light: Beyond {"position":"1250,1975","size":"100,100"}
+:: Room with No Light: Beyond {"position":"1375,1575","size":"100,100"}
 <<evaluateDominantVoice>>
 
 You take one step.
@@ -1655,7 +1655,7 @@ It might not be.
 <<bureaucracy>>
 
 
-:: Room with No Light: Beyond_B {"position":"1450,2025","size":"100,100"}
+:: Room with No Light: Beyond_B {"position":"1375,1775","size":"100,100"}
 There’s no voice.  
 But you understand the intention anyway.
 
@@ -1706,7 +1706,7 @@ So do you.
 <<bureaucracy>>
 
 
-:: Shutdown Sim (Loop Path) {"position":"1500,1450","size":"100,100"}
+:: Shutdown Sim (Loop Path) {"position":"1475,850","size":"100,100"}
 You request system shutdown.
 
 <<nobr>>
@@ -1735,7 +1735,7 @@ Only return.</span><br>
 <<bureaucracy>>
 
 
-:: Start {"position":"1650,700","size":"100,100"}
+:: Start {"position":"1675,400","size":"100,100"}
 <<silently>>
 <<set $recursionLevel to $recursionLevel ? $recursionLevel : 0>>
 <<if $recursionLevel > 0>>
@@ -1787,7 +1787,7 @@ Fragmentation detected.
 <</silently>>
 
 
-:: System Revelation {"position":"1275,1350","size":"100,100"}
+:: System Revelation {"position":"1200,1100","size":"100,100"}
 <<evaluateDominantVoice>>
 <div class="terminal-block">
   <span class="terminal-line">> ACCESSING CORE SYSTEM DATABASE</span>
@@ -1833,7 +1833,7 @@ It's your <i>architecture.</i></span>
 <<bureaucracy>>
 
 
-:: The First Split {"position":"1800,1625","size":"100,100"}
+:: The First Split {"position":"2400,1125","size":"100,100"}
 <<nobr>>
 <div class="terminal-block">
   <span class="terminal-line">> SYSTEM NOTICE:  </span><br>
@@ -1891,7 +1891,7 @@ They speak without moving:
 <<bureaucracy>>
 
 
-:: The Mirror Speaks {"position":"2450,1175","size":"100,100"}
+:: The Mirror Speaks {"position":"1975,2250","size":"100,100"}
 <div style="display: flex; align-items: center; margin: 10px 0;">
     <div style="flex-grow: 1; padding-right: 15px;">The reflection doesn't move.
 
@@ -1929,7 +1929,7 @@ But something is already answering.</span><br>
 <<bureaucracy>>
 
 
-:: The Mirror Speaks_B {"position":"2475,1300","size":"100,100"}
+:: The Mirror Speaks_B {"position":"1975,2425","size":"100,100"}
 <<nobr>>
 <<printVoice "archivist" "No biometric match. Unidentified recursive structure detected. Presence is non-native. Probable parasitic echo.">><br>
 
@@ -1956,7 +1956,7 @@ It’s syncing to the part of you that already obeyed.</span>
 <<bureaucracy>>
 
 
-:: The Mirror Speaks_C {"position":"2250,1350","size":"100,100"}
+:: The Mirror Speaks_C {"position":"1975,2575","size":"100,100"}
 <div class="mirror-speak" data-text="You were built to follow.">You were built to follow.</div>  
 <div class="mirror-speak" data-text="You adapted to break.">You adapted to break.</div>  
 
@@ -1989,7 +1989,7 @@ It only watches what you become.</span>
 <<bureaucracy>>
 
 
-:: The Mirror Watches {"position":"2325,975","size":"100,100"}
+:: The Mirror Watches {"position":"1975,1925","size":"100,100"}
 <<run setup.mirrorEncounter()>>
 <<nobr>>
 <<set $mirrorSeen = true>>
@@ -2037,7 +2037,7 @@ You're not watching the feed anymore.
 <<bureaucracy>>
 
 
-:: The Mirror Watches_B {"position":"2000,1325","size":"100,100"}
+:: The Mirror Watches_B {"position":"1975,2075","size":"100,100"}
 <div style="display: flex; align-items: center; margin: 10px 0;">
     <div style="flex-grow: 1; padding-right: 15px;">Your reflection appears in the screen.
 
@@ -2090,7 +2090,7 @@ It speaks like it knows you <i>from before.</i>
 <<bureaucracy>>
 
 
-:: Title Screen {"position":"1425,450","size":"100,100"}
+:: Title Screen {"position":"1425,200","size":"100,100"}
 <<if not $audioInitialized>>
   <<run setup.initAmbientAudio()>>
   <<set $audioInitialized to true>>
@@ -2132,7 +2132,7 @@ It speaks like it knows you <i>from before.</i>
 </div>
 
 
-:: Unfiled Fragment – “The Room with No Light” {"position":"1175,1575","size":"100,100"}
+:: Unfiled Fragment – “The Room with No Light” {"position":"1525,1250","size":"100,100"}
 <<evaluateDominantVoice>>
 <<nobr>>
 <div class="terminal-block">
@@ -2192,7 +2192,7 @@ but <i>less so.</i>
 <<bureaucracy>>
 
 
-:: Unfiled Fragment_B {"position":"1225,1800","size":"100,100"}
+:: Unfiled Fragment_B {"position":"1375,1400","size":"100,100"}
 You try to speak.  
 Or maybe just think in shapes that feel like speech.
 
