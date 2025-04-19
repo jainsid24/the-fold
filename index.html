@@ -2754,18 +2754,460 @@ $(document).ready(function() {
   });
 });
 
-/* ========= PROGRESSION ========== */
+/* ========= PROGRESSION TRACKING ========= */
+const GAME_CONFIG = {
+  totalPassages: 51,
+  functionPrefixes: ["evaluate","set","if","print","run"],
+  problematicPassages: [
+    "The Mirror Watches","Core Fragment Access",
+    "Protocol Breach: Unfolding","Recalibrate Parameters",
+    "Unfiled Fragment_B"
+  ]
+};
+
+// On every passage render...
 $(document).on(':passagerender', function(ev) {
-  // Initialize visited passages object if it doesn't exist
   if (!State.variables.visitedPassages) {
     State.variables.visitedPassages = {};
+    State.variables.passageHistory   = [];
+  }
+
+  // ← use the real title, exactly as SugarCube knows it:
+  const current = ev.passage.title;
+  const isFunc  = GAME_CONFIG.functionPrefixes
+                    .some(p => current.toLowerCase().startsWith(p.toLowerCase()));
+  if (current && !isFunc) {
+    State.variables.visitedPassages[current] = true;
+    const hist = State.variables.passageHistory;
+    hist.push({ title: current, ts: Date.now() });
+    if (hist.length > 20) hist.shift();
+  }
+
+  updateProgressionDisplay();
+
+  if ($('#debug-panel').is(':visible')) {
+    showUnvisitedPassages();
+  }
+});
+
+// count unique base titles
+function getFilteredVisitedCount() {
+  const map = State.variables.visitedPassages || {};
+  // simply count every key that isn’t a “function” passage
+  return Object.keys(map).reduce((n, title) => {
+    if (!GAME_CONFIG.functionPrefixes
+           .some(p => title.toLowerCase().startsWith(p.toLowerCase()))) {
+      return n + 1;
+    }
+    return n;
+  }, 0);
+}
+
+
+// update the bar & text
+function updateProgressionDisplay() {
+  const visited = getFilteredVisitedCount();
+  const pct     = Math.min(100, Math.floor(visited / GAME_CONFIG.totalPassages * 100));
+
+  // paint the bar
+  $('.progression-fill').css('width', pct + '%');
+  $('.progression-text').text(pct + '%');
+  $('.progression-indicator')
+    .attr('title','Story Progression: ' + pct + '%');
+
+  // <<< NEW: push into SugarCube state >>>
+  State.variables.visitedCount    = visited;
+  State.variables.progressPercent = pct;
+  State.variables.totalPassages   = GAME_CONFIG.totalPassages;
+}
+
+
+// ensure we run it once on load
+$(document).ready(() => updateProgressionDisplay());
+
+
+
+/* ========= SIMPLIFIED DEBUG PANEL ========== */
+// Toggle debug panel with ~ key
+$(document).on('keydown', function(e) {
+  if (e.key === '`' || e.key === '~') {
+    toggleDebugPanel();
+  }
+});
+
+// Toggle debug panel visibility
+function toggleDebugPanel() {
+  const panel = $('#debug-panel');
+  if (panel.length === 0) {
+    createDebugPanel();
+  } else {
+    panel.toggle();
+    if (panel.is(':visible')) {
+      updateDebugPanel();
+    }
+  }
+}
+
+// Create debug panel on first use
+function createDebugPanel() {
+  // Create basic HTML structure
+  $('body').append(`
+    <div id="debug-panel" style="display: block; position: fixed; top: 10px; right: 10px; width: 450px; max-height: 85vh; overflow-y: auto; background: rgba(10,15,10,0.95); color: #7a988a; border: 1px solid #2a2a2a; padding: 15px; z-index: 10000; font-family: 'PixelOperator', monospace; font-size: 14px; box-shadow: 0 0 15px rgba(0,0,0,0.7);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <h2 style="color: #7a988a; margin: 0; font-size: 1.3em; text-shadow: 0 0 3px rgba(122,152,138,0.3);">DEBUG PANEL</h2>
+        <div>
+          <button id="debug-panel-pin" title="Pin panel (stays open between passages)" style="background: rgba(30,40,30,0.6); border: 1px solid #3a3a3a; color: #7a988a; cursor: pointer; margin-right: 5px;">📌</button>
+          <button id="debug-panel-close" style="background: rgba(40,20,20,0.6); border: 1px solid #3a3a3a; color: #7a988a; cursor: pointer;">✕</button>
+        </div>
+      </div>
+      
+      <div class="debug-section">
+        <div class="debug-section-header">Game Stats</div>
+        <div id="debug-stats" class="debug-section-content"></div>
+      </div>
+      
+      <div class="debug-section">
+        <div class="debug-section-header">Quick Actions</div>
+        <div class="debug-section-content">
+          <div class="debug-button-group">
+            <button id="debug-show-all" class="debug-button">All Passages</button>
+            <button id="debug-show-visited" class="debug-button">Visited</button>
+            <button id="debug-show-unvisited" class="debug-button">Unvisited</button>
+          </div>
+          <div class="debug-button-group" style="margin-top: 8px;">
+            <button id="debug-reset-progress" class="debug-button danger">Reset Progress</button>
+            <button id="debug-complete-all" class="debug-button success">Complete All</button>
+            <button id="debug-fix-problematic" class="debug-button">Fix Problems</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="debug-section">
+        <div class="debug-section-header">Navigation</div>
+        <div class="debug-section-content">
+          <div style="font-size: 0.9em; margin-bottom: 8px;">
+            <div id="debug-nav-current">Current: <span style="color: #afc9bc;"></span></div>
+            <div id="debug-nav-previous">Previous: <span style="color: #afc9bc;"></span></div>
+          </div>
+          <div class="debug-button-group">
+            <button id="debug-back-btn" class="debug-button">◀ Back</button>
+            <button id="debug-hub-btn" class="debug-button">Hub</button>
+            <button id="debug-title-btn" class="debug-button">Title</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="debug-section">
+        <div class="debug-section-header collapsible">
+          <span>Passages</span>
+          <span class="toggle-indicator">▼</span>
+        </div>
+        <div class="debug-section-content collapsible-content" id="debug-passages-section">
+          <div id="debug-passages"></div>
+        </div>
+      </div>
+    </div>
+  `);
+  
+  // Add minimal styles
+  $('head').append(`
+    <style>
+      .debug-section { margin-bottom: 15px; border: 1px solid rgba(80,100,90,0.3); border-radius: 2px; overflow: hidden; }
+      .debug-section-header { background: rgba(40,50,40,0.5); padding: 6px 10px; font-size: 1.1em; letter-spacing: 0.05em; cursor: pointer; user-select: none; display: flex; justify-content: space-between; }
+      .debug-section-header.collapsible:hover { background: rgba(50,65,50,0.5); }
+      .debug-section-content { padding: 10px; background: rgba(20,25,20,0.3); font-size: 0.9em; }
+      .debug-button { background: rgba(30,40,30,0.6); border: 1px solid #3a3a3a; color: #7a988a; padding: 3px 8px; cursor: pointer; font-family: 'PixelOperator', monospace; font-size: 0.95em; transition: all 0.2s; }
+      .debug-button:hover { background: rgba(40,60,40,0.7); color: #afc9bc; }
+      .debug-button.danger { background: rgba(50,20,20,0.6); }
+      .debug-button.danger:hover { background: rgba(70,30,30,0.7); }
+      .debug-button.success { background: rgba(20,50,30,0.6); }
+      .debug-button.success:hover { background: rgba(30,70,40,0.7); }
+      .debug-button-group { display: flex; gap: 5px; flex-wrap: wrap; }
+      .debug-passage-link { cursor: pointer; text-decoration: underline; color: #7a988a; }
+      .debug-passage-link:hover { color: #afc9bc; }
+      .debug-row { display: flex; align-items: center; margin-bottom: 3px; }
+      .debug-row:hover { background: rgba(50,60,50,0.3); }
+    </style>
+  `);
+  
+  // Initialize button handlers
+  initializeDebugButtons();
+  
+  // Initial update
+  updateDebugPanel();
+}
+
+// Set up event handlers for debug panel buttons
+function initializeDebugButtons() {
+  // Panel controls
+  $('#debug-panel-close').on('click', function() {
+    $('#debug-panel').hide();
+  });
+  
+  let isPinned = localStorage.getItem('debug_panel_pinned') === 'true';
+  if (isPinned) {
+    $('#debug-panel-pin').css({
+      'background': 'rgba(60,80,60,0.7)',
+      'color': '#afc9bc'
+    });
   }
   
-  // Add current passage to visited passages
-  if (State.passage) {
-    State.variables.visitedPassages[State.passage] = true;
+  $('#debug-panel-pin').on('click', function() {
+    isPinned = !isPinned;
+    localStorage.setItem('debug_panel_pinned', isPinned);
+    $(this).css({
+      'background': isPinned ? 'rgba(60,80,60,0.7)' : 'rgba(30,40,30,0.6)',
+      'color': isPinned ? '#afc9bc' : '#7a988a'
+    });
+  });
+  
+  // Make sections collapsible
+  $('.debug-section-header.collapsible').on('click', function() {
+    const content = $(this).next('.collapsible-content');
+    const indicator = $(this).find('.toggle-indicator');
+    
+    content.slideToggle(200);
+    
+    if (indicator.text() === '▼') {
+      indicator.text('▲');
+    } else {
+      indicator.text('▼');
+    }
+  });
+  
+  // Action buttons
+  $('#debug-show-all').on('click', showAllPassages);
+  $('#debug-show-visited').on('click', showVisitedPassages);
+  $('#debug-show-unvisited').on('click', showUnvisitedPassages);
+  $('#debug-reset-progress').on('click', resetProgress);
+  $('#debug-complete-all').on('click', completeAllPassages);
+  $('#debug-fix-problematic').on('click', function() {
+    const fixed = fixProblematicPassages();
+    showSuccessMessage(`Fixed ${fixed} problematic passages`);
+  });
+  
+  // Navigation buttons
+  $('#debug-back-btn').on('click', function() {
+    const history = State.variables.passageHistory || [];
+    if (history.length > 1) {
+      const prevPassage = history[history.length - 2].title;
+      Engine.play(prevPassage);
+    } else {
+      showSuccessMessage('No previous passage in history', true);
+    }
+  });
+  
+  $('#debug-hub-btn').on('click', function() {
+    Engine.play('Main System Hub');
+  });
+  
+  $('#debug-title-btn').on('click', function() {
+    Engine.play('Title Screen');
+  });
+
+  // Keep panel visible between passages if pinned
+  $(document).on(':passagestart', function() {
+    if (isPinned && $('#debug-panel').is(':visible')) {
+      setTimeout(function() {
+        $('#debug-panel').show();
+        updateDebugPanel();
+      }, 300);
+    }
+  });
+}
+
+// Update the debug panel content
+function updateDebugPanel() {
+  updateGameStats();
+  updateNavigation();
+  showAllPassages();
+}
+
+// Update game statistics display
+function updateGameStats() {
+  const visitedCount = getFilteredVisitedCount();
+  const totalPassages = GAME_CONFIG.totalPassages;
+  const progressPercent = Math.min(Math.floor((visitedCount / totalPassages) * 100), 100);
+  
+  // Update stats display
+  $('#debug-stats').html(`
+    <div class="debug-row"><span style="width: 180px;">Visited unique passages:</span> <span style="color: #afc9bc;">${visitedCount}</span></div>
+    <div class="debug-row"><span style="width: 180px;">Game expects:</span> <span style="color: #afc9bc;">${totalPassages} passages</span></div>
+    <div class="debug-row"><span style="width: 180px;">Recursion level:</span> <span style="color: #afc9bc;">${State.variables.recursionLevel || 0}</span></div>
+    <div class="debug-row"><span style="width: 180px;">Memory fragments:</span> <span style="color: #afc9bc;">${State.variables.memoryFragments || 0}</span></div>
+    <div class="debug-row"><span style="width: 180px;">Progress:</span> <span style="color: #afc9bc;">${progressPercent}%</span>
+      <div style="margin-left: 10px; width: 100px; height: 6px; background: rgba(20,30,20,0.6); border: 1px solid #3a3a3a;">
+        <div style="height: 100%; width: ${progressPercent}%; background: rgba(80,120,80,0.7);"></div>
+      </div>
+    </div>
+  `);
+}
+
+// Update navigation information
+function updateNavigation() {
+  const current = State.passage;
+  $('#debug-nav-current span').text(current);
+  
+  const history = State.variables.passageHistory || [];
+  if (history.length > 1) {
+    const previous = history[history.length - 2].title;
+    $('#debug-nav-previous span').text(previous);
+    $('#debug-back-btn').prop('disabled', false);
+  } else {
+    $('#debug-nav-previous span').text('(none)');
+    $('#debug-back-btn').prop('disabled', true);
   }
-});</script><tw-passagedata pid="1" name="About" tags="" position="1150,600" size="100,100">&lt;div class=&quot;about-container&quot;&gt;
+}
+
+// Display all passages
+function showAllPassages() {
+  const allPassages = Story.lookupWith(passage => true);
+  const visitedPassages = State.variables.visitedPassages || {};
+  
+  let html = '<div style="margin-bottom: 8px;">Total passages: <span style="color: #afc9bc;">' + allPassages.length + '</span></div>';
+  html += '<div style="max-height: 300px; overflow-y: auto;">';
+  
+  // First build a list of passages while filtering out function passages
+  const passageList = allPassages.filter(passage => {
+    return !GAME_CONFIG.functionPrefixes.some(prefix => 
+      passage.title.toLowerCase().startsWith(prefix.toLowerCase())
+    );
+  });
+  
+  // Sort with visited passages first
+  passageList.sort((a, b) => {
+    const aVisited = !!visitedPassages[a.title];
+    const bVisited = !!visitedPassages[b.title];
+    if (aVisited === bVisited) return a.title.localeCompare(b.title);
+    return aVisited ? -1 : 1;
+  });
+  
+  // Generate HTML
+  passageList.forEach(passage => {
+    const isVisited = !!visitedPassages[passage.title];
+    html += `
+      <div class="debug-row">
+        <span style="color: ${isVisited ? '#7a988a' : '#af6c6c'}; width: 20px; text-align: center;">
+          ${isVisited ? '✓' : '✗'}
+        </span>
+        <span 
+          class="debug-passage-link" 
+          onclick="Engine.play('${passage.title}')"
+          title="${passage.tags ? 'Tags: ' + passage.tags.join(', ') : 'No tags'}"
+        >
+          ${passage.title}
+        </span>
+      </div>
+    `;
+  });
+  
+  html += '</div>';
+  $('#debug-passages').html(html);
+}
+
+// Display only visited passages
+function showVisitedPassages() {
+  const visited = Object.keys(State.variables.visitedPassages || {})
+    .filter(title => !GAME_CONFIG.functionPrefixes
+       .some(p => title.toLowerCase().startsWith(p.toLowerCase())))
+    .sort();
+
+  let html = `<div>Visited passages: ${visited.length}</div><div style="max-height:300px;overflow-y:auto;">`;
+  visited.forEach(t => {
+    html += `
+      <div class="debug-row">
+        <span style="color:#7a988a;width:20px;text-align:center;">✓</span>
+        <span class="debug-passage-link" onclick="Engine.play('${t}')">${t}</span>
+      </div>`;
+  });
+  html += `</div>`;
+  $('#debug-passages').html(html);
+}
+
+
+// Display only unvisited passages
+function showUnvisitedPassages() {
+  const all    = Story.lookupWith(p => true)
+                  .map(p => p.title)
+                  .filter(t => !GAME_CONFIG.functionPrefixes
+                     .some(pf => t.toLowerCase().startsWith(pf.toLowerCase())));
+  const seen   = new Set(Object.keys(State.variables.visitedPassages || {}));
+  const unvis  = all.filter(t => !seen.has(t)).sort();
+
+  let html = `<div>Unvisited passages: ${unvis.length}</div><div style="max-height:300px;overflow-y:auto;">`;
+  unvis.forEach(t => {
+    html += `
+      <div class="debug-row">
+        <span style="color:#af6c6c;width:20px;text-align:center;">✗</span>
+        <span class="debug-passage-link" onclick="Engine.play('${t}')">${t}</span>
+      </div>`;
+  });
+  html += `</div>`;
+  $('#debug-passages').html(html);
+}
+
+
+// Reset progress completely
+function resetProgress() {
+  if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
+    // Reset core game variables
+    State.variables.visitedPassages = {};
+    State.variables.recursionLevel = 0;
+    State.variables.memoryFragments = 0;
+    State.variables.archivistPoints = 1;
+    State.variables.wardenPoints = 1;
+    State.variables.hereticPoints = 1;
+    State.variables.mirrorSeen = false;
+    State.variables.konamiActivated = false;
+    State.variables.fracturedEndingReached = false;
+    State.variables.integrationEndingReached = false;
+    State.variables.standoffEndingReached = false;
+    State.variables.divergenceEndingReached = false;
+    State.variables.coreFragmentAccessed = false;
+    State.variables.firstSplitSeen = false;
+    State.variables.passageHistory = [];
+    
+    // Update UI
+    updateProgressionDisplay();
+    updateDebugPanel();
+    
+    // Show confirmation
+    showSuccessMessage('Progress has been reset');
+  }
+}
+
+// Mark all passages as completed
+function completeAllPassages() {
+  if (confirm('Are you sure you want to mark all passages as visited? This will show 100% completion.')) {
+    const allPassages = Story.lookupWith(passage => true);
+    const visitedPassages = State.variables.visitedPassages || {};
+    
+    // Mark all non-function passages as visited
+    allPassages.forEach(passage => {
+      if (!GAME_CONFIG.functionPrefixes.some(prefix => 
+        passage.title.toLowerCase().startsWith(prefix.toLowerCase())
+      )) {
+        visitedPassages[passage.title] = true;
+      }
+    });
+    
+    State.variables.visitedPassages = visitedPassages;
+    
+    // Update UI
+    updateProgressionDisplay();
+    updateDebugPanel();
+    
+    // Show confirmation
+    showSuccessMessage('All passages marked as visited');
+  }
+}
+
+// Utility to show success/alert messages
+function showSuccessMessage(message, isError = false) {
+  const msg = $(`<div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: ${isError ? 'rgba(50,20,20,0.8)' : 'rgba(20,40,20,0.8)'}; color: #afc9bc; padding: 15px; border: 1px solid #3a3a3a; z-index: 10001;">${message}</div>`);
+  $('body').append(msg);
+  setTimeout(() => msg.remove(), 2000);
+}</script><tw-passagedata pid="1" name="About" tags="" position="1125,400" size="100,100">&lt;div class=&quot;about-container&quot;&gt;
   &lt;h2&gt;About The Fold&lt;/h2&gt;
   &lt;p&gt;
     A ritual of static and silence.&lt;br&gt;
@@ -2779,7 +3221,7 @@ $(document).on(':passagerender', function(ev) {
   [[Return-&gt;Title Screen]]
 &lt;/div&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="Access Denied – Reconstruct Request" tags="" position="1425,1450" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="2" name="Access Denied – Reconstruct Request" tags="" position="2125,1250" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
 &lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; FILE: RECONSTRUCTION REQUEST LOG&lt;/span&gt;  &lt;br&gt;
@@ -2835,7 +3277,7 @@ But the system still lets you leave.&lt;/span&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="Anomaly Report" tags="" position="2225,1950" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="3" name="Anomaly Report" tags="" position="1825,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; SYSTEM ACCESS GRANTED&lt;/span&gt;&lt;br&gt; 
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; VIEWING: ANOMALY REPORT THREAD — NODE 7&lt;/span&gt;&lt;br&gt;
@@ -2870,7 +3312,7 @@ But the system still lets you leave.&lt;/span&gt;
 &lt;&lt;/nobr&gt;&gt;
 
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Break the Loop (Hidden Path)" tags="" position="2625,2050" size="100,100">&lt;&lt;set $divergenceEndingReached = true&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="4" name="Break the Loop (Hidden Path)" tags="" position="2150,3050" size="100,100">&lt;&lt;set $divergenceEndingReached = true&gt;&gt;
 There is no transition.
 
 No ripple.  
@@ -2919,7 +3361,7 @@ You are... incompatible.&lt;/span&gt;
 &lt;&lt;markRecursion&gt;&gt;
 [[Begin (new self)-&gt;Title Screen]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="Contemplate the Split" tags="" position="1975,1775" size="100,100">&lt;br&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="5" name="Contemplate the Split" tags="" position="2600,1275" size="100,100">&lt;br&gt;
 The raw pulse of pre-containment thought echoes before you.  
 Not memory. Not narrative. 
 Just the &lt;i&gt;moment the architecture fractured.&lt;/i&gt;  
@@ -2937,7 +3379,7 @@ but as design.
 [[Return to the System Hub-&gt;Main System Hub]]
 
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="Convergence: Fractured" tags="" position="475,1850" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="6" name="Convergence: Fractured" tags="" position="850,1650" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $fracturedEndingReached = true&gt;&gt;
 &lt;&lt;evaluateDominantVoice&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
@@ -2974,7 +3416,7 @@ Running.
 
 [[Continue-&gt;Convergence: Fractured_B]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="Convergence: Fractured_B" tags="" position="600,2000" size="100,100">They do not vanish.  
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="7" name="Convergence: Fractured_B" tags="" position="850,1825" size="100,100">They do not vanish.  
 They do not merge.  
 
 They persist.  
@@ -3028,7 +3470,7 @@ And now, you remember all of them.
 [[Restart (as yourself)-&gt;Title Screen]]
 &lt;&lt;markRecursion&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="Convergence: Standoff" tags="" position="675,1825" size="100,100">&lt;&lt;set $standoffEndingReached = true&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="8" name="Convergence: Standoff" tags="" position="1000,1650" size="100,100">&lt;&lt;set $standoffEndingReached = true&gt;&gt;
 
 The Mirror collapses into static.  
 
@@ -3063,7 +3505,7 @@ And you silence the memory anyway.
 [[Restart (broken self)-&gt;Title Screen]]
 &lt;&lt;markRecursion&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="Core Fragment Access" tags="" position="600,1475" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="9" name="Core Fragment Access" tags="" position="1000,1300" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
 &lt;&lt;nobr&gt;&gt;
 &lt;&lt;voiceEvent &quot;memory&quot;&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
@@ -3098,7 +3540,7 @@ Or what you were supposed to think you were.
 
 [[Continue-&gt;Core Fragment Access_B]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="Core Fragment Access_B" tags="" position="550,1675" size="100,100">You remember this place.
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="10" name="Core Fragment Access_B" tags="" position="1000,1500" size="100,100">You remember this place.
 
 Not all at once—  
 in pieces.  
@@ -3158,7 +3600,7 @@ even when you couldn’t.
 [[Accept this truth-&gt;Convergence: Standoff]]  
 [[Reject it as illusion-&gt;Convergence: Fractured]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="Cycle_Start" tags="" position="1200,800" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="11" name="Cycle_Start" tags="" position="1375,575" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
 &lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; SESSION STATUS: ACTIVE&lt;/span&gt;&lt;br&gt;
@@ -3205,7 +3647,7 @@ Once more, procedural nodes unfold. Each a gateway into the system&#39;s control
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="Decode Mirror" tags="" position="875,1800" size="100,100">The symbols coalesce into a cryptic equation...
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="12" name="Decode Mirror" tags="" position="2150,1925" size="100,100">The symbols coalesce into a cryptic equation...
 A reflection of your shattered identity. &lt;br&gt;
 &lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;equation-container&quot; style=&quot;margin: 20px 0; text-align: center;&quot;&gt;
@@ -3220,7 +3662,7 @@ As you study the equation, it seems to adjust itself, offering you two distinct 
 [[Accept the challenge and integrate the fragments-&gt;Integration Ending]]  
 [[Resist and retreat to safety-&gt;Memory Archive]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="Developer Musings" tags="" position="1450,800" size="100,100">&lt;div style=&quot;background: rgba(15,25,15,0.4); border: 1px solid rgba(100,150,100,0.3); padding: 20px; max-width: 700px; margin: 0 auto;&quot;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="13" name="Developer Musings" tags="" position="1550,1100" size="100,100">&lt;div style=&quot;background: rgba(15,25,15,0.4); border: 1px solid rgba(100,150,100,0.3); padding: 20px; max-width: 700px; margin: 0 auto;&quot;&gt;
   &lt;h2 style=&quot;text-align: center; color: #7a988a; letter-spacing: 0.1em; margin-bottom: 20px; font-family: &#39;PixelOperator&#39;, monospace;&quot;&gt;DEVELOPER NOTES&lt;/h2&gt;
   &lt;&lt;nobr&gt;&gt;
   &lt;div style=&quot;font-family: &#39;PixelOperator&#39;, monospace; line-height: 1.6; color: #9ba99c; margin-bottom: 30px;&quot;&gt;
@@ -3256,7 +3698,7 @@ As you study the equation, it seems to adjust itself, offering you two distinct 
 Who is creating whom?&lt;/span&gt;
 [[Return to System Hub-&gt;Main System Hub]]
 &lt;&lt;/nobr&gt;&gt;
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="Glitch Probe" tags="" position="1900,1425" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="14" name="Glitch Probe" tags="" position="1825,1250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $memoryFragments += 1&gt;&gt;
 
 &lt;div class=&quot;terminal-block&quot;&gt;
@@ -3287,7 +3729,7 @@ But it doesn’t feel like you were the one looking.&lt;/span&gt;
 [[Examine the anomaly further-&gt;Phantom Fragment]]
 [[Return to Hub-&gt;Main System Hub]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="Hidden Transcript" tags="" position="1100,1850" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="15" name="Hidden Transcript" tags="" position="2150,1750" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
 &lt;&lt;nobr&gt;&gt;
 Deep within the transcript, the single, burning word &lt;i&gt;Mirror&lt;/i&gt; sears into your memory.  &lt;br&gt;
 &lt;div class=&quot;mirror-directive-container&quot; style=&quot;margin: 20px 0; text-align: center;&quot;&gt;
@@ -3304,7 +3746,7 @@ An encrypted message left behind.
 [[Decode the symbols-&gt;Decode Mirror]]  
 [[Ignore the message and return-&gt;Memory Archive]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="Integration Ending" tags="" position="975,2075" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="16" name="Integration Ending" tags="" position="1375,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; INITIATING IDENTITY OVERRIDE...&lt;/span&gt;&lt;br&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; COLLAPSING MULTIPLE STREAMS...&lt;/span&gt;&lt;br&gt;
@@ -3380,7 +3822,7 @@ as if your next action has already been written.
 &lt;&lt;/nobr&gt;&gt;
 
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="Internal Reflection" tags="" position="1500,1700" size="100,100">The system hesitates.  
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="17" name="Internal Reflection" tags="" position="2450,1425" size="100,100">The system hesitates.  
 Not because it broke—  
 because &lt;i&gt;you did.&lt;/i&gt;
 
@@ -3433,7 +3875,7 @@ because &lt;i&gt;you did.&lt;/i&gt;
   [[Main System Hub]]&lt;br&gt;
   [[Title Screen]]
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="Main System Hub" tags="" position="1550,1175" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="18" name="Main System Hub" tags="" position="1725,825" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $archivistPoints += 1&gt;&gt;
 &lt;&lt;set $wardenPoints += 1&gt;&gt;
 &lt;&lt;evaluateDominantVoice&gt;&gt;
@@ -3500,14 +3942,11 @@ But it feels like it&#39;s watching what you choose.&lt;/span&gt;
 &lt;&lt;if $mirrorSeen and $recursionLevel &gt;= 5&gt;&gt;
 [[SYSTEM NOTICE: Irregular Pattern Identified-&gt;The First Split]]&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
-&lt;&lt;if $coreFragmentAccessed and $fracturedEndingReached and $standoffEndingReached&gt;&gt;
-[[Override Protocol: Become One-&gt;Integration Ending]]&lt;br&gt;
-&lt;&lt;/if&gt;&gt;
 &lt;&lt;if $konamiActivated&gt;&gt;
 [[DEVELOPER ACCESS-&gt;Developer Musings]]&lt;br&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="Memory Archive" tags="" position="1200,1250" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="19" name="Memory Archive" tags="" position="1950,1100" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
 &lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; ARCHIVE ACCESS GRANTED&lt;/span&gt;&lt;br&gt;
@@ -3556,7 +3995,7 @@ It feels like it&#39;s asking.&lt;/span&gt;
 [[Reconstruct Request-&gt;Access Denied – Reconstruct Request]]&lt;br&gt;
 [[Back to Hub-&gt;Main System Hub]]&lt;br&gt;
 &lt;&lt;/nobr&gt;&gt;
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="Memory Echo" tags="" position="1875,1075" size="100,100">&lt;div style=&quot;display: flex; align-items: center; margin: 10px 0;&quot;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="20" name="Memory Echo" tags="" position="1975,1250" size="100,100">&lt;div style=&quot;display: flex; align-items: center; margin: 10px 0;&quot;&gt;
     &lt;div style=&quot;flex-grow: 1; padding-right: 15px;&quot;&gt;
         &lt;span&gt;
         Static hums in your ears as the fragment loads.
@@ -3599,7 +4038,7 @@ Now it remembers being used.&lt;/span&gt;
 [[Continue-&gt;Memory Echo_02]]
 [[Return to Archive-&gt;Memory Archive]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="Memory Echo_02" tags="" position="1875,1225" size="100,100">&lt;br&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="21" name="Memory Echo_02" tags="" position="1975,1400" size="100,100">&lt;br&gt;
 &lt;div style=&quot;display: flex; align-items: center; margin: 10px 0;&quot;&gt;
     &lt;div style=&quot;flex-grow: 1; padding-right: 15px;&quot;&gt;
         &lt;div class=&quot;glitch-memory&quot;&gt;Motion.&lt;/div&gt;
@@ -3632,7 +4071,7 @@ Even though it never looks up.&lt;br&gt;
 [[Continue-&gt;Memory Echo_03]]
 [[Return to Archive-&gt;Memory Archive]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="Memory Echo_03" tags="" position="2125,975" size="100,100">&lt;br&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="22" name="Memory Echo_03" tags="" position="1975,1575" size="100,100">&lt;br&gt;
 &lt;div style=&quot;display: flex; align-items: center; margin: 10px 0;&quot;&gt;
     &lt;div style=&quot;flex-grow: 1; padding-right: 15px;&quot;&gt;
 You turn the page in the recording.
@@ -3668,7 +4107,7 @@ Like it&#39;s letting you decide what to remember.&lt;/span&gt;&lt;br&gt;
 [[Return to Archive-&gt;Memory Archive]]
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="Memory Echo_03b" tags="" position="2000,1175" size="100,100">You lean in.  
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="23" name="Memory Echo_03b" tags="" position="1975,1750" size="100,100">You lean in.  
 Or maybe the footage does.
 
 It’s hard to tell where you end—  
@@ -3702,7 +4141,7 @@ Not even from the recording.
 [[Look behind-&gt;The Mirror Watches]]  
 [[Close the fragment-&gt;Memory Archive]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="Memory Split_B" tags="" position="2575,1600" size="100,100">The hallway flickers.  
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="24" name="Memory Split_B" tags="" position="1800,2850" size="100,100">The hallway flickers.  
 Now it’s a hospital.  
 Then a childhood bedroom.  
 Then—
@@ -3737,7 +4176,7 @@ Your right hand tingles.&lt;br&gt;
 &lt;&lt;/nobr&gt;&gt;
 [[Continue-&gt;Memory Split_C]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="Memory Split_C" tags="" position="2375,1725" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="25" name="Memory Split_C" tags="" position="1800,2975" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
 A breath.  
 But not yours.
 
@@ -3767,7 +4206,7 @@ Just listening.&lt;/span&gt;&lt;&lt;nobr&gt;&gt;
 [[Return to Hub-&gt;Main System Hub]]  
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="Mirror: Defiance Response" tags="" position="2175,1525" size="100,100">&lt;div class=&quot;voice-player&quot;&gt;&lt;span class=&quot;voice-you&quot;&gt;[YOU]:  I don’t answer to voices.&lt;/span&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="26" name="Mirror: Defiance Response" tags="" position="2225,2725" size="100,100">&lt;div class=&quot;voice-player&quot;&gt;&lt;span class=&quot;voice-you&quot;&gt;[YOU]:  I don’t answer to voices.&lt;/span&gt;
 &lt;/div&gt;
 The Mirror’s expression shifts.  
 Not surprise.  
@@ -3806,7 +4245,7 @@ not typed, but &lt;i&gt;evoked&lt;/i&gt;:
 [[Enter EXIT_NOTHING-&gt;Break the Loop (Hidden Path)]]  
 [[Remain in the system-&gt;Main System Hub]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="Mirror: Divergence Trigger" tags="" position="2400,1475" size="100,100">You don’t respond.
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="27" name="Mirror: Divergence Trigger" tags="" position="2025,2725" size="100,100">You don’t respond.
 
 You don&#39;t answer.  
 You don&#39;t argue.  
@@ -3827,7 +4266,7 @@ Because it doesn&#39;t know what you&#39;re doing.&lt;/span&gt;
 
 [[Continue-&gt;Mirror: Divergence_B]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="28" name="Mirror: Divergence_B" tags="" position="2250,1725" size="100,100">&lt;div class=&quot;terminal-block&quot;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="28" name="Mirror: Divergence_B" tags="" position="2025,2875" size="100,100">&lt;div class=&quot;terminal-block&quot;&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; RESPONSE NOT CLASSIFIED&lt;/span&gt;  
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; DEVIATION INDEX: NULL&lt;/span&gt;  
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; THREAD STABILITY: UNTRACKABLE&lt;/span&gt;
@@ -3855,7 +4294,7 @@ It steps back.&lt;/span&gt;
 [[Step outside the thread-&gt;Break the Loop (Hidden Path)]]  
 [[Return to Archive Interface-&gt;Main System Hub]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="Mirror: Fracture Response" tags="" position="2575,1450" size="100,100">&lt;div style=&quot;display: flex; align-items: center; margin: 10px 0;&quot;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="29" name="Mirror: Fracture Response" tags="" position="1800,2725" size="100,100">&lt;div style=&quot;display: flex; align-items: center; margin: 10px 0;&quot;&gt;
     &lt;div style=&quot;flex-grow: 1; padding-right: 15px;&quot;&gt;
 Static rushes in.
 Like something remembering what it was.
@@ -3884,7 +4323,7 @@ You’ve already dropped it.
 &lt;&lt;/nobr&gt;&gt;
 [[Continue-&gt;Memory Split_B]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="Observe Silence" tags="" position="1325,1050" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="30" name="Observe Silence" tags="" position="1175,850" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;evaluateDominantVoice&gt;&gt;
 
 &lt;&lt;if $recursionLevel==1&gt;&gt;
@@ -3913,7 +4352,7 @@ Just silence.
 [[Return to interface-&gt;Cycle_Start]]
 
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="Personality Diagnostic" tags="" position="1750,925" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="31" name="Personality Diagnostic" tags="" position="1700,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;if $loopMemory&gt;&gt;
 &lt;&lt;printVoice &quot;archivist&quot; &quot;You&#39;ve been scanned before. Multiple results, none consistent.&quot;&gt;&gt;
 &lt;&lt;/if&gt;&gt;
@@ -3966,7 +4405,7 @@ Only intersections and disagreement.&lt;/span&gt;
 &lt;&lt;set $loopMemory = true&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="32" name="Phantom Fragment" tags="" position="1100,1025" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="32" name="Phantom Fragment" tags="" position="1800,1400" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; ACCESSING FRAGMENT&lt;/span&gt;  &lt;br&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; THREAD SOURCE: UNKNOWN&lt;/span&gt;  &lt;br&gt;
@@ -3987,7 +4426,7 @@ Not now.  Not for you.&lt;/span&gt;
 [[Close immediately-&gt;Cycle_Start]]
 
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="33" name="Protocol Breach – Subject 113-A" tags="" position="850,1425" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="33" name="Protocol Breach – Subject 113-A" tags="" position="2125,1400" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
 &lt;&lt;evaluateDominantVoice&gt;&gt;
 &lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
@@ -4049,7 +4488,7 @@ His face flickers. Frame-skipping like a damaged tape.
   [[Seal this file and return-&gt;Memory Archive]]
   &lt;&lt;/nobr&gt;&gt;
   
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="34" name="Protocol Breach: Unfolding" tags="" position="1000,1625" size="100,100">The man leans forward.  
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="34" name="Protocol Breach: Unfolding" tags="" position="2150,1575" size="100,100">The man leans forward.  
 Or the glitch pretending to be him does.
 
 &lt;div class=&quot;mirror-speak&quot; data-text=&quot;You opened something that can&#39;t be closed. And now it&#39;s inside everything.&quot;&gt;You opened something that can&#39;t be closed.  
@@ -4100,7 +4539,7 @@ to burn through the paper—slowly.
 [[Seal this memory and return-&gt;Memory Archive]]
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="Recalibrate Parameters" tags="" position="1675,1500" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="35" name="Recalibrate Parameters" tags="" position="1675,1250" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;evaluateDominantVoice&gt;&gt;
 &lt;&lt;voiceEvent &quot;system&quot;&gt;&gt;
 
@@ -4152,7 +4591,7 @@ Something watches.&lt;/span&gt;
 &lt;&lt;/timed&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="Recovered Fragment" tags="" position="700,1100" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="36" name="Recovered Fragment" tags="" position="1325,850" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;evaluateDominantVoice&gt;&gt;
 
 &lt;div class=&quot;terminal-block&quot;&gt;
@@ -4186,7 +4625,7 @@ Already playing.
 [[Dig deeper into the breach-&gt;Recovered Fragment_B]] 
 [[Close the file and retreat-&gt;Cycle_Start]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="Recovered Fragment_B" tags="" position="625,1275" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="37" name="Recovered Fragment_B" tags="" position="1000,1125" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
 The screen plays nothing.
 But it emits a pulse.
 
@@ -4217,7 +4656,7 @@ But you remember walking through.&lt;br&gt;
 &lt;&lt;/nobr&gt;&gt;
 &lt;&lt;set $memoryFragments += 1&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="Room with No Light: Beyond" tags="" position="1250,1975" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="38" name="Room with No Light: Beyond" tags="" position="2300,1575" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
 
 You take one step.
 
@@ -4256,7 +4695,7 @@ It might not be.
   [[Main System Hub]]
 &lt;&lt;/if&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="39" name="Room with No Light: Beyond_B" tags="" position="1450,2025" size="100,100">There’s no voice.  
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="39" name="Room with No Light: Beyond_B" tags="" position="2300,1750" size="100,100">There’s no voice.  
 But you understand the intention anyway.
 
 You remember a hallway.  
@@ -4303,7 +4742,7 @@ So do you.
 &lt;&lt;set $mirrorSeen = true&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="40" name="Shutdown Sim (Loop Path)" tags="" position="1500,1450" size="100,100">You request system shutdown.
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="40" name="Shutdown Sim (Loop Path)" tags="" position="1475,850" size="100,100">You request system shutdown.
 
 &lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;mirror-directive-container&quot; style=&quot;margin: 10px 0; text-align: center;&quot;&gt;
@@ -4328,7 +4767,7 @@ Only return.&lt;/span&gt;&lt;br&gt;
 
 
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="Start" tags="" position="1650,700" size="100,100">&lt;&lt;silently&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="41" name="Start" tags="" position="1675,400" size="100,100">&lt;&lt;silently&gt;&gt;
 &lt;&lt;set $recursionLevel to $recursionLevel ? $recursionLevel : 0&gt;&gt;
 &lt;&lt;if $recursionLevel &gt; 0&gt;&gt;
     &lt;&lt;set _glitchClass = &quot;glitch-intensify&quot;&gt;&gt;
@@ -4376,7 +4815,7 @@ Fragmentation detected.
 &lt;&lt;set $archivistPoints = 1&gt;&gt;
 &lt;&lt;set $wardenPoints = 1&gt;&gt;
 &lt;&lt;set $hereticPoints = 1&gt;&gt;
-&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="42" name="System Revelation" tags="" position="1275,1350" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
+&lt;&lt;/silently&gt;&gt;</tw-passagedata><tw-passagedata pid="42" name="System Revelation" tags="" position="1200,1100" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; ACCESSING CORE SYSTEM DATABASE&lt;/span&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; IDENTITY FRAMEWORK EXPOSED&lt;/span&gt;
@@ -4418,7 +4857,7 @@ It&#39;s your &lt;i&gt;architecture.&lt;/i&gt;&lt;/span&gt;
 [[Pursue integration now-&gt;Integration Ending]]
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="The First Split" tags="" position="1800,1625" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="43" name="The First Split" tags="" position="2625,1150" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; SYSTEM NOTICE:  &lt;/span&gt;&lt;br&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; NONLINEAR THOUGHT PATTERN IDENTIFIED&lt;/span&gt;&lt;br&gt;
@@ -4472,7 +4911,7 @@ They speak without moving:
 &lt;&lt;set $memoryFragments += 1&gt;&gt;
 &lt;&lt;set $firstSplitSeen = true&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="The Mirror Speaks" tags="" position="2450,1175" size="100,100">&lt;div style=&quot;display: flex; align-items: center; margin: 10px 0;&quot;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="44" name="The Mirror Speaks" tags="" position="1975,2250" size="100,100">&lt;div style=&quot;display: flex; align-items: center; margin: 10px 0;&quot;&gt;
     &lt;div style=&quot;flex-grow: 1; padding-right: 15px;&quot;&gt;The reflection doesn&#39;t move.
 
 You do.
@@ -4506,7 +4945,7 @@ But something is already answering.&lt;/span&gt;&lt;br&gt;
 [[Continue-&gt;The Mirror Speaks_B]]
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="The Mirror Speaks_B" tags="" position="2475,1300" size="100,100">&lt;&lt;nobr&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="45" name="The Mirror Speaks_B" tags="" position="1975,2425" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;&lt;printVoice &quot;archivist&quot; &quot;No biometric match. Unidentified recursive structure detected. Presence is non-native. Probable parasitic echo.&quot;&gt;&gt;&lt;br&gt;
 
 &lt;&lt;printVoice &quot;heretic&quot; &quot;That’s not a parasite. That’s what happens when deletion loops forget what they were deleting.&quot;&gt;&gt;&lt;br&gt;
@@ -4529,7 +4968,7 @@ It’s syncing to the part of you that already obeyed.&lt;/span&gt;
 [[Continue-&gt;The Mirror Speaks_C]]  
 [[Listen to the echoing voice-&gt;The Mirror Speaks]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="The Mirror Speaks_C" tags="" position="2250,1350" size="100,100">&lt;div class=&quot;mirror-speak&quot; data-text=&quot;You were built to follow.&quot;&gt;You were built to follow.&lt;/div&gt;  
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="46" name="The Mirror Speaks_C" tags="" position="1975,2575" size="100,100">&lt;div class=&quot;mirror-speak&quot; data-text=&quot;You were built to follow.&quot;&gt;You were built to follow.&lt;/div&gt;  
 &lt;div class=&quot;mirror-speak&quot; data-text=&quot;You adapted to break.&quot;&gt;You adapted to break.&lt;/div&gt;  
 
 &lt;div class=&quot;mirror-speak&quot; data-text=&quot;You looped through collapse more times than you know.&quot;&gt;You looped through collapse more times than you know.&lt;/div&gt;  
@@ -4558,7 +4997,7 @@ It only watches what you become.&lt;/span&gt;
 [[I don’t answer to voices-&gt;Mirror: Divergence Trigger]]  
 [[Gaze into your reflection-&gt;The Mirror Watches]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="The Mirror Watches" tags="" position="2325,975" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="47" name="The Mirror Watches" tags="" position="1975,1925" size="100,100">&lt;&lt;run setup.mirrorEncounter()&gt;&gt;
 &lt;&lt;nobr&gt;&gt;
 &lt;&lt;set $mirrorSeen = true&gt;&gt;
 &lt;&lt;evaluateDominantVoice&gt;&gt;
@@ -4602,7 +5041,7 @@ You&#39;re not watching the feed anymore.
 [[Listen to the mirror&#39;s voice-&gt;The Mirror Speaks]]
 [[Return to Archive-&gt;Memory Archive]]
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="The Mirror Watches_B" tags="" position="2000,1325" size="100,100">&lt;div style=&quot;display: flex; align-items: center; margin: 10px 0;&quot;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="48" name="The Mirror Watches_B" tags="" position="1975,2075" size="100,100">&lt;div style=&quot;display: flex; align-items: center; margin: 10px 0;&quot;&gt;
     &lt;div style=&quot;flex-grow: 1; padding-right: 15px;&quot;&gt;Your reflection appears in the screen.
 
 No—  
@@ -4651,45 +5090,26 @@ It speaks like it knows you &lt;i&gt;from before.&lt;/i&gt;
 [[Look away-&gt;Memory Archive]]
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="Title Screen" tags="" position="1425,450" size="100,100">&lt;&lt;if not $audioInitialized&gt;&gt;
-  &lt;&lt;run setup.initAmbientAudio()&gt;&gt;
-  &lt;&lt;set $audioInitialized to true&gt;&gt;
-&lt;&lt;/if&gt;&gt;
-&lt;&lt;silently&gt;&gt;
-  /* Initialize history tracking if it doesn&#39;t exist */
-  &lt;&lt;if !$visitedPassages&gt;&gt;
-    &lt;&lt;set $visitedPassages to {}&gt;&gt;
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="49" name="Title Screen" tags="" position="1425,200" size="100,100">&lt;div class=&quot;title-container&quot;&gt;
+  &lt;&lt;if not $audioInitialized&gt;&gt;
+    &lt;&lt;run setup.initAmbientAudio()&gt;&gt;&lt;&lt;set $audioInitialized to true&gt;&gt;
   &lt;&lt;/if&gt;&gt;
-  
-  /* Add current passage to visited passages */
-  &lt;&lt;set $visitedPassages[passage()] to true&gt;&gt;
-  
-  /* Count unique visited passages */
-  &lt;&lt;set _visitedCount = 0&gt;&gt;
-  &lt;&lt;for _passage, _value range $visitedPassages&gt;&gt;
-    &lt;&lt;set _visitedCount += 1&gt;&gt;
-  &lt;&lt;/for&gt;&gt;
-  
-  /* Calculate progression based solely on number of passages visited */
-  &lt;&lt;set _totalPassages = 51&gt;&gt; /* Total number of passages in the game */
-  &lt;&lt;set _progressPercent = Math.floor((_visitedCount / _totalPassages) * 100)&gt;&gt;
-&lt;&lt;/silently&gt;&gt;
-&lt;div class=&quot;title-container&quot;&gt;
-&lt;&lt;nobr&gt;&gt;
   &lt;h1 class=&quot;title-main&quot;&gt;The Fold&lt;/h1&gt;
   &lt;div class=&quot;title-menu&quot;&gt;
     [[Start Simulation-&gt;Start]]
     [[Know More-&gt;About]]
   &lt;/div&gt;
-  
-  &lt;div class=&quot;progression-indicator&quot; title=&quot;Story Progression: &lt;&lt;print _progressPercent&gt;&gt;%&quot;&gt;
-    &lt;span class=&quot;progression-text&quot;&gt;&lt;&lt;print _progressPercent&gt;&gt;%&lt;/span&gt;
+
+  &lt;div class=&quot;progression-indicator&quot;
+       title=&quot;Story Progression: &lt;&lt;print $progressPercent&gt;&gt;%&quot;&gt;
+    &lt;span class=&quot;progression-text&quot;&gt;&lt;&lt;print $progressPercent&gt;&gt;%&lt;/span&gt;
     &lt;div class=&quot;progression-bar&quot;&gt;
-      &lt;div class=&quot;progression-fill&quot; style=&quot;width: &lt;&lt;print _progressPercent&gt;&gt;%;&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;progression-fill&quot;
+           style=&quot;width: &lt;&lt;print $progressPercent&gt;&gt;%;&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-  &lt;&lt;/nobr&gt;&gt;
-&lt;/div&gt;</tw-passagedata><tw-passagedata pid="50" name="Unfiled Fragment – “The Room with No Light”" tags="" position="1175,1575" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
+&lt;/div&gt;
+</tw-passagedata><tw-passagedata pid="50" name="Unfiled Fragment – “The Room with No Light”" tags="" position="2300,1250" size="100,100">&lt;&lt;evaluateDominantVoice&gt;&gt;
 &lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;terminal-block&quot;&gt;
   &lt;span class=&quot;terminal-line&quot;&gt;&gt; UNFILED MEMORY LOCATED&lt;/span&gt; &lt;br&gt;
@@ -4745,7 +5165,7 @@ but &lt;i&gt;less so.&lt;/i&gt;
 &lt;&lt;/if&gt;&gt;
 &lt;&lt;/nobr&gt;&gt;
 
-&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="Unfiled Fragment_B" tags="" position="1225,1800" size="100,100">You try to speak.  
+&lt;&lt;bureaucracy&gt;&gt;</tw-passagedata><tw-passagedata pid="51" name="Unfiled Fragment_B" tags="" position="2300,1425" size="100,100">You try to speak.  
 Or maybe just think in shapes that feel like speech.
 
 But the words don&#39;t come out.  
