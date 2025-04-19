@@ -2109,7 +2109,6 @@ It speaks like it knows you <i>from before.</i>
 </div>
 
 
-
 :: Unfiled Fragment – “The Room with No Light” {"position":"2300,1250","size":"100,100"}
 <<evaluateDominantVoice>>
 <<nobr>>
@@ -3403,7 +3402,6 @@ function createDebugPanel() {
           <div class="debug-button-group" style="margin-top: 8px;">
             <button id="debug-reset-progress" class="debug-button danger">Reset Progress</button>
             <button id="debug-complete-all" class="debug-button success">Complete All</button>
-            <button id="debug-fix-problematic" class="debug-button">Fix Problems</button>
           </div>
         </div>
       </div>
