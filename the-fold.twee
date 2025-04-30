@@ -447,9 +447,10 @@ even when you couldn’t.
 
 :: Cycle_Start {"position":"1375,575","size":"100,100"}
 <<evaluateDominantVoice>>
+<<testFunction>>
 <<nobr>>
 <div class="terminal-block">
-  <span class="terminal-line">> SESSION STATUS: ACTIVE</span><br>
+  <span id="test_id" class="terminal-line" style="position: relative; z-index:1000">> SESSION STATUS: ACTIVE</span><br>
   <span class="terminal-line">> PREVIOUS SESSIONS DETECTED: <<print $recursionLevel>></span><br>
   <span class="terminal-line">> TIMESTAMP: <<if $recursionLevel >= 5>><span class="timestamp-glitch">██:██:██</span><<elseif $recursionLevel >= 3>><span class="timestamp-glitch">33:12:06</span><<elseif $recursionLevel == 2>><span class="timestamp-glitch">06:1_:_3</span><<else>><span class="timestamp-glitch">06:12:33</span><</if>></span><br>
   <span class="terminal-line">> THREAD INDEX: <<if $recursionLevel >= 3>><span class="glitch-intensify">CORRUPTED</span><<else>>UNSTABLE<</if>></span><br>
@@ -516,6 +517,7 @@ As you study the equation, it seems to adjust itself, offering you two distinct 
 
 
 :: Developer Musings {"position":"1550,1100","size":"100,100"}
+<<testFunction>>
 <div style="background: rgba(15,25,15,0.4); border: 1px solid rgba(100,150,100,0.3); padding: 20px; max-width: 700px; margin: 0 auto;">
   <h2 style="text-align: center; color: #7a988a; letter-spacing: 0.1em; margin-bottom: 20px; font-family: 'PixelOperator', monospace;">DEVELOPER NOTES</h2>
   <<nobr>>
@@ -1704,6 +1706,7 @@ So do you.
 
 
 :: Shutdown Sim (Loop Path) {"position":"1475,850","size":"100,100"}
+<<testFunction>>
 You request system shutdown.
 
 <<nobr>>
@@ -2204,6 +2207,24 @@ Just—
 
 
 :: StoryScript [script]
+// Test homepage onClick Capability
+Macro.add('testFunction', {
+ handler: function () { 
+   console.log("Archivist Points: ", State.getVar('$archivistPoints'))
+   console.log("Warden Points: ", State.getVar('$wardenPoints'))
+   console.log("Recusion Level: ", State.getVar('$recursionLevel'))
+   
+   console.log("engine state", Engine.state)
+   
+   $(document).on('click', '#test_id', function() {
+     console.log("WE F*CKING DID IT!");
+     
+     Engine.play('Shutdown Sim (Loop Path)', true);
+   });
+ }
+});
+
+
 // ===== CORE VOICE SYSTEM =====
 // Main voice display macro
 Macro.add('printVoice', {
